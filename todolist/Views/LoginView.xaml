@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="todolist.Views.LoginView"
+             Title="Login">
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Image x:Name="icon" Source="icon"/>
+        <StackLayout>
+            <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+                <Entry x:Name="email" Placeholder="abc@gmail.com"            
+                       Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                       TextColor="#aeaeae" FontSize="16"
+                       HorizontalTextAlignment="Center"/>
+            </Border>
+
+            <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+                 <Entry x:Name="password" Placeholder="●●●●●●"
+                        Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                        TextColor="#aeaeae" FontSize="16" IsPassword="True"
+                        HorizontalTextAlignment="Center" ReturnCommand="{Binding LoginCommand}"/>
+            </Border>
+
+            <Button x:Name="button" Text="LOG IN" BackgroundColor="#57472a" TextColor="#ffffff"
+                    FontAttributes="Bold" FontSize="16"
+                    Clicked="submitButton_Clicked"
+                    CommandParameter="{Binding Source={x:Reference email}, Path=Text}"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
