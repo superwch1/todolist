@@ -2,8 +2,13 @@
 
 public partial class TaskView : ContentPage
 {
-	public TaskView()
+	List<TaskModel> Tasks;
+
+	public TaskView(List<TaskModel> tasks)
 	{
 		InitializeComponent();
-	}
+		Tasks = tasks;
+
+		collectionView.ItemsSource = Tasks;
+    }
 }

@@ -3,7 +3,7 @@ using SQLite;
 
 namespace todolist.Models
 {
-	public class AccountInfo
+	public class AccountModel
 	{
         [PrimaryKey]
         public int Id { get; set; }

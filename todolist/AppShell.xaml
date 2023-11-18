@@ -9,12 +9,10 @@
 
     <TabBar>
         <Tab Title="My Task">
-            <ShellContent x:Name="myTask"
-                          ContentTemplate="{DataTemplate views:TaskView}"/>
+            <ShellContent x:Name="myTask"/>
         </Tab>
         <Tab Title="FollowUp Task">
-            <ShellContent x:Name="followUpTask"
-                          ContentTemplate="{DataTemplate views:TaskView}"/>
+            <ShellContent x:Name="followUpTask"/>
         </Tab>
     </TabBar>
 </Shell>

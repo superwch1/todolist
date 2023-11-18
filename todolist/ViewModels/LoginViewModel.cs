@@ -21,17 +21,14 @@ namespace todolist.ViewModels
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var jwtToken = await response.Content.ReadAsStringAsync();
-                await _accountDatabase.UpdateItemAsync(new AccountInfo() { Id = 1, JwtToken = jwtToken });
+                await _accountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = jwtToken });
 
-                var abc = new HttpClient();
-                abc.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);
-                var re = await abc.GetAsync("https://todolist.superwch1.com/Mobile/ReadTaskFromTime?" +
-                    "year=2023&month=11");
-                var abcde = await re.Content.ReadAsStringAsync();
-                Console.WriteLine(abcde);
+                var tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, jwtToken);
 
-
-                Application.Current.MainPage = new AppShell();
+                if (tasks != null)
+                {
+                    Application.Current!.MainPage = new AppShell(tasks);
+                }
             }
             else if (response.StatusCode == HttpStatusCode.BadRequest)
             {

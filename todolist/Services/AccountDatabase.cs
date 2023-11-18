@@ -23,22 +23,22 @@ namespace todolist.Services
 
         public async Task CreateTable()
         {
-            await _connection.CreateTableAsync<AccountInfo>();
+            await _connection.CreateTableAsync<AccountModel>();
         }
 
 
-        public async Task<AccountInfo?> ReadItemAsync()
+        public async Task<AccountModel?> ReadItemAsync()
         {
-            return await _connection.Table<AccountInfo>().Where(i => i.Id == 1).FirstOrDefaultAsync();
+            return await _connection.Table<AccountModel>().Where(i => i.Id == 1).FirstOrDefaultAsync();
         }
 
 
-        public async Task CreateItemAsync(AccountInfo item)
+        public async Task CreateItemAsync(AccountModel item)
         {
             await _connection.InsertAsync(item);
         }
 
-        public async Task UpdateItemAsync(AccountInfo item)
+        public async Task UpdateItemAsync(AccountModel item)
         {
             await _connection.UpdateAsync(item);
         }
