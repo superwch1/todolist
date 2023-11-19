@@ -22,8 +22,7 @@
 
             <Button x:Name="button" Text="LOG IN" BackgroundColor="#57472a" TextColor="#ffffff"
                     FontAttributes="Bold" FontSize="16"
-                    Clicked="Login"
-                    CommandParameter="{Binding Source={x:Reference email}, Path=Text}"/>
+                    Clicked="Login"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

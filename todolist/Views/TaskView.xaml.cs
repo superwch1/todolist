@@ -9,6 +9,16 @@ public partial class TaskView : ContentPage
 		InitializeComponent();
 		Tasks = tasks;
 
-		collectionView.ItemsSource = Tasks;
+		collectionView.ItemsSource = Tasks;	
     }
+
+
+	async void ShowOrHideContent(object sender, EventArgs e)
+    {
+        var imageButton = sender as ImageButton;
+		var selectedTask = imageButton.CommandParameter as TaskModel;
+		selectedTask.IsContentVisible = !selectedTask.IsContentVisible;
+    }
+
+	
 }
