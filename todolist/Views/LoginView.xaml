@@ -14,15 +14,15 @@
             </Border>
 
             <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-                 <Entry x:Name="password" Placeholder="●●●●●●"
+                 <Entry x:Name="password" Placeholder="••••••" 
                         Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
                         TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                        HorizontalTextAlignment="Center" ReturnCommand="{Binding LoginCommand}"/>
+                        HorizontalTextAlignment="Center"/>
             </Border>
 
             <Button x:Name="button" Text="LOG IN" BackgroundColor="#57472a" TextColor="#ffffff"
                     FontAttributes="Bold" FontSize="16"
-                    Clicked="submitButton_Clicked"
+                    Clicked="Login"
                     CommandParameter="{Binding Source={x:Reference email}, Path=Text}"/>
         </StackLayout>
     </StackLayout>

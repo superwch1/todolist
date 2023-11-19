@@ -17,7 +17,6 @@ namespace todolist.ViewModels
             var response = await http.GetAsync("https://todolist.superwch1.com/Mobile/Login?" +
                 $"email={email}&password={password}");
 
-
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var jwtToken = await response.Content.ReadAsStringAsync();
@@ -27,7 +26,7 @@ namespace todolist.ViewModels
 
                 if (tasks != null)
                 {
-                    Application.Current!.MainPage = new AppShell(tasks);
+                    Application.Current!.MainPage = new AppShell(tasks, _accountDatabase);
                 }
             }
             else if (response.StatusCode == HttpStatusCode.BadRequest)
