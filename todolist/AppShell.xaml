@@ -8,11 +8,14 @@
     Title="todolist">
 
     <TabBar>
-        <Tab Title="My Task">
+        <Tab Icon="mytask" Title="My Task">
             <ShellContent x:Name="myTask"/>
         </Tab>
-        <Tab Title="FollowUp Task">
+        <Tab Icon="followuptask" Title="FollowUp Task">
             <ShellContent x:Name="followUpTask"/>
+        </Tab>
+         <Tab Title="Setting">
+            <ShellContent />
         </Tab>
     </TabBar>
 </Shell>

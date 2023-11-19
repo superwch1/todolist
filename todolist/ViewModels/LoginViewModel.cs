@@ -13,26 +13,26 @@ namespace todolist.ViewModels
 
         public async Task Login(string email, string password)
         {
-            var http = new HttpClient();
-            var response = await http.GetAsync("https://todolist.superwch1.com/Mobile/Login?" +
-                $"email={email}&password={password}");
-
-            if (response.StatusCode == HttpStatusCode.OK)
+            var response = await WebServer.Login(email, password);
+            if (response == null)
             {
-                var jwtToken = await response.Content.ReadAsStringAsync();
-                await _accountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = jwtToken });
+                return;
+            }
 
-                var tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, jwtToken);
+            if (response.Item2 == HttpStatusCode.OK)
+            {
+                await ToastBar.DisplayToast("Logging in");
+                await _accountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = response.Item1 });
+                var tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, response.Item1);
 
                 if (tasks != null)
                 {
                     Application.Current!.MainPage = new AppShell(tasks, _accountDatabase);
                 }
             }
-            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            else if (response.Item2 == HttpStatusCode.BadRequest)
             {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                await ToastBar.DisplayToast(responseContent);
+                await ToastBar.DisplayToast(response.Item1);
             }
         }
     }

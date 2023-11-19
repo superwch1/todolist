@@ -21,13 +21,22 @@ namespace todolist.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public bool IsLate
+        public string BackgroundColor 
         {
             get
             {
-                if (IntSymbol == 0 && DateTime.Today > DueDate)
-                    return true;
-                return false;
+                if (IntSymbol == 0 && DateTime.Today > DueDate) 
+                {
+
+                    return "#F5C6CB";
+                }
+                else 
+                {
+                    if (IntType == 0)
+                        return "#D9E6D3";
+                    else 
+                        return "#D3DEE6";
+                }
             }
         }
 

@@ -8,6 +8,26 @@ namespace todolist.Services
 		public static string ServerDomain = "https://todolist.superwch1.com";
 
 
+        public static async Task<Tuple<string, HttpStatusCode>?> Login(string email, string password)
+		{
+			try
+			{
+                var url = $"https://todolist.superwch1.com/Mobile/Login?" +
+                $"email={email}&password={password}";
+
+                var http = new HttpClient();
+                var response = await http.GetAsync(url);
+
+                var data = await response.Content.ReadAsStringAsync();
+                var statusCode = response.StatusCode;
+                return Tuple.Create(data, statusCode);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
 
 		public static async Task<List<TaskModel>?> ReadTaskFromTime(int year, int month, string jwtToken)
 		{
