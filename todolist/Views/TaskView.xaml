@@ -3,41 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:todolist.Models"
              x:Class="todolist.Views.TaskView">
-    <StackLayout>
-        <RefreshView>
-            <Grid>
-                <CollectionView x:Name="collectionView" VerticalOptions="FillAndExpand">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:TaskModel">
-                            <Grid Margin="20, 10, 20, 10" HorizontalOptions="FillAndExpand">                                
-                                <Frame Padding="5, 50, 5, 5" Margin="10, 10, 10, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="Black">
-                                    <VerticalStackLayout>
-                                        <VerticalStackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer NumberOfTapsRequired="1"/>
-                                        </VerticalStackLayout.GestureRecognizers>
-                                        <Frame BackgroundColor="#fff6b2" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="5, 0, 10, 0" CornerRadius="10">
-                                            <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd MMM yyy}'}" FontSize="16"/>
-                                        </Frame>
-                                        <Label Text="{Binding Content}" FontSize="16" Margin="10, 5, 10, 15"/>
-                                    </VerticalStackLayout>
-                                </Frame>
-                                <Frame CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="4*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+    <ScrollView x:Name="scrollview">
+        <StackLayout x:Name="collectionView">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:TaskModel">
+                <Grid Margin="20, 10, 20, 10" HorizontalOptions="FillAndExpand">                                
+                    <Frame Padding="5, 50, 5, 5" Margin="10, 10, 10, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="Black">
+                        <VerticalStackLayout>
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1"/>
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Frame BackgroundColor="#fff6b2" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="5, 0, 10, 0" CornerRadius="10">
+                                <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd MMM yyy}'}" FontSize="16"/>
+                            </Frame>
+                            <Label Text="{Binding Content}" FontSize="16" Margin="10, 5, 10, 15"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                                        <ImageButton Clicked="ShowOrHideContent" CommandParameter="{Binding .}" Grid.ColumnSpan="2"/>
-                                        <Label Text="{Binding Topic}" MaxLines="1" LineBreakMode="TailTruncation"  FontSize="18" VerticalOptions="Center" />
-                                        <Image HorizontalOptions="End" VerticalOptions="Center" MaximumHeightRequest="10" Grid.Column="1"/>
-                                    </Grid>
-                                </Frame>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-        </RefreshView>
-    </StackLayout>
+                            <Label Text="{Binding Topic}" MaxLines="1" LineBreakMode="TailTruncation"  FontSize="18" VerticalOptions="Center" />
+                            <ImageButton Grid.Column="1" Clicked="ShowOrHideContent" CommandParameter="{Binding .}"
+                                HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+            </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

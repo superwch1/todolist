@@ -40,7 +40,7 @@ namespace todolist.Models
             }
         }
 
-        bool isContentVisible = false;
+        public bool isContentVisible = false;
         public bool IsContentVisible
         {
             get => isContentVisible;
