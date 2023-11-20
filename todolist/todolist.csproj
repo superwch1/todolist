@@ -79,11 +79,20 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Services\" />
-	  <Folder Include="Views\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Models\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Images\icon.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Views\EditTaskView.xaml.cs">
+	    <DependentUpon>EditTaskView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Update="Views\EditTaskView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 </Project>
