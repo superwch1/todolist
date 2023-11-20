@@ -48,8 +48,24 @@ public partial class App : Application
                 MainPage = new AppShell(tasks, accountDatabase);
                 break;
         }
+    }
 
 
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        Window window = base.CreateWindow(activationState);
+
+        window.Activated += async (s, e) =>
+        {
+            await ToastBar.DisplayToast("Hello");
+        };
+
+        window.Deactivated += async (s, e) =>
+        {
+            await ToastBar.DisplayToast("Bye");
+        };
+
+        return window;
     }
 }
 
