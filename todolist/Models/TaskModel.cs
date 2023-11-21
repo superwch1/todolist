@@ -52,6 +52,19 @@ namespace todolist.Models
                 OnPropertyChanged();
             }
         }
+
+        public string arrowImageSource = "uparrow";
+        public string ArrowImageSource
+        {
+            get => arrowImageSource;
+            set
+            {
+                if (arrowImageSource == value) return;
+
+                arrowImageSource = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }
 

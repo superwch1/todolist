@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Maui.FixesAndWorkarounds;
 using Microsoft.Extensions.Logging;
 
 namespace todolist;
@@ -12,6 +13,7 @@ public static class MauiProgram
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
 			.RegisterServices()
+			.ConfigureKeyboardAutoScroll()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -25,10 +27,17 @@ public static class MauiProgram
 //no underline for entry in android
 #if ANDROID
 		Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(
-			"NoUnderline", 
+			"EntryNoUnderline", 
 			(h, v) => 
-			{ h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent); 
-			});
+				{ h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent); }
+		);
+
+		Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping(
+			"EditorNoUnderline", 
+			(h, v) => 
+				{ h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent); }
+		);
+		
 #endif
         return builder.Build();
 	}

@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-
-namespace todolist.Views;
+﻿namespace todolist.Views;
 
 public partial class LoginView : ContentPage
 {
@@ -13,6 +11,12 @@ public partial class LoginView : ContentPage
 
         _viewModel = new LoginViewModel(accountDatabase);
         password.ReturnCommand = new Command(() => Login(null, null));
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        icon.RotateTo(360, 2000);
     }
 
     public void SetControlsProperties()
@@ -36,6 +40,7 @@ public partial class LoginView : ContentPage
 
     async void Login(object sender, EventArgs e)
     {
+
         if (email.Text == null){
             await ToastBar.DisplayToast("Please enter email");
         }

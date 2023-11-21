@@ -7,11 +7,11 @@
         <StackLayout x:Name="collectionView">
             <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="models:TaskModel">
-                <Grid Margin="20, 10, 20, 10" HorizontalOptions="FillAndExpand">                                
-                    <Frame Padding="5, 50, 5, 5" Margin="10, 10, 10, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="Black">
-                        <VerticalStackLayout>
+                <Grid Margin="25, 10, 25, 10" HorizontalOptions="FillAndExpand">                                
+                    <Frame Padding="5, 10, 5, 5" Margin="0, 50, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="{Binding BackgroundColor}">
+                        <VerticalStackLayout BindingContext="{Binding .}">
                             <VerticalStackLayout.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1"/>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
                             </VerticalStackLayout.GestureRecognizers>
                             <Frame BackgroundColor="#fff6b2" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="5, 0, 10, 0" CornerRadius="10">
                                 <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd MMM yyy}'}" FontSize="16"/>
@@ -19,16 +19,23 @@
                             <Label Text="{Binding Content}" FontSize="16" Margin="10, 5, 10, 15"/>
                         </VerticalStackLayout>
                     </Frame>
-                    <Frame CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
+                    <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" 
+                           BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <Label Text="{Binding Topic}" MaxLines="1" LineBreakMode="TailTruncation"  FontSize="18" VerticalOptions="Center" />
-                            <ImageButton Grid.Column="1" Clicked="ShowOrHideContent" CommandParameter="{Binding .}"
-                                HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                            <!-- ImageButton Height don't work in IOS -->
+                            <Image Source="{Binding ArrowImageSource}" Grid.Column="1" MaximumHeightRequest="10"
+                                            HorizontalOptions="End" VerticalOptions="Center" BindingContext="{Binding .}">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />
+                                </Image.GestureRecognizers>
+                            </Image>
                         </Grid>
                     </Frame>
                 </Grid>

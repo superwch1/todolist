@@ -14,9 +14,6 @@
         <Tab Icon="followuptask" Title="FollowUp Task">
             <ShellContent x:Name="followUpTask"/>
         </Tab>
-         <Tab Title="Setting">
-            <ShellContent />
-        </Tab>
     </TabBar>
 </Shell>
 

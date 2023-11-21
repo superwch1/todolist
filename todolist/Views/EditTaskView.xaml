@@ -1,10 +1,44 @@
-<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="todolist.Views.EditTaskView">
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="todolist.Views.EditTaskView" BackgroundColor="#80000000">
 
-    <VerticalStackLayout>
-        <Label Text="This is a very important message!" />
-    </VerticalStackLayout>
+    <Frame x:Name="popUpFrame" BorderColor="#57472a" Margin="15, 120, 15, 120" CornerRadius="20">
+        <StackLayout Padding="25, 0, 25, 10">
+            
+            <Entry x:Name="topic" HorizontalOptions="Start" Placeholder="Topic" 
+                   WidthRequest="200" FontSize="18" MaxLength="20" />
 
-</toolkit:Popup>
+            <HorizontalStackLayout>
+                <Label Text="Deadline:  " FontSize="16" VerticalOptions="Center" />
+                <DatePicker x:Name="dueDate" FontSize="16" TextColor="Black" Format="dd MMM yyyy" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="Status" />
+                <RadioButton Content="Done" />
+                <RadioButton Content="Not yet" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label Text="Type" />
+                <RadioButton Content="My TaskF" />
+                <RadioButton Content="Followup" />
+            </HorizontalStackLayout>
+
+            <StackLayout Margin="0, 20, 0, 0" VerticalOptions="FillAndExpand">
+                <Frame Padding="10, 5, 10, 5" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="10">
+                    <Editor x:Name="content" FontSize="16" Placeholder="Type your content here" MaxLength="250"/>
+                </Frame>
+            </StackLayout>
+
+            <HorizontalStackLayout Margin="0, 30, 0, 10" HorizontalOptions="End">
+                <Button Text="Save" WidthRequest="75" 
+                        BackgroundColor="#57472a" TextColor="#ffffff" FontSize="16"/>
+                <Button Text="Share" WidthRequest="75" 
+                        BackgroundColor="#57472a" TextColor="#ffffff" Margin="15, 0, 0, 0" FontSize="16"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+    </Frame>
+</mopups:PopupPage>
