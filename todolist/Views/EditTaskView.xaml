@@ -16,15 +16,15 @@
             </HorizontalStackLayout>
 
             <HorizontalStackLayout>
-                <Label Text="Status" />
-                <RadioButton Content="Done" />
-                <RadioButton Content="Not yet" />
+                <Label Text="Type:  " VerticalOptions="Center"/>
+                <RadioButton x:Name="myTask" Content="My Task" />
+                <RadioButton x:Name="followUpTask" Content="Follow-up Task"  />
             </HorizontalStackLayout>
 
-            <HorizontalStackLayout>
-                <Label Text="Type" />
-                <RadioButton Content="My TaskF" />
-                <RadioButton Content="Followup" />
+            <HorizontalStackLayout >
+                <Label Text="Status:  " VerticalOptions="Center"/>
+                <RadioButton x:Name="done" Content="Done" />
+                <RadioButton x:Name="notYet" Content="Not yet" />
             </HorizontalStackLayout>
 
             <StackLayout Margin="0, 20, 0, 0" VerticalOptions="FillAndExpand">
@@ -34,9 +34,9 @@
             </StackLayout>
 
             <HorizontalStackLayout Margin="0, 30, 0, 10" HorizontalOptions="End">
-                <Button Text="Save" WidthRequest="75" 
+                <Button Text="Save" WidthRequest="75" Clicked="CreateTask"
                         BackgroundColor="#57472a" TextColor="#ffffff" FontSize="16"/>
-                <Button Text="Share" WidthRequest="75" 
+                <Button Text="Delete" WidthRequest="80" Clicked="DeleteTask"
                         BackgroundColor="#57472a" TextColor="#ffffff" Margin="15, 0, 0, 0" FontSize="16"/>
             </HorizontalStackLayout>
         </StackLayout>

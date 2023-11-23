@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using SQLite;
 
 namespace todolist;
 
@@ -10,6 +11,8 @@ public partial class App : Application
 
         List<TaskModel>? tasks = null;
         string view = "";
+        string jwtToken = "";
+        HubConnection? connection = null;
 
 
         Task.Run(async () =>
@@ -29,6 +32,8 @@ public partial class App : Application
                 if (tasks != null)
                 {
                     view = "AppShell";
+                    jwtToken = account.JwtToken;
+                    connection = await SignalR.BuildHubConnection(jwtToken);
                 }
                 else 
                 {
@@ -45,7 +50,7 @@ public partial class App : Application
                 break;
             
             case "AppShell":
-                MainPage = new AppShell(tasks, accountDatabase);
+                MainPage = new AppShell(tasks, jwtToken, connection, accountDatabase);
                 break;
         }
     }

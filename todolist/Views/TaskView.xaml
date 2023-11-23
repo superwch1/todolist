@@ -19,8 +19,11 @@
                             <Label Text="{Binding Content}" FontSize="16" Margin="10, 5, 10, 15"/>
                         </VerticalStackLayout>
                     </Frame>
-                    <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" 
-                           BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
+                    <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
+                           IsVisible="{Binding IsTopicVisible}" BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"/>
@@ -31,10 +34,7 @@
 
                             <!-- ImageButton Height don't work in IOS -->
                             <Image Source="{Binding ArrowImageSource}" Grid.Column="1" MaximumHeightRequest="10"
-                                            HorizontalOptions="End" VerticalOptions="Center" BindingContext="{Binding .}">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />
-                                </Image.GestureRecognizers>
+                                            HorizontalOptions="End" VerticalOptions="Center" >
                             </Image>
                         </Grid>
                     </Frame>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 namespace todolist.Models
 {
@@ -52,6 +51,22 @@ namespace todolist.Models
                 OnPropertyChanged();
             }
         }
+
+
+        //solve the UI not being removed problem in IOS
+        public bool isTopicVisible = true;
+        public bool IsTopicVisible
+        {
+            get => isTopicVisible;
+            set
+            {
+                if (isTopicVisible == value) return;
+
+                isTopicVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public string arrowImageSource = "uparrow";
         public string ArrowImageSource

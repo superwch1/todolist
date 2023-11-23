@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace todolist.ViewModels
 {
@@ -27,7 +28,8 @@ namespace todolist.ViewModels
 
                 if (tasks != null)
                 {
-                    Application.Current!.MainPage = new AppShell(tasks, _accountDatabase);
+                    HubConnection? connection = await SignalR.BuildHubConnection(response.Item1);
+                    Application.Current!.MainPage = new AppShell(tasks, response.Item1, connection, _accountDatabase);
                 }
             }
             else if (response.Item2 == HttpStatusCode.BadRequest)

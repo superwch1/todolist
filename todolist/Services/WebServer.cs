@@ -6,13 +6,14 @@ namespace todolist.Services
 	public class WebServer
 	{
 		public static string ServerDomain = "https://todolist.superwch1.com";
+        public static string ChatHubUrl => $"{ServerDomain}/chatHub";
 
 
         public static async Task<Tuple<string, HttpStatusCode>?> Login(string email, string password)
 		{
 			try
 			{
-                var url = $"https://todolist.superwch1.com/Mobile/Login?" +
+                var url = $"{ServerDomain}/Mobile/Login?" +
                 $"email={email}&password={password}";
 
                 var http = new HttpClient();
