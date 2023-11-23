@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
 using Microsoft.AspNetCore.SignalR.Client;
-using Mopups.Services;
 
 namespace todolist.Views;
 
@@ -10,6 +10,7 @@ public partial class TaskView : ContentPage
 	public int IntType { get; }
 	public HubConnection Connection { get; set; }
 	public string JwtToken { get; }
+	public AccountDatabase Database { get;}
 
 	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, 
 		HubConnection connection, AccountDatabase accountDatabase)
@@ -19,6 +20,7 @@ public partial class TaskView : ContentPage
 		IntType = intType;
 		JwtToken = jwtToken;
 		Connection = connection;
+		Database = accountDatabase;
 
 		tasks = tasks
 			.Where(x => x.IntType == IntType)
@@ -36,6 +38,7 @@ public partial class TaskView : ContentPage
 		Connection.On<int, int, string, string, string, int>("DeleteThenCreateTask", DeleteThenCreateTask);
     }
 
+
 	void DeleteTask(int id){
 		var task = Tasks.FirstOrDefault(x => x.Id == id);
 		task.IsContentVisible = false;
@@ -48,19 +51,19 @@ public partial class TaskView : ContentPage
 		(scrollview as IView).InvalidateMeasure();
 	}
 
-	//when you create a new Task, IOS will have a error - maybe using scorllview instead of listview
-	void DeleteThenCreateTask(int id, int intType, string topic, string content, string dueDate, int intSymbol){
 
-		var task = Tasks.FirstOrDefault(x => x.Id == 0);
-		task.isTopicVisible = true;
-		task.isContentVisible = true;
+	void DeleteThenCreateTask(int id, int intType, string topic, string content, string dueDate, int intSymbol)
+	{
+		MainThread.BeginInvokeOnMainThread(() =>
+		{
+			Tasks.Add(new TaskModel() { Id = id, IntType = intType, Topic = topic, Content = content,
+				DueDate = Convert.ToDateTime(dueDate), IntSymbol = intSymbol});
 
-		scrollview.ForceLayout();
-		(scrollview as IView).InvalidateMeasure();
+		});		
 	}
 
 
-	async void ShowOrHideContent(object sender, TappedEventArgs e)
+	void ShowOrHideContent(object sender, TappedEventArgs e)
     {
 		var frame = (Frame)sender;
     	var selectedTask = (TaskModel)frame.BindingContext;
@@ -84,6 +87,6 @@ public partial class TaskView : ContentPage
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
-		await MopupService.Instance.PushAsync(new EditTaskView(selectedTask, Connection));
+		await this.ShowPopupAsync(new EditTaskView(selectedTask, Connection));
     }
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  x:Class="todolist.Views.EditTaskView" BackgroundColor="#80000000">
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="todolist.Views.EditTaskView" >
 
-    <Frame x:Name="popUpFrame" BorderColor="#57472a" Margin="15, 120, 15, 120" CornerRadius="20">
-        <StackLayout Padding="25, 0, 25, 10">
+    <StackLayout Padding="25, 0, 25, 10">
             
             <Entry x:Name="topic" HorizontalOptions="Start" Placeholder="Topic" 
                    WidthRequest="200" FontSize="18" MaxLength="20" />
@@ -40,5 +39,4 @@
                         BackgroundColor="#57472a" TextColor="#ffffff" Margin="15, 0, 0, 0" FontSize="16"/>
             </HorizontalStackLayout>
         </StackLayout>
-    </Frame>
-</mopups:PopupPage>
+</toolkit:Popup>

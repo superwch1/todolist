@@ -1,9 +1,10 @@
+using CommunityToolkit.Maui.Views;
 using Microsoft.AspNetCore.SignalR.Client;
-using Mopups.Pages;
+
 
 namespace todolist.Views;
 
-public partial class EditTaskView : PopupPage
+public partial class EditTaskView : Popup
 {
 	public HubConnection Connection { get; set; }
 	TaskModel? Model { get; set; }
@@ -44,6 +45,8 @@ public partial class EditTaskView : PopupPage
 	}
 
 	public async void DeleteTask(Object sender, EventArgs args){
+
+
 		await Connection.InvokeAsync("DeleteTask", Model.Id);
 	}
 
@@ -52,9 +55,6 @@ public partial class EditTaskView : PopupPage
 	{
 		int intType = myTask.IsChecked == true ? 0 : 1;
 		int intSymbol = notYet.IsChecked == true ? 0 : 1;
-
-		await Connection.InvokeAsync("UpdateTask", 
-			intType, topic.Text, content.Text, DateTime.Now.ToString("dd-MM-yyyy"), intSymbol);
 	}
 
 	
