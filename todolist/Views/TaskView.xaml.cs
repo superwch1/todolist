@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using Microsoft.AspNetCore.SignalR.Client;
+using Mopups.Services;
 
 namespace todolist.Views;
 
@@ -39,16 +40,24 @@ public partial class TaskView : ContentPage
     }
 
 
-	void DeleteTask(int id){
-		var task = Tasks.FirstOrDefault(x => x.Id == id);
-		task.IsContentVisible = false;
-		task.IsTopicVisible = false;
+	void DeleteTask(int id)
+	{
+		//since the method is invoked in SignalR, it need to use MainThread for browsing UI
+		MainThread.BeginInvokeOnMainThread(() =>
+		{
+			var task = Tasks.FirstOrDefault(x => x.Id == id);
+			if (task != null)
+			{
+				task.IsContentVisible = false;
+				task.IsTopicVisible = false;
 
-		var index = Tasks.IndexOf(task);
-		Tasks.RemoveAt(index);
+				var index = Tasks.IndexOf(task);
+				Tasks.RemoveAt(index);
+			}
 
-		scrollview.ForceLayout();
-		(scrollview as IView).InvalidateMeasure();
+			scrollview.ForceLayout();
+			(scrollview as IView).InvalidateMeasure();
+		});		
 	}
 
 
@@ -87,6 +96,6 @@ public partial class TaskView : ContentPage
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
-		await this.ShowPopupAsync(new EditTaskView(selectedTask, Connection));
+		await MopupService.Instance.PushAsync(new EditTaskView(selectedTask, Connection));
     }
 }

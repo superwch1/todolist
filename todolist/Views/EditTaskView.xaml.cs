@@ -1,10 +1,11 @@
-using CommunityToolkit.Maui.Views;
 using Microsoft.AspNetCore.SignalR.Client;
+using Mopups.Pages;
+using Mopups.Services;
 
 
 namespace todolist.Views;
 
-public partial class EditTaskView : Popup
+public partial class EditTaskView : PopupPage
 {
 	public HubConnection Connection { get; set; }
 	TaskModel? Model { get; set; }
@@ -40,14 +41,29 @@ public partial class EditTaskView : Popup
 		int intType = myTask.IsChecked == true ? 0 : 1;
 		int intSymbol = notYet.IsChecked == true ? 0 : 1;
 
-		await Connection.InvokeAsync("CreateTask", 
-			intType, topic.Text, content.Text, DateTime.Now.ToString("dd-MM-yyyy"), intSymbol);
+		try 
+		{
+			await Connection.InvokeAsync("CreateTask", 
+				intType, topic.Text, content.Text, DateTime.Now.ToString("dd-MM-yyyy"), intSymbol);
+			await MopupService.Instance.PopAsync();
+		}
+		catch
+		{
+			await ToastBar.DisplayToast("Cannont connect to server");
+		}
 	}
 
-	public async void DeleteTask(Object sender, EventArgs args){
-
-
-		await Connection.InvokeAsync("DeleteTask", Model.Id);
+	public async void DeleteTask(Object sender, EventArgs args)
+	{
+		try 
+		{
+			await Connection.InvokeAsync("DeleteTask", Model.Id);
+			await MopupService.Instance.PopAsync();
+		}
+		catch
+		{
+			await ToastBar.DisplayToast("Cannont connect to server");
+		}
 	}
 
 
