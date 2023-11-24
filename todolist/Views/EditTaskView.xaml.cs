@@ -17,12 +17,12 @@ public partial class EditTaskView : PopupPage
 		Connection = connection;
 		Model = model;
 		
-		if(intType == 0){
-			myTask.IsChecked = true;
-		}
-		else {
-			followUpTask.IsChecked = true;
-		}
+		intTypePicker.SelectedIndex = intType == 0 ? 0 : 1;
+
+		//need to be further adjust in the future
+		//the editor did not auto fill up the available space in frame
+		content.HeightRequest = 220;
+		contentFrame.HeightRequest = 220;
 
 		if (model != null)
 		{
@@ -34,13 +34,7 @@ public partial class EditTaskView : PopupPage
 			topic.Text = model.Topic;
 			dueDate.Date = model.DueDate;
 			content.Text = model.Content;
-
-			if(model.IntSymbol == 0){
-				notYet.IsChecked = true;
-			}
-			else {
-				done.IsChecked = true;
-			}
+			intSymbolPicker.SelectedIndex = model.IntSymbol == 0 ? 0 : 1;
 		}
 		else 
 		{
@@ -48,15 +42,26 @@ public partial class EditTaskView : PopupPage
 			createOrUpdate.Text = "Create";
 			cancelOrDelete.Clicked += Cancel;
 			cancelOrDelete.Text = "Cancel";
-			notYet.IsChecked = true;
+			intSymbolPicker.SelectedIndex = 0;
+			dueDate.Date = DateTime.Now;
 	
 		}
 	}
 
+	public async void EditorFocused(object sender, FocusEventArgs args)
+	{
+		await viewFrame.TranslateTo(0, -100);
+	}
+
+	public async void EditorUnfocused(object sender, FocusEventArgs args)
+	{
+		await viewFrame.TranslateTo(0, 0);
+	}
+
 	public async void CreateTask(object sender, EventArgs args)
 	{
-		int intType = myTask.IsChecked == true ? 0 : 1;
-		int intSymbol = notYet.IsChecked == true ? 0 : 1;
+		int intType = intTypePicker.SelectedIndex;
+		int intSymbol = intSymbolPicker.SelectedIndex;
 
 		if (String.IsNullOrEmpty(topic.Text))
 		{
@@ -92,8 +97,8 @@ public partial class EditTaskView : PopupPage
 
 	public async void UpdateTask(object sender, EventArgs args)
 	{
-		int intType = myTask.IsChecked == true ? 0 : 1;
-		int intSymbol = notYet.IsChecked == true ? 0 : 1;
+		int intType = intTypePicker.SelectedIndex;
+		int intSymbol = intSymbolPicker.SelectedIndex;
 
 		if (String.IsNullOrEmpty(topic.Text))
 		{

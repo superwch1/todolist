@@ -3,43 +3,53 @@
                   xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   x:Class="todolist.Views.EditTaskView" BackgroundColor="#80000000">
-    <Frame Margin="15, 120, 15, 120" CornerRadius="20" BackgroundColor="#fefff5">
-        <StackLayout Padding="25, 0, 25, 10">           
-
+    <Frame x:Name="viewFrame" Margin="15, 0, 15, 0" CornerRadius="20" BackgroundColor="#fefff5"
+           VerticalOptions="Center">
+        <VerticalStackLayout Padding="15, 0, 15, 10">           
             <StackLayout>
-                <Entry x:Name="topic" HorizontalOptions="Start" Placeholder="Topic"
+                <Entry x:Name="topic" HorizontalOptions="Start" Placeholder="Topic" 
                        WidthRequest="200" FontSize="18" MaxLength="20" />
-                <BoxView Color="#57472a" HorizontalOptions="Start" WidthRequest="200" HeightRequest="1"/>
-            </StackLayout>
+            </StackLayout>    
 
             <HorizontalStackLayout>
-                <Label Text="Deadline:  " FontSize="16" VerticalOptions="Center" />
-                <DatePicker x:Name="dueDate" FontSize="16" TextColor="Black" Format="dd-MM-yyyy" />
-            </HorizontalStackLayout>
+                <Picker x:Name="intTypePicker" FontSize="16" WidthRequest="120">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}" >
+                            <x:String>My Task</x:String>
+                            <x:String>Follow-up Task</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
-            <HorizontalStackLayout>
-                <RadioButton x:Name="myTask" Content="My Task" />
-                <RadioButton x:Name="followUpTask" Content="Follow-up Task"  />
-            </HorizontalStackLayout>
-
-            <HorizontalStackLayout >
-                <RadioButton x:Name="done" Content="Done" />
-                <RadioButton x:Name="notYet" Content="Not yet" />
+                <Picker x:Name="intSymbolPicker" FontSize="16" WidthRequest="80" Margin="40, 0, 0, 0">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Not Yet</x:String>
+                            <x:String>Done</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
             </HorizontalStackLayout>
 
             <StackLayout Margin="0, 10, 0, 0" VerticalOptions="FillAndExpand">
                 <Frame x:Name="contentFrame" Padding="10, 5, 10, 5" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="10">
-                    <Editor x:Name="content" FontSize="16" VerticalOptions="FillAndExpand" VerticalTextAlignment="Start"
-                            Placeholder="Content" MaxLength="250"/>
+                    <!-- VerticalOptions need to be start, or else when the content more than 2 line, IOS will crash -->
+                    <Editor x:Name="content" FontSize="16" VerticalOptions="Start"
+                            Placeholder="Content" MaxLength="250" Focused="EditorFocused" Unfocused="EditorUnfocused" />
                 </Frame>
             </StackLayout>
 
-            <HorizontalStackLayout Margin="0, 30, 0, 10" HorizontalOptions="End">
+            <HorizontalStackLayout HorizontalOptions="End">
+                <Label Text="Deadline: " FontSize="16" VerticalOptions="Center" />
+                <DatePicker x:Name="dueDate" FontSize="16" TextColor="Black" Format="dd-MM-yyyy" />
+            </HorizontalStackLayout>  
+
+            <HorizontalStackLayout Margin="0, 20, 0, 0" HorizontalOptions="End">
                 <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius="10" WidthRequest="85" 
                         BackgroundColor="#ffef7c" BorderWidth="1"  TextColor="#57472a" FontSize="16"/>
                 <Button x:Name="cancelOrDelete" BorderColor="#57472a" BorderWidth="1" CornerRadius="10" WidthRequest="85"
                         Margin="15, 0, 0, 0" BackgroundColor="#ffef7c" TextColor="#57472a" FontSize="16"/>
             </HorizontalStackLayout>
-        </StackLayout>
+        </VerticalStackLayout>
     </Frame>
 </mopups:PopupPage>

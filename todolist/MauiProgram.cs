@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using Maui.FixesAndWorkarounds;
 using Microsoft.Extensions.Logging;
 
 namespace todolist;
@@ -15,7 +14,6 @@ public static class MauiProgram
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
 			.RegisterServices()
-			.ConfigureKeyboardAutoScroll()
             .ConfigureFonts(fonts =>
 			{
                 fonts.AddFont("Inter-Regular.ttf", "InterRegular");
@@ -62,6 +60,16 @@ Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handl
 #endif
         });
         Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
+        {
+#if ANDROID
+            handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+#elif IOS
+            handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+            handler.PlatformView.Layer.BorderWidth = 0;
+            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+#endif
+        });
+Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
             handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
