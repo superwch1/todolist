@@ -34,8 +34,8 @@
             <StackLayout Margin="0, 10, 0, 0" VerticalOptions="FillAndExpand">
                 <Frame x:Name="contentFrame" Padding="10, 5, 10, 5" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="10">
                     <!-- VerticalOptions need to be start, or else when the content more than 2 line, IOS will crash -->
-                    <Editor x:Name="content" FontSize="16" VerticalOptions="Start"
-                            Placeholder="Content" MaxLength="250" Focused="EditorFocused" Unfocused="EditorUnfocused" />
+                    <Editor x:Name="content" FontSize="16" VerticalOptions="Start" VerticalTextAlignment="Start"
+                            MaxLength="250" Focused="EditorFocused" Unfocused="EditorUnfocused" />
                 </Frame>
             </StackLayout>
 

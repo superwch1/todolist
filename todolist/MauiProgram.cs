@@ -1,6 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 
+#if ANDROID
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+#endif
+
 namespace todolist;
 
 public static class MauiProgram
@@ -12,11 +16,11 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-            .UseMauiCommunityToolkit()
+                        .UseMauiCommunityToolkit()
 			.RegisterServices()
-            .ConfigureFonts(fonts =>
+                        .ConfigureFonts(fonts =>
 			{
-                fonts.AddFont("Inter-Regular.ttf", "InterRegular");
+                                fonts.AddFont("Inter-Regular.ttf", "InterRegular");
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
@@ -31,52 +35,56 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
     {
-		//mauiAppBuilder.Services.AddSingleton<AccountDatabase>();
+//ma    uiAppBuilder.Services.AddSingleton<AccountDatabase>();
         return mauiAppBuilder;
     }
 
 
     public static void RemoveBorderAndUndeline(){
-        //no underline for entry in android and IOS
-Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
+        //no underline for entry in android and IOS, black color curosr for android
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
-            handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+                handler.PlatformView.TextCursorDrawable.SetTint(Colors.Black.ToAndroid());
+                handler.PlatformView.TextSelectHandle.SetTint(Colors.Black.ToAndroid());
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #elif IOS
-            handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-            handler.PlatformView.Layer.BorderWidth = 0;
-            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+                handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
 
         Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
-            handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+                handler.PlatformView.TextCursorDrawable.SetTint(Colors.Black.ToAndroid());
+                handler.PlatformView.TextSelectHandle.SetTint(Colors.Black.ToAndroid());
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #elif IOS
-            handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-            handler.PlatformView.Layer.BorderWidth = 0;
-            //handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+                handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                //handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
         Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
-            handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #elif IOS
-            handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-            handler.PlatformView.Layer.BorderWidth = 0;
-            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+                handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
-Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
+        Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
-            handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
+                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #elif IOS
-            handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
-            handler.PlatformView.Layer.BorderWidth = 0;
-            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+                handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
+                handler.PlatformView.Layer.BorderWidth = 0;
+                handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
 
