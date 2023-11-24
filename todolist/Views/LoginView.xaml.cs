@@ -2,14 +2,14 @@
 
 public partial class LoginView : ContentPage
 {
-	LoginViewModel _viewModel;
+	LoginViewModel ViewModel { get; }
 
-	public LoginView(AccountDatabase accountDatabase)
+	public LoginView()
 	{
         InitializeComponent();
         SetControlsProperties();
 
-        _viewModel = new LoginViewModel(accountDatabase);
+        ViewModel = new LoginViewModel();
         password.ReturnCommand = new Command(() => Login(null, null));
     }
 
@@ -40,16 +40,6 @@ public partial class LoginView : ContentPage
 
     async void Login(object sender, EventArgs e)
     {
-
-        if (email.Text == null){
-            await ToastBar.DisplayToast("Please enter email");
-        }
-        else if (password.Text == null){
-            await ToastBar.DisplayToast("Please enter password");
-        }
-        else if (email.Text != null && password.Text != null)
-		{
-			await _viewModel.Login(email.Text, password.Text);
-        }
+        await ViewModel.Login(email, password);
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-using SQLite;
 
 namespace todolist;
 
 public partial class App : Application
 {
-	public App(AccountDatabase accountDatabase)
+	public App()
 	{
         InitializeComponent();
 
@@ -17,16 +16,16 @@ public partial class App : Application
 
         Task.Run(async () =>
         {
-            await accountDatabase.CreateTable();
-            var item = await accountDatabase.ReadItemAsync();
+            await AccountDatabase.CreateTable();
+            var item = await AccountDatabase.ReadItemAsync();
             if (item == null)
             {
-                await accountDatabase.CreateItemAsync(new AccountModel() { Id = 1, JwtToken = "" });
+                await AccountDatabase.CreateItemAsync(new AccountModel() { Id = 1, JwtToken = "" });
                 view = "Login";
             }
             else
             {
-                var account = await accountDatabase.ReadItemAsync();
+                var account = await AccountDatabase.ReadItemAsync();
                 tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, account.JwtToken);
             
                 if (tasks != null)
@@ -46,11 +45,11 @@ public partial class App : Application
         switch (view)
         {
             case "Login":
-                MainPage = new LoginView(accountDatabase);
+                MainPage = new LoginView();
                 break;
             
             case "AppShell":
-                MainPage = new AppShell(tasks, jwtToken, connection, accountDatabase);
+                MainPage = new AppShell(tasks, jwtToken, connection);
                 break;
         }
     }
@@ -62,12 +61,18 @@ public partial class App : Application
 
         window.Activated += async (s, e) =>
         {
-            await ToastBar.DisplayToast("Hello");
+            foreach (var action in LifeCycleMethods.ActivatedActions)
+            {
+                await action();
+            };
         };
 
         window.Deactivated += async (s, e) =>
         {
-            await ToastBar.DisplayToast("Bye");
+            foreach (var action in LifeCycleMethods.DeactivatedActions)
+            {
+                await action();
+            };
         };
 
         return window;

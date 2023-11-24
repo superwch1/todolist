@@ -4,12 +4,11 @@ namespace todolist;
 
 public partial class AppShell : Shell
 {
-	public AppShell(List<TaskModel> tasks, string jwtToken, 
-		HubConnection connection, AccountDatabase accountDatabase)
+	public AppShell(List<TaskModel> tasks, string jwtToken, HubConnection connection)
 	{
 		InitializeComponent();
-		myTask.Content = new TaskView(tasks, 0, jwtToken, connection, accountDatabase);
-		followUpTask.Content = new TaskView(tasks, 1, jwtToken, connection, accountDatabase);
+		myTask.Content = new TaskView(tasks, 0, jwtToken, connection);
+		followUpTask.Content = new TaskView(tasks, 1, jwtToken, connection);
     }
 }
 

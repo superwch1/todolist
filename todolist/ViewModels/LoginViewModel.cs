@@ -5,16 +5,18 @@ namespace todolist.ViewModels
 {
 	public class LoginViewModel
 	{
-        AccountDatabase _accountDatabase;
-
-        public LoginViewModel(AccountDatabase accountDatabase)
+        public async Task Login(Entry email, Entry password)
         {
-            _accountDatabase = accountDatabase;
-        }
+            if (email.Text == null){
+                await ToastBar.DisplayToast("Please enter email");
+                return;
+            }
+            if (password.Text == null){
+                await ToastBar.DisplayToast("Please enter password");
+                return;
+            }
 
-        public async Task Login(string email, string password)
-        {
-            var response = await WebServer.Login(email, password);
+            var response = await WebServer.Login(email.Text, password.Text);
             if (response == null)
             {
                 return;
@@ -23,13 +25,13 @@ namespace todolist.ViewModels
             if (response.Item2 == HttpStatusCode.OK)
             {
                 await ToastBar.DisplayToast("Logging in");
-                await _accountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = response.Item1 });
+                await AccountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = response.Item1 });
                 var tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, response.Item1);
 
                 if (tasks != null)
                 {
                     HubConnection? connection = await SignalR.BuildHubConnection(response.Item1);
-                    Application.Current!.MainPage = new AppShell(tasks, response.Item1, connection, _accountDatabase);
+                    Application.Current!.MainPage = new AppShell(tasks, response.Item1, connection);
                 }
             }
             else if (response.Item2 == HttpStatusCode.BadRequest)

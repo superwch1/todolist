@@ -44,7 +44,7 @@ public partial class EditTaskView : PopupPage
 		try 
 		{
 			await Connection.InvokeAsync("CreateTask", 
-				intType, topic.Text, content.Text, DateTime.Now.ToString("dd-MM-yyyy"), intSymbol);
+				intType, topic.Text, content.Text, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
 			await MopupService.Instance.PopAsync();
 		}
 		catch
