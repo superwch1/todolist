@@ -26,14 +26,14 @@ namespace todolist.ViewModels
 			{
 				var task = tasks.FirstOrDefault(x => x.Id == id);
 				if (task != null)
-					{
-						var index = tasks.IndexOf(task);
-						tasks.RemoveAt(index);
+				{
+					var index = tasks.IndexOf(task);
+					tasks.RemoveAt(index);
 
-						(scrollview as IView).InvalidateMeasure();
-					}
-				});	
-			}
+					(scrollview as IView).InvalidateMeasure();
+				}
+			});	
+		}
 
 		public void CreateTask(ObservableCollection<TaskModel> tasks,
 			ScrollView scrollView, int viewIntType,
@@ -44,7 +44,7 @@ namespace todolist.ViewModels
 				if (intType == viewIntType)
 				{
 					var newTask = new TaskModel() { Id = id, IntType = intType, Topic = topic, 
-					Content = content, DueDate = Convert.ToDateTime(dueDate), IntSymbol = intSymbol };
+						Content = content, DueDate = Convert.ToDateTime(dueDate), IntSymbol = intSymbol };
 
 					List<TaskModel> tempTasks = new List<TaskModel>();
 					tempTasks = tasks.ToList();
@@ -73,45 +73,90 @@ namespace todolist.ViewModels
 
 		public void CounterCheckTask(ObservableCollection<TaskModel> tasks,
 			ScrollView scrollview, DateTime selectedDateTime, int intType, string jwtToken)
-	{
-		MainThread.BeginInvokeOnMainThread(async () =>
 		{
-			var tasksFromServer = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
-
-			if (tasksFromServer == null)
+			MainThread.BeginInvokeOnMainThread(async () =>
 			{
-				return;
-			}
-			tasksFromServer = tasksFromServer.Where(x => x.IntType == intType).ToList();
-			List<int> tasksId = tasks.Select(x => x.Id).ToList();
+				var tasksFromServer = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
 
-			foreach(var t in tasksFromServer) 
-			{
-				var task = tasks.Where(x => x.Id == t.Id).FirstOrDefault();
-				if (task != null)
+				if (tasksFromServer == null)
 				{
-					if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
-						t.IntSymbol != task.IntSymbol) 
-					{
-						DeleteTask(tasks, scrollview, task.Id);
-						CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
-							t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
-					}
-					tasksId.Remove(task.Id);
+					return;
 				}
-				else
-				{
-					CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
-						t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
-				}	
-			}
+				tasksFromServer = tasksFromServer.Where(x => x.IntType == intType).ToList();
+				List<int> tasksId = tasks.Select(x => x.Id).ToList();
 
-			foreach (var id in tasksId)
-			{
-				DeleteTask(tasks, scrollview, id);
-			}
-		});
-	}
+				foreach(var t in tasksFromServer) 
+				{
+					var task = tasks.Where(x => x.Id == t.Id).FirstOrDefault();
+					if (task != null)
+					{
+						if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
+							t.IntSymbol != task.IntSymbol) 
+						{
+							DeleteTask(tasks, scrollview, task.Id);
+							CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+								t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
+						}
+						tasksId.Remove(task.Id);
+					}
+					
+					else
+					{
+						//Android need to call the following instead of 
+						//CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+						//	t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
+						//dun know why??
+
+						MainThread.BeginInvokeOnMainThread(() =>
+						{				
+							if (intType == t.IntType)
+							{
+								var newTask = new TaskModel() { Id = t.Id, IntType = intType, Topic = t.Topic, 
+									Content = t.Content, DueDate = Convert.ToDateTime(t.DueDate), IntSymbol = t.IntSymbol };
+
+								List<TaskModel> tempTasks = new List<TaskModel>();
+								tempTasks = tasks.ToList();
+
+								tempTasks.Add(newTask);
+
+								tempTasks = tempTasks
+									.OrderBy(x => x.IntSymbol)
+									.ThenBy(x => x.DueDate)
+									.ToList();
+
+								var index = tempTasks.IndexOf(newTask);
+								
+								if (index >= tasks.Count)
+								{
+									tasks.Add(newTask); // Add the item to the end of the list
+								}
+								else
+								{
+									tasks.Insert(index, newTask); // Insert the item at the calculated index
+								}
+							}
+						});	
+					}	
+				}
+
+				foreach (var id in tasksId)
+				{
+					//Android need to call the following instead of 
+					//DeleteTask(tasks, scrollview, id); - dun know why??
+					MainThread.BeginInvokeOnMainThread(() =>
+					{
+						var task = tasks.FirstOrDefault(x => x.Id == id);
+						if (task != null)
+						{
+							var index = tasks.IndexOf(task);
+							tasks.RemoveAt(index);
+
+							(scrollview as IView).InvalidateMeasure();
+						}
+					});	
+				}
+			});
+		}
 	}
 }
 
