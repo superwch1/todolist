@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Microsoft.AspNetCore.SignalR.Client;
 namespace todolist.ViewModels
 {
 	public class TaskViewModel

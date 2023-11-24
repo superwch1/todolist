@@ -68,7 +68,13 @@ public partial class TaskView : ContentPage
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
-		await MopupService.Instance.PushAsync(new EditTaskView(selectedTask, Connection));
+		await MopupService.Instance.PushAsync(new EditTaskView(selectedTask, Connection, IntType));
+    }
+
+
+	async void CreateTask(object sender, TappedEventArgs e)
+    {
+		await MopupService.Instance.PushAsync(new EditTaskView(null, Connection, IntType));
     }
 
 
