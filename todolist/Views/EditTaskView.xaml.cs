@@ -27,7 +27,9 @@ public partial class EditTaskView : PopupPage
 		if (model != null)
 		{
 			createOrUpdate.Clicked += UpdateTask;
+			createOrUpdate.Text = "Update";
 			cancelOrDelete.Clicked += DeleteTask;
+			cancelOrDelete.Text = "Delete";
 
 			topic.Text = model.Topic;
 			dueDate.Date = model.DueDate;
@@ -43,7 +45,9 @@ public partial class EditTaskView : PopupPage
 		else 
 		{
 			createOrUpdate.Clicked += CreateTask;
+			createOrUpdate.Text = "Create";
 			cancelOrDelete.Clicked += Cancel;
+			cancelOrDelete.Text = "Cancel";
 			notYet.IsChecked = true;
 	
 		}

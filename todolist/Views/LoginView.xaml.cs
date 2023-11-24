@@ -3,6 +3,7 @@
 public partial class LoginView : ContentPage
 {
 	LoginViewModel ViewModel { get; }
+    bool LoggingIn { get; set; } = false;
 
 	public LoginView()
 	{
@@ -40,6 +41,11 @@ public partial class LoginView : ContentPage
 
     async void Login(object sender, EventArgs e)
     {
-        await ViewModel.Login(email, password);
+        if (LoggingIn == false)
+        {
+            LoggingIn = true;
+            await ViewModel.Login(email, password);
+        }
+        LoggingIn = false;
     }
 }

@@ -35,9 +35,9 @@
             </StackLayout>
 
             <HorizontalStackLayout Margin="0, 30, 0, 10" HorizontalOptions="End">
-                <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius="10" WidthRequest="75" Text="Save"
+                <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius="10" WidthRequest="75" 
                         BackgroundColor="#ffef7c" BorderWidth="1"  TextColor="#57472a" FontSize="16"/>
-                <Button x:Name="cancelOrDelete" BorderColor="#57472a" BorderWidth="1" CornerRadius="10" WidthRequest="80" Text="Delete"
+                <Button x:Name="cancelOrDelete" BorderColor="#57472a" BorderWidth="1" CornerRadius="10" WidthRequest="80"
                         Margin="15, 0, 0, 0" BackgroundColor="#ffef7c" TextColor="#57472a" FontSize="16"/>
             </HorizontalStackLayout>
         </StackLayout>
