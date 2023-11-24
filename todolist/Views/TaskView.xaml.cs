@@ -11,7 +11,9 @@ public partial class TaskView : ContentPage
 	public HubConnection Connection { get; set; }
 	public string JwtToken { get; }
 	public TaskViewModel ViewModel { get; }
+	public DateTime SelectedDateTime { get; set; }
 
+	//remember to remove twice for functions in lifecycle
 	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, 
 		HubConnection connection)
 	{
@@ -21,6 +23,7 @@ public partial class TaskView : ContentPage
 		JwtToken = jwtToken;
 		Connection = connection;
 		ViewModel = new TaskViewModel();
+		SelectedDateTime = DateTime.Now;
 
 		tasks = tasks
 			.Where(x => x.IntType == IntType)
@@ -46,8 +49,8 @@ public partial class TaskView : ContentPage
 
 	void DeleteThenCreateTask(int id, int intType, string topic, string content, string dueDate, int intSymbol)
 	{
-		ViewModel.DeleteThenCreateTask(Tasks, scrollview, IntType,
-			id, intType, topic, content, dueDate, intSymbol);
+		ViewModel.DeleteTask(Tasks, scrollview, id);
+		ViewModel.CreateTask(Tasks, scrollview, IntType, id, intType, topic, content, dueDate, intSymbol);
 	}
 
 
@@ -73,8 +76,11 @@ public partial class TaskView : ContentPage
 	{
 		Connection.On<int>("DeleteTask", DeleteTask);
 		Connection.On<int, int, string, string, string, int>("DeleteThenCreateTask", DeleteThenCreateTask);
+		Connection.Reconnected += async (connectionId) => 
+		{
+			await Task.Run(() => ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken));
+		};
 	}
-
 
 
 	public async Task DeactivatedFunction()
@@ -94,13 +100,7 @@ public partial class TaskView : ContentPage
 			{
 				Connection = connection;
 				InitializeSignalR();
-				/*
-				for(var function in WebSocket.InitializeFunctionList){
-					await function();
-				}
-				*/
-
-				ToastBar.DisplayToast(Connection.State.ToString());
+				ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 			}
 		}  
 
@@ -110,18 +110,14 @@ public partial class TaskView : ContentPage
 			&& count == LifeCycleMethods.EnterForegroundCount){
 	
 			await Task.Delay(5000);
-			if (Connection.State == HubConnectionState.Disconnected){
-				ToastBar.DisplayToast(Connection.State.ToString());
-
+			if (Connection.State == HubConnectionState.Disconnected)
+			{
 				var connection = await SignalR.BuildHubConnection(JwtToken);
 
 				if (connection != null && connection.State == HubConnectionState.Connected){
 					Connection = connection;
-					/*
-					for(var function in WebSocket.InitializeFunctionList){
-						await function();
-					}
-					*/
+					InitializeSignalR();
+					ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 				}
 			} 
         }   

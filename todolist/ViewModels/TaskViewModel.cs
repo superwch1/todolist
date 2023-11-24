@@ -31,20 +31,17 @@ namespace todolist.ViewModels
 						var index = tasks.IndexOf(task);
 						tasks.RemoveAt(index);
 
-						//scrollview.ForceLayout();
 						(scrollview as IView).InvalidateMeasure();
 					}
 				});	
 			}
 
-		public void DeleteThenCreateTask(ObservableCollection<TaskModel> tasks,
+		public void CreateTask(ObservableCollection<TaskModel> tasks,
 			ScrollView scrollView, int viewIntType,
 			int id, int intType, string topic, string content, string dueDate, int intSymbol)
 		{
 			MainThread.BeginInvokeOnMainThread(() =>
 			{				
-				DeleteTask(tasks, scrollView, id);
-
 				if (intType == viewIntType)
 				{
 					var newTask = new TaskModel() { Id = id, IntType = intType, Topic = topic, 
@@ -73,6 +70,49 @@ namespace todolist.ViewModels
 				}
 			});	
 		}
+
+
+		public void CounterCheckTask(ObservableCollection<TaskModel> tasks,
+			ScrollView scrollview, DateTime selectedDateTime, int intType, string jwtToken)
+	{
+		MainThread.BeginInvokeOnMainThread(async () =>
+		{
+			var tasksFromServer = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
+
+			if (tasksFromServer == null)
+			{
+				return;
+			}
+			tasksFromServer = tasksFromServer.Where(x => x.IntType == intType).ToList();
+			List<int> tasksId = tasks.Select(x => x.Id).ToList();
+
+			foreach(var t in tasksFromServer) 
+			{
+				var task = tasks.Where(x => x.Id == t.Id).FirstOrDefault();
+				if (task != null)
+				{
+					if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
+						t.IntSymbol != task.IntSymbol) 
+					{
+						DeleteTask(tasks, scrollview, task.Id);
+						CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+							t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
+					}
+					tasksId.Remove(task.Id);
+				}
+				else
+				{
+					CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+						t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
+				}	
+			}
+
+			foreach (var id in tasksId)
+			{
+				DeleteTask(tasks, scrollview, id);
+			}
+		});
+	}
 	}
 }
 
