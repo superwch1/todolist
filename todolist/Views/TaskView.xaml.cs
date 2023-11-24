@@ -25,6 +25,8 @@ public partial class TaskView : ContentPage
 		ViewModel = new TaskViewModel();
 		SelectedDateTime = DateTime.Now;
 
+		Title = intType == 0 ? "My Task" : "Follow-up Task";
+
 		tasks = tasks
 			.Where(x => x.IntType == IntType)
 			.OrderBy(x => x.IntSymbol)

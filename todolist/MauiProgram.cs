@@ -18,6 +18,7 @@ public static class MauiProgram
 			.ConfigureKeyboardAutoScroll()
             .ConfigureFonts(fonts =>
 			{
+                fonts.AddFont("Inter-Regular.ttf", "InterRegular");
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
@@ -50,14 +51,14 @@ Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handl
 #endif
         });
 
-        Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
+        Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
             handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
 #elif IOS
             handler.PlatformView.BackgroundColor = UIKit.UIColor.Clear;
             handler.PlatformView.Layer.BorderWidth = 0;
-            handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
+            //handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
         Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
@@ -70,6 +71,7 @@ Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handl
             handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
+
     }
 }
 
