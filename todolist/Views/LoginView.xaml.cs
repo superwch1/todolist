@@ -2,8 +2,8 @@
 
 public partial class LoginView : ContentPage
 {
-	LoginViewModel ViewModel { get; }
-    bool LoggingIn { get; set; } = false;
+	public LoginViewModel ViewModel { get; }
+    public bool LoggingIn { get; set; } = false;
 
 	public LoginView()
 	{

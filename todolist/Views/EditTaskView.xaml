@@ -41,7 +41,7 @@
 
             <HorizontalStackLayout HorizontalOptions="End">
                 <Label Text="Deadline: " FontSize="16" VerticalOptions="Center" />
-                <DatePicker x:Name="dueDate" FontSize="16" TextColor="Black" Format="dd-MM-yyyy" />
+                <DatePicker x:Name="dueDate" FontSize="16" TextColor="Black" Format="dd-MM-yyyy" WidthRequest="95"/>
             </HorizontalStackLayout>  
 
             <HorizontalStackLayout Margin="0, 20, 0, 0" HorizontalOptions="End">

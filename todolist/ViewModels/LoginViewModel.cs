@@ -19,6 +19,7 @@ namespace todolist.ViewModels
             var response = await WebServer.Login(email.Text, password.Text);
             if (response == null)
             {
+                await ToastBar.DisplayToast("Cannot connect to server");
                 return;
             }
 

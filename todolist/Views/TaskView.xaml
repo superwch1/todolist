@@ -50,5 +50,10 @@
                 <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="CreateTask"/>
             </Image.GestureRecognizers>
         </Image>
+        <Image Source="logout.png" HorizontalOptions="Start" VerticalOptions="End" Margin="20" HeightRequest="45">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
 </ContentPage>

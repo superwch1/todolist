@@ -43,6 +43,12 @@ public partial class TaskView : ContentPage
     }
 
 
+	async void Logout(object sender, TappedEventArgs args)
+	{	
+		await TerminateSignalR();
+		await ViewModel.Logout();
+	}
+
 	void DeleteTask(int id)
 	{
 		ViewModel.DeleteTask(Tasks, scrollview, id);
@@ -86,16 +92,21 @@ public partial class TaskView : ContentPage
 		Connection.On<int, int, string, string, string, int>("DeleteThenCreateTask", DeleteThenCreateTask);
 		Connection.Reconnected += async (connectionId) => 
 		{
-			await Task.Run(() => ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken));
+			await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 		};
+	}
+
+	public async Task TerminateSignalR()
+	{
+		Connection.Remove("DeleteTask");
+		Connection.Remove("DeleteThenCreateTask");
+		await Connection.StopAsync();
 	}
 
 
 	public async Task DeactivatedFunction()
 	{
-		Connection.Remove("DeleteTask");
-		Connection.Remove("DeleteThenCreateTask");
-		await Connection.StopAsync();
+		await TerminateSignalR();
 	}
 
 
@@ -108,7 +119,7 @@ public partial class TaskView : ContentPage
 			{
 				Connection = connection;
 				InitializeSignalR();
-				ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
+				await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 			}
 		}  
 
@@ -125,7 +136,7 @@ public partial class TaskView : ContentPage
 				if (connection != null && connection.State == HubConnectionState.Connected){
 					Connection = connection;
 					InitializeSignalR();
-					ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
+					await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 				}
 			} 
         }   

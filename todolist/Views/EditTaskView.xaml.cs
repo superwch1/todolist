@@ -8,6 +8,7 @@ namespace todolist.Views;
 public partial class EditTaskView : PopupPage
 {
 	public HubConnection Connection { get; set; }
+	public EditTaskViewModel ViewModel { get; set; }
 	TaskModel? Model { get; set; }
 
 	public EditTaskView(TaskModel model, HubConnection connection, int intType)
@@ -15,6 +16,7 @@ public partial class EditTaskView : PopupPage
 		InitializeComponent();
 
 		Connection = connection;
+		ViewModel = new EditTaskViewModel();
 		Model = model;
 		
 		intTypePicker.SelectedIndex = intType == 0 ? 0 : 1;
@@ -48,50 +50,35 @@ public partial class EditTaskView : PopupPage
 		}
 	}
 
+
 	public async void EditorFocused(object sender, FocusEventArgs args)
 	{
+#if IOS
 		await viewFrame.TranslateTo(0, -100);
+#endif
 	}
+
 
 	public async void EditorUnfocused(object sender, FocusEventArgs args)
 	{
+#if IOS
 		await viewFrame.TranslateTo(0, 0);
+#endif
 	}
+
 
 	public async void CreateTask(object sender, EventArgs args)
 	{
 		int intType = intTypePicker.SelectedIndex;
 		int intSymbol = intSymbolPicker.SelectedIndex;
 
-		if (String.IsNullOrEmpty(topic.Text))
-		{
-			await ToastBar.DisplayToast("Please enter topic");
-			return;
-		}
-
-		try 
-		{
-			await Connection.InvokeAsync("CreateTask", 
-				intType, topic.Text, content.Text, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
-			await MopupService.Instance.PopAsync();
-		}
-		catch
-		{
-			await ToastBar.DisplayToast("Cannont connect to server");
-		}
+		await ViewModel.CreateTask(Connection, intType, topic.Text, content.Text,
+			dueDate.Date, intSymbol);
 	}
 
 	public async void DeleteTask(object sender, EventArgs args)
 	{
-		try 
-		{
-			await Connection.InvokeAsync("DeleteTask", Model.Id);
-			await MopupService.Instance.PopAsync();
-		}
-		catch
-		{
-			await ToastBar.DisplayToast("Cannont connect to server");
-		}
+		await ViewModel.DeleteTask(Connection, Model.Id);
 	}
 
 
@@ -100,23 +87,10 @@ public partial class EditTaskView : PopupPage
 		int intType = intTypePicker.SelectedIndex;
 		int intSymbol = intSymbolPicker.SelectedIndex;
 
-		if (String.IsNullOrEmpty(topic.Text))
-		{
-			await ToastBar.DisplayToast("Please enter topic");
-			return;
-		}
-
-		try 
-		{
-			await Connection.InvokeAsync("UpdateTask", 
-				Model.Id, intType, topic.Text, content.Text, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
-			await MopupService.Instance.PopAsync();
-		}
-		catch
-		{
-			await ToastBar.DisplayToast("Cannont connect to server");
-		}
+		await ViewModel.UpdateTask(Connection, Model.Id, intType, topic.Text, 
+			content.Text, dueDate.Date, intSymbol);
 	}
+
 
 	public async void Cancel(object sender, EventArgs args)
 	{

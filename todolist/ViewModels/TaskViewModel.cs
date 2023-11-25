@@ -35,6 +35,20 @@ namespace todolist.ViewModels
 			});	
 		}
 
+
+		public async Task Logout()
+		{
+			//loop for two times for two page in shell
+			for(var i = 0; i < 2; i++)
+			{
+				LifeCycleMethods.ActivatedActions.RemoveAt(LifeCycleMethods.ActivatedActions.Count - 1);
+				LifeCycleMethods.DeactivatedActions.RemoveAt(LifeCycleMethods.DeactivatedActions.Count - 1);
+			}
+			await AccountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = "" });
+			Application.Current!.MainPage = new LoginView();
+		}
+
+
 		public void CreateTask(ObservableCollection<TaskModel> tasks,
 			ScrollView scrollView, int viewIntType,
 			int id, int intType, string topic, string content, string dueDate, int intSymbol)
@@ -71,91 +85,44 @@ namespace todolist.ViewModels
 		}
 
 
-		public void CounterCheckTask(ObservableCollection<TaskModel> tasks,
+		public async Task CounterCheckTask(ObservableCollection<TaskModel> tasks,
 			ScrollView scrollview, DateTime selectedDateTime, int intType, string jwtToken)
 		{
-			MainThread.BeginInvokeOnMainThread(async () =>
+			var tasksFromServer = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
+
+			if (tasksFromServer == null)
 			{
-				var tasksFromServer = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
+				return;
+			}
+			tasksFromServer = tasksFromServer.Where(x => x.IntType == intType).ToList();
+			List<int> tasksId = tasks.Select(x => x.Id).ToList();
 
-				if (tasksFromServer == null)
+			foreach(var t in tasksFromServer) 
+			{
+				var task = tasks.Where(x => x.Id == t.Id).FirstOrDefault();
+				if (task != null)
 				{
-					return;
-				}
-				tasksFromServer = tasksFromServer.Where(x => x.IntType == intType).ToList();
-				List<int> tasksId = tasks.Select(x => x.Id).ToList();
-
-				foreach(var t in tasksFromServer) 
-				{
-					var task = tasks.Where(x => x.Id == t.Id).FirstOrDefault();
-					if (task != null)
+					if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
+						t.IntSymbol != task.IntSymbol) 
 					{
-						if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
-							t.IntSymbol != task.IntSymbol) 
-						{
-							DeleteTask(tasks, scrollview, task.Id);
-							CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
-								t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
-						}
-						tasksId.Remove(task.Id);
+						DeleteTask(tasks, scrollview, task.Id);
+						CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+							t.DueDate.ToString(), t.IntSymbol);
 					}
-					
-					else
-					{
-						//Android need to call the following instead of 
-						//CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
-						//	t.DueDate.ToString("dd-MM-yyyy"), t.IntSymbol);
-						//dun know why??
-
-						MainThread.BeginInvokeOnMainThread(() =>
-						{				
-							if (intType == t.IntType)
-							{
-								var newTask = new TaskModel() { Id = t.Id, IntType = intType, Topic = t.Topic, 
-									Content = t.Content, DueDate = Convert.ToDateTime(t.DueDate), IntSymbol = t.IntSymbol };
-
-								List<TaskModel> tempTasks = new List<TaskModel>();
-								tempTasks = tasks.ToList();
-
-								tempTasks.Add(newTask);
-
-								tempTasks = tempTasks
-									.OrderBy(x => x.IntSymbol)
-									.ThenBy(x => x.DueDate)
-									.ToList();
-
-								var index = tempTasks.IndexOf(newTask);
-								
-								if (index >= tasks.Count)
-								{
-									tasks.Add(newTask); // Add the item to the end of the list
-								}
-								else
-								{
-									tasks.Insert(index, newTask); // Insert the item at the calculated index
-								}
-							}
-						});	
-					}	
+					tasksId.Remove(task.Id);
 				}
-
-				foreach (var id in tasksId)
+				
+				else
 				{
-					//Android need to call the following instead of 
-					//DeleteTask(tasks, scrollview, id); - dun know why??
-					MainThread.BeginInvokeOnMainThread(() =>
-					{
-						var task = tasks.FirstOrDefault(x => x.Id == id);
-						if (task != null)
-						{
-							var index = tasks.IndexOf(task);
-							tasks.RemoveAt(index);
+					CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+						t.DueDate.ToString(), t.IntSymbol);
+				}	
+			}
 
-							(scrollview as IView).InvalidateMeasure();
-						}
-					});	
-				}
-			});
+			foreach (var id in tasksId)
+			{
+				DeleteTask(tasks, scrollview, id); 
+			}
 		}
 	}
 }

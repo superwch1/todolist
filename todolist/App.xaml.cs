@@ -28,7 +28,7 @@ public partial class App : Application
                 var account = await AccountDatabase.ReadItemAsync();
                 tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, account.JwtToken);
             
-                if (tasks != null)
+                if (tasks != null && account.JwtToken != "")
                 {
                     view = "AppShell";
                     jwtToken = account.JwtToken;
