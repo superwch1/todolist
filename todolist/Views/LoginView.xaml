@@ -1,28 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="todolist.Views.LoginView"
-             Title="Login">
-    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+             Title="Login"
+             x:Class="todolist.Views.LoginView">
+    <StackLayout x:Name="stack" VerticalOptions="Center" HorizontalOptions="Center">
         <Image x:Name="icon" Source="icon"/>
-        <StackLayout>
-            <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-                <Entry x:Name="email" Placeholder="abc@gmail.com"            
-                       Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                       TextColor="#aeaeae" FontSize="16"
-                       HorizontalTextAlignment="Center"/>
-            </Border>
+        <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+            <Entry x:Name="email" Placeholder="abc@gmail.com"            
+                    Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                    TextColor="#aeaeae" FontSize="16"
+                    HorizontalTextAlignment="Center"/>
+        </Border>
 
-            <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-                 <Entry x:Name="password" Placeholder="••••••" 
-                        Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                        TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                        HorizontalTextAlignment="Center"/>
-            </Border>
+        <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+            <Entry x:Name="password" Placeholder="••••••" 
+                Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                TextColor="#aeaeae" FontSize="16" IsPassword="True"
+                HorizontalTextAlignment="Center"/>
+        </Border>
 
-            <Button x:Name="button" Text="LOG IN" BackgroundColor="#57472a" TextColor="#ffffff"
-                    FontAttributes="Bold" FontSize="16"
-                    Clicked="Login"/>
-        </StackLayout>
+        <Button x:Name="button" Text="LOG IN" BackgroundColor="#57472a" TextColor="#ffffff"
+                FontAttributes="Bold" FontSize="16"
+                Clicked="Login"/>
+
+        <Label Margin="0, 15, 0, 0" HorizontalOptions="End">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ForgetPassword" NumberOfTapsRequired="1"/>
+            </Label.GestureRecognizers>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Forget password?" FontAttributes="Italic" TextColor="Blue" 
+                          FontSize="18" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label Margin="0, 15, 0, 0" HorizontalOptions="End">              
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="RegisterAccount" NumberOfTapsRequired="1"/>
+            </Label.GestureRecognizers>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Do not have an account" TextColor="Blue" 
+                          FontSize="18" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
     </StackLayout>
 </ContentPage>

@@ -45,11 +45,11 @@ public partial class App : Application
         switch (view)
         {
             case "Login":
-                MainPage = new LoginView();
+                MainPage = new NavigationPage(new LoginView());
                 break;
             
             case "AppShell":
-                MainPage = new AppShell(tasks, jwtToken, connection);
+                MainPage = new TaskShell(tasks, jwtToken, connection);
                 break;
         }
     }

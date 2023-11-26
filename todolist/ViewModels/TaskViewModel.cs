@@ -45,7 +45,7 @@ namespace todolist.ViewModels
 				LifeCycleMethods.DeactivatedActions.RemoveAt(LifeCycleMethods.DeactivatedActions.Count - 1);
 			}
 			await AccountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = "" });
-			Application.Current!.MainPage = new LoginView();
+			Application.Current!.MainPage = new NavigationPage(new LoginView());
 		}
 
 

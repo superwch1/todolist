@@ -10,6 +10,8 @@ public partial class LoginView : ContentPage
         InitializeComponent();
         SetControlsProperties();
 
+        NavigationPage.SetHasNavigationBar(this, false);
+
         ViewModel = new LoginViewModel();
         password.ReturnCommand = new Command(() => Login(null, null));
     }
@@ -37,6 +39,8 @@ public partial class LoginView : ContentPage
 
         icon.WidthRequest = height * 0.4;
         icon.Margin = new Thickness() { Bottom = height * 0.05 };
+
+        stack.WidthRequest = width * 0.8;
     }
 
     async void Login(object sender, EventArgs e)
@@ -47,5 +51,16 @@ public partial class LoginView : ContentPage
             await ViewModel.Login(email, password);
         }
         LoggingIn = false;
+    }
+
+    async void RegisterAccount(object sender, TappedEventArgs args)
+    {
+        await Navigation.PushAsync(new RegisterAccountView());
+    }
+
+
+    async void ForgetPassword(object sender, TappedEventArgs args)
+    {
+        await Navigation.PushAsync(new ForgetPasswordView());
     }
 }

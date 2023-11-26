@@ -32,7 +32,7 @@ namespace todolist.ViewModels
                 if (tasks != null)
                 {
                     HubConnection? connection = await SignalR.BuildHubConnection(response.Item1);
-                    Application.Current!.MainPage = new AppShell(tasks, response.Item1, connection);
+                    Application.Current!.MainPage = new TaskShell(tasks, response.Item1, connection);
                 }
             }
             else if (response.Item2 == HttpStatusCode.BadRequest)
