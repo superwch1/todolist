@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 
-namespace todolist;
+namespace todolist.Shells;
 
-public partial class AppShell : Shell
+public partial class TaskShell : Shell
 {
-	public AppShell(List<TaskModel> tasks, string jwtToken, HubConnection connection)
+	public TaskShell(List<TaskModel> tasks, string jwtToken, HubConnection connection)
 	{
 		InitializeComponent();
 		myTask.Content = new TaskView(tasks, 0, jwtToken, connection);
