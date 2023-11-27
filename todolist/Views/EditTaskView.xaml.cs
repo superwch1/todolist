@@ -72,13 +72,13 @@ public partial class EditTaskView : PopupPage
 		int intType = intTypePicker.SelectedIndex;
 		int intSymbol = intSymbolPicker.SelectedIndex;
 
-		await ViewModel.CreateTask(Connection, intType, topic.Text, content.Text,
-			dueDate.Date, intSymbol);
+		await IsLoading.RunMethod(() => ViewModel.CreateTask(Connection, intType, topic.Text, content.Text,
+			dueDate.Date, intSymbol));	
 	}
 
 	public async void DeleteTask(object sender, EventArgs args)
 	{
-		await ViewModel.DeleteTask(Connection, Model.Id);
+		await IsLoading.RunMethod(() => ViewModel.DeleteTask(Connection, Model.Id));	
 	}
 
 
@@ -87,8 +87,8 @@ public partial class EditTaskView : PopupPage
 		int intType = intTypePicker.SelectedIndex;
 		int intSymbol = intSymbolPicker.SelectedIndex;
 
-		await ViewModel.UpdateTask(Connection, Model.Id, intType, topic.Text, 
-			content.Text, dueDate.Date, intSymbol);
+		await IsLoading.RunMethod(() => ViewModel.UpdateTask(Connection, Model.Id, intType, topic.Text, 
+			content.Text, dueDate.Date, intSymbol));	
 	}
 
 

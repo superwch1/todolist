@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.SignalR.Client;
-
 namespace todolist.Services 
 {
     public static class LifeCycleMethods

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="todolist.Views.VerifyPasscodeView"
+             Title="VerifyPasscode">
+    <StackLayout x:Name="stack" VerticalOptions="Center">
+        <Label Text="Please enter your passcode." FontSize="16"     
+                Margin="0, 0, 0, 15" />
+                 
+        <Border x:Name="passcodeBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+            <Entry x:Name="passcode" Placeholder="123456" 
+                   Keyboard="Numeric" PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                   TextColor="#aeaeae" FontSize="16" MaxLength="6"
+                   HorizontalTextAlignment="Center"/>
+        </Border>
+        <Button x:Name="button" Text="GO" BackgroundColor="#57472a" TextColor="#ffffff"
+                FontAttributes="Bold" FontSize="18" Clicked="VerifyPasscode"/>
+    </StackLayout>
+</ContentPage>

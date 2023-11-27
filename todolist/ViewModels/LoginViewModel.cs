@@ -16,28 +16,31 @@ namespace todolist.ViewModels
                 return;
             }
 
-            var response = await WebServer.Login(email.Text, password.Text);
-            if (response == null)
+            var loginResponse = await WebServer.Login(email.Text, password.Text);
+            if (loginResponse.Item2 == HttpStatusCode.ExpectationFailed)
             {
                 await ToastBar.DisplayToast("Cannot connect to server");
                 return;
             }
 
-            if (response.Item2 == HttpStatusCode.OK)
+            if (loginResponse.Item2 == HttpStatusCode.BadRequest)
+            {
+                await ToastBar.DisplayToast(loginResponse.Item1);
+                return;
+            }
+
+            if (loginResponse.Item2 == HttpStatusCode.OK)
             {
                 await ToastBar.DisplayToast("Logging in");
-                await AccountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = response.Item1 });
-                var tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, response.Item1);
+                await UserDatabase.UpdateItemAsync(new UserModel() { Id = 1, JwtToken = loginResponse.Item1 });
 
-                if (tasks != null)
+                HubConnection? connection = await SignalR.BuildHubConnection(loginResponse.Item1);
+                var taskReponse = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, loginResponse.Item1);     
+
+                if (taskReponse.Item2 == HttpStatusCode.OK && connection != null)
                 {
-                    HubConnection? connection = await SignalR.BuildHubConnection(response.Item1);
-                    Application.Current!.MainPage = new TaskShell(tasks, response.Item1, connection);
+                    Application.Current!.MainPage = new TaskShell(taskReponse.Item1, loginResponse.Item1, connection);
                 }
-            }
-            else if (response.Item2 == HttpStatusCode.BadRequest)
-            {
-                await ToastBar.DisplayToast(response.Item1);
             }
         }
     }

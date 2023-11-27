@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using System.Net;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace todolist;
 
@@ -16,30 +17,39 @@ public partial class App : Application
 
         Task.Run(async () =>
         {
-            await AccountDatabase.CreateTable();
-            var item = await AccountDatabase.ReadItemAsync();
-            if (item == null)
+            await UserDatabase.CreateTable();
+            var account = await UserDatabase.ReadItemAsync();
+            if (account == null)
             {
-                await AccountDatabase.CreateItemAsync(new AccountModel() { Id = 1, JwtToken = "" });
+                await UserDatabase.CreateItemAsync(new UserModel() { Id = 1, JwtToken = "" });
                 view = "Login";
+                return;
             }
-            else
+
+            if (account.JwtToken == "")
             {
-                var account = await AccountDatabase.ReadItemAsync();
-                tasks = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, account.JwtToken);
-            
-                if (tasks != null && account.JwtToken != "")
-                {
-                    view = "AppShell";
-                    jwtToken = account.JwtToken;
-                    connection = await SignalR.BuildHubConnection(jwtToken);
-                }
-                else 
-                {
-                    view = "Login";
-                }
-                
+                view = "Login";
+                return;
             }
+
+            var taskReponse = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, account.JwtToken);
+            if (taskReponse.Item2 != HttpStatusCode.OK)
+            {
+                view = "Login";
+                return;
+            }
+
+            connection = await SignalR.BuildHubConnection(account.JwtToken);
+            if (connection == null)
+            {
+                view = "Login";
+                return;
+            }
+
+            view = "AppShell";
+            tasks = taskReponse.Item1;
+            jwtToken = account.JwtToken;
+
         }).Wait();
 
         switch (view)

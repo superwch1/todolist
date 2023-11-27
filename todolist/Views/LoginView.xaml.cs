@@ -3,7 +3,6 @@
 public partial class LoginView : ContentPage
 {
 	public LoginViewModel ViewModel { get; }
-    public bool LoggingIn { get; set; } = false;
 
 	public LoginView()
 	{
@@ -45,12 +44,7 @@ public partial class LoginView : ContentPage
 
     async void Login(object sender, EventArgs e)
     {
-        if (LoggingIn == false)
-        {
-            LoggingIn = true;
-            await ViewModel.Login(email, password);
-        }
-        LoggingIn = false;
+        await IsLoading.RunMethod(() => ViewModel.Login(email, password));
     }
 
     async void RegisterAccount(object sender, TappedEventArgs args)

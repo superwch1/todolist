@@ -45,8 +45,10 @@ public partial class TaskView : ContentPage
 
 	async void Logout(object sender, TappedEventArgs args)
 	{	
-		await TerminateSignalR();
-		await ViewModel.Logout();
+		await IsLoading.RunMethod(async () => {
+			await TerminateSignalR();
+			await ViewModel.Logout();
+		});
 	}
 
 	void DeleteTask(int id)

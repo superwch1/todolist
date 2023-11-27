@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net;
 namespace todolist.ViewModels
 {
 	public class TaskViewModel
@@ -44,7 +45,7 @@ namespace todolist.ViewModels
 				LifeCycleMethods.ActivatedActions.RemoveAt(LifeCycleMethods.ActivatedActions.Count - 1);
 				LifeCycleMethods.DeactivatedActions.RemoveAt(LifeCycleMethods.DeactivatedActions.Count - 1);
 			}
-			await AccountDatabase.UpdateItemAsync(new AccountModel() { Id = 1, JwtToken = "" });
+			await UserDatabase.UpdateItemAsync(new UserModel() { Id = 1, JwtToken = "" });
 			Application.Current!.MainPage = new NavigationPage(new LoginView());
 		}
 
@@ -88,13 +89,13 @@ namespace todolist.ViewModels
 		public async Task CounterCheckTask(ObservableCollection<TaskModel> tasks,
 			ScrollView scrollview, DateTime selectedDateTime, int intType, string jwtToken)
 		{
-			var tasksFromServer = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
+			var taskResponse = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
 
-			if (tasksFromServer == null)
+			if (taskResponse.Item2 != HttpStatusCode.OK)
 			{
 				return;
 			}
-			tasksFromServer = tasksFromServer.Where(x => x.IntType == intType).ToList();
+			var tasksFromServer = taskResponse.Item1.Where(x => x.IntType == intType).ToList();
 			List<int> tasksId = tasks.Select(x => x.Id).ToList();
 
 			foreach(var t in tasksFromServer) 

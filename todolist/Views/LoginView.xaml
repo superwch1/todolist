@@ -19,8 +19,8 @@
                 HorizontalTextAlignment="Center"/>
         </Border>
 
-        <Button x:Name="button" Text="LOG IN" BackgroundColor="#57472a" TextColor="#ffffff"
-                FontAttributes="Bold" FontSize="16"
+        <Button x:Name="button" Text="GO" BackgroundColor="#57472a" TextColor="#ffffff"
+                FontAttributes="Bold" FontSize="18"
                 Clicked="Login"/>
 
         <Label Margin="0, 15, 0, 0" HorizontalOptions="End">
