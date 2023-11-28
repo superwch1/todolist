@@ -3,32 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Login"
              x:Class="todolist.Views.LoginView">
-    <AbsoluteLayout x:Name="absoluteLayout">
+    <Grid x:Name="absoluteLayout" VerticalOptions="Center">
 
-        <Label x:Name="clickLabel" Text="Click ME :)" HorizontalTextAlignment="End" FontSize="22"/>
+        <!-- <Label x:Name="clickLabel" Text="Click ME :)" HorizontalTextAlignment="End" FontSize="22"/> -->
 
-        <Image x:Name="firstButtonWithShadow" Source="buttonwithshadow">
+        <Image x:Name="buttonInCenter" Source="buttonwithshadow" VerticalOptions="Center">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="StartAnimation" NumberOfTapsRequired="1"/>
             </Image.GestureRecognizers>
         </Image>
-        <Image x:Name="firstButtonWithoutShadow" Source="buttonwithoutshadow" IsVisible="False"/>
-        <Image x:Name="secondButtonWithShadow" Source="buttonwithshadow" IsVisible="False"/>
-        <Image x:Name="secondButtonWithoutShadow" Source="buttonwithoutshadow" IsVisible="False"/>
+
+        <Image x:Name="buttonWithShadow" Source="buttonwithshadow" VerticalOptions="Start" IsVisible="False">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="StartAnimation" NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image x:Name="buttonWithoutShadow" Source="buttonwithoutshadow" VerticalOptions="Start" IsVisible="False"/>
         
 
-        <StackLayout x:Name="inputStack">
+        <StackLayout x:Name="inputStack" VerticalOptions="Start">
             <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
                 <Entry x:Name="email" Placeholder="abc@gmail.com"            
                         Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                        TextColor="#aeaeae" FontSize="16" Focused="EntryFocused" Unfocused="EntryUnfocused"
+                        TextColor="#aeaeae" FontSize="16"
                         HorizontalTextAlignment="Center"/>
             </Border>
 
             <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-                <Entry x:Name="password" Placeholder="••••••" Focused="EntryFocused"
+                <Entry x:Name="password" Placeholder="••••••"
                     Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                    TextColor="#aeaeae" FontSize="16" IsPassword="True" Unfocused="EntryUnfocused"
+                    TextColor="#aeaeae" FontSize="16" IsPassword="True"
                     HorizontalTextAlignment="Center"/>
             </Border>
 
@@ -60,5 +64,5 @@
                 </Label.FormattedText>
             </Label>
         </StackLayout>
-    </AbsoluteLayout>
+    </Grid>
 </ContentPage>
