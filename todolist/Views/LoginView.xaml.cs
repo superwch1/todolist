@@ -37,13 +37,13 @@ public partial class LoginView : ContentPage
         passwordBorder.Margin = new Thickness() { Bottom = 20 };
 
         button.WidthRequest = width * 0.8;
-        clickLabel.WidthRequest = width * 0.8;
+        //clickLabel.WidthRequest = width * 0.8;
 
         buttonWithShadow.WidthRequest = width * 0.8;
         buttonWithoutShadow.WidthRequest = width * 0.8;
 
         //input stack needs to be visible in order to get its height
-        inputStack.Margin = new Thickness() { Left = 1000 };
+        inputStack.Margin = new Thickness() { Left = 4000 };
 
         //it needs to be true otherwise the option will be placed down a little bit in IOS
         absoluteLayout.IgnoreSafeArea = true;
@@ -69,11 +69,11 @@ public partial class LoginView : ContentPage
         }
         AnimationStarted = true;
 
-        clickLabel.IsVisible = false;
-        buttonInCenter.IsVisible = false;
-
+        //clickLabel.IsVisible = false;
         var firstbuttonWithShadowY = DisplayHeight / 2 - (DisplayWidth * 0.8) * 1.1159 / 2; 
-        var heightDistance = buttonWithShadow.Height * (1 - 0.8961);
+        var heightDistance = buttonInCenter.Height * (1 - 0.8961);
+
+        buttonInCenter.IsVisible = false;
         buttonWithShadow.IsVisible = false;
 
         absoluteLayout.VerticalOptions = LayoutOptions.Start;
@@ -81,28 +81,29 @@ public partial class LoginView : ContentPage
         buttonWithoutShadow.Margin = new Thickness() { Top = firstbuttonWithShadowY + heightDistance };
         buttonWithoutShadow.IsVisible = true;
 
-        await Task.Delay(750);
+        await Task.Delay(400);
 
         buttonWithoutShadow.IsVisible = false;
 
         buttonWithShadow.Margin = new Thickness() { Top = firstbuttonWithShadowY };
         buttonWithShadow.IsVisible = true;
 
-        await Task.Delay(750);
+        await Task.Delay(400);
 
         buttonWithShadow.IsVisible = false;
 
-        var secondButtonWithShadowY = (DisplayHeight - (DisplayWidth * 0.8) * 1.1159 - inputStack.Height - 40) / 2;
+        var secondButtonWithShadowY = (DisplayHeight - (DisplayWidth * 0.8) * 1.1159 - inputStack.Height - heightDistance - 30) / 2;
         buttonWithShadow.Margin = new Thickness() { Top = secondButtonWithShadowY };
         buttonWithShadow.IsVisible = true;
 
-        inputStack.Margin = new Thickness() { Top = secondButtonWithShadowY + (DisplayWidth * 0.8) * 1.1159 + 40 };  
+        inputStack.Margin = new Thickness() { Top = secondButtonWithShadowY + (DisplayWidth * 0.8) * 1.1159 + 30 };  
 
         await Task.Delay(750);
 
         buttonWithShadow.IsVisible = false;
 
         buttonWithoutShadow.Margin = new Thickness() { Top = secondButtonWithShadowY + heightDistance };
+        inputStack.Margin = new Thickness() { Top = secondButtonWithShadowY + (DisplayWidth * 0.8) * 1.1159 + heightDistance + 30 };
         buttonWithoutShadow.IsVisible = true;
     }
 
