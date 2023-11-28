@@ -3,48 +3,62 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Login"
              x:Class="todolist.Views.LoginView">
-    <StackLayout x:Name="stack" VerticalOptions="Center" HorizontalOptions="Center">
-        <Image x:Name="icon" Source="icon"/>
-        <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-            <Entry x:Name="email" Placeholder="abc@gmail.com"            
-                    Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                    TextColor="#aeaeae" FontSize="16"
+    <AbsoluteLayout x:Name="absoluteLayout">
+
+        <Label x:Name="clickLabel" Text="Click ME :)" HorizontalTextAlignment="End" FontSize="22"/>
+
+        <Image x:Name="firstButtonWithShadow" Source="buttonwithshadow">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="StartAnimation" NumberOfTapsRequired="1"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Image x:Name="firstButtonWithoutShadow" Source="buttonwithoutshadow" IsVisible="False"/>
+        <Image x:Name="secondButtonWithShadow" Source="buttonwithshadow" IsVisible="False"/>
+        <Image x:Name="secondButtonWithoutShadow" Source="buttonwithoutshadow" IsVisible="False"/>
+        
+
+        <StackLayout x:Name="inputStack">
+            <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+                <Entry x:Name="email" Placeholder="abc@gmail.com"            
+                        Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                        TextColor="#aeaeae" FontSize="16" Focused="EntryFocused" Unfocused="EntryUnfocused"
+                        HorizontalTextAlignment="Center"/>
+            </Border>
+
+            <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+                <Entry x:Name="password" Placeholder="••••••" Focused="EntryFocused"
+                    Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                    TextColor="#aeaeae" FontSize="16" IsPassword="True" Unfocused="EntryUnfocused"
                     HorizontalTextAlignment="Center"/>
-        </Border>
+            </Border>
 
-        <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-            <Entry x:Name="password" Placeholder="••••••" 
-                Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                HorizontalTextAlignment="Center"/>
-        </Border>
+            <Button x:Name="button" Text="GO" BackgroundColor="#57472a" TextColor="#ffffff"
+                    FontAttributes="Bold" FontSize="18"
+                    Clicked="Login"/>
 
-        <Button x:Name="button" Text="GO" BackgroundColor="#57472a" TextColor="#ffffff"
-                FontAttributes="Bold" FontSize="18"
-                Clicked="Login"/>
+            <Label Margin="0, 15, 0, 0" HorizontalOptions="End">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ForgetPassword" NumberOfTapsRequired="1"/>
+                </Label.GestureRecognizers>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Forget password?" FontAttributes="Italic" TextColor="Blue" 
+                            FontSize="18" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
-        <Label Margin="0, 15, 0, 0" HorizontalOptions="End">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="ForgetPassword" NumberOfTapsRequired="1"/>
-            </Label.GestureRecognizers>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Forget password?" FontAttributes="Italic" TextColor="Blue" 
-                          FontSize="18" />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-
-        <Label Margin="0, 15, 0, 0" HorizontalOptions="End">              
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Tapped="RegisterAccount" NumberOfTapsRequired="1"/>
-            </Label.GestureRecognizers>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Do not have an account" TextColor="Blue" 
-                          FontSize="18" />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+            <Label Margin="0, 15, 0, 0" HorizontalOptions="End">              
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="RegisterAccount" NumberOfTapsRequired="1"/>
+                </Label.GestureRecognizers>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Do not have an account" TextColor="Blue" 
+                            FontSize="18" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>
