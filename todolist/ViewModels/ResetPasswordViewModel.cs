@@ -1,6 +1,4 @@
 using System.Net;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.SignalR.Client;
 
 namespace todolist.ViewModels
 {

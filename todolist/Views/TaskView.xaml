@@ -2,9 +2,28 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:todolist.Models"
+             Shell.NavBarIsVisible="False"
              x:Class="todolist.Views.TaskView">
     <Grid>
-        <ScrollView x:Name="scrollview">
+        <SwipeView Threshold="60" Margin="0, 5, 0, 0"
+                   HeightRequest="40" VerticalOptions="Start">
+            <SwipeView.LeftItems >
+                <SwipeItems Mode="Execute" SwipeBehaviorOnInvoked="Close">
+                    <SwipeItem Invoked="MinusMonth" BackgroundColor="#F3F4E8"/>
+                </SwipeItems>
+            </SwipeView.LeftItems>
+            <SwipeView.RightItems>
+                <SwipeItems Mode="Execute" SwipeBehaviorOnInvoked="Close">
+                    <SwipeItem Invoked="AddMonth" BackgroundColor="#F3F4E8" />
+                </SwipeItems>
+            </SwipeView.RightItems>
+            <Frame WidthRequest="160" CornerRadius="10" Padding="5" BorderColor="#57472A"
+                   BackgroundColor="#FEFFF5">
+                <Label x:Name="selectedPeriod" HorizontalOptions="Center" FontSize="20"/>
+            </Frame>
+        </SwipeView>
+
+        <ScrollView x:Name="scrollview" Margin="0, 45, 0, 0">
             <StackLayout x:Name="collectionView">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskModel">
@@ -34,7 +53,7 @@
                                     <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
                                 </VerticalStackLayout.GestureRecognizers>
                                 <Frame BackgroundColor="#ffef7c" BorderColor="#ffef7c" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="0, 5, 0, 0" CornerRadius="10">
-                                    <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd MM yyyy}'}" FontSize="16"/>
+                                    <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd-MM-yyyy}'}" FontSize="16"/>
                                 </Frame>
                                 <Label Text="{Binding Content}" FontSize="16" Margin="0, 10, 0, 0"/>
                             </VerticalStackLayout>

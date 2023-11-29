@@ -16,6 +16,8 @@ namespace todolist.ViewModels
                 return;
             }
 
+            await ToastBar.DisplayToast("Logging in");
+
             var loginResponse = await WebServer.Login(email.Text, password.Text);
             if (loginResponse.Item2 == HttpStatusCode.ExpectationFailed)
             {
@@ -31,7 +33,6 @@ namespace todolist.ViewModels
 
             if (loginResponse.Item2 == HttpStatusCode.OK)
             {
-                await ToastBar.DisplayToast("Logging in");
                 await UserDatabase.UpdateItemAsync(new UserModel() { Id = 1, JwtToken = loginResponse.Item1 });
 
                 HubConnection? connection = await SignalR.BuildHubConnection(loginResponse.Item1);

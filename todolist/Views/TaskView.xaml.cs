@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Alerts;
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
 
@@ -24,8 +25,7 @@ public partial class TaskView : ContentPage
 		Connection = connection;
 		ViewModel = new TaskViewModel();
 		SelectedDateTime = DateTime.Now;
-
-		Title = intType == 0 ? "My Task" : "Follow-up Task";
+		selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
 
 		tasks = tasks
 			.Where(x => x.IntType == IntType)
@@ -41,6 +41,26 @@ public partial class TaskView : ContentPage
 		LifeCycleMethods.DeactivatedActions.Add(DeactivatedFunction);	
 		InitializeSignalR();
     }
+
+	public async void AddMonth(object seneder, EventArgs args)
+	{
+		SelectedDateTime = SelectedDateTime.AddMonths(1);
+		selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+
+		ViewModel.DeleteAllTask(Tasks, scrollview);
+		await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);
+	}
+
+	public async void MinusMonth(object seneder, EventArgs args)
+	{
+		SelectedDateTime = SelectedDateTime.AddMonths(-1);
+		selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+
+		ViewModel.DeleteAllTask(Tasks, scrollview);
+		await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);
+	}
+
+	
 
 
 	async void Logout(object sender, TappedEventArgs args)

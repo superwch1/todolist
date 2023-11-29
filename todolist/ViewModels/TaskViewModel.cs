@@ -37,6 +37,37 @@ namespace todolist.ViewModels
 		}
 
 
+		public void DeleteAllTask(ObservableCollection<TaskModel> tasks, ScrollView scrollview)
+		{
+			tasks.Clear();
+			(scrollview as IView).InvalidateMeasure();
+		}
+
+
+		public async Task ReadTaskFromSelectedPeriod(ObservableCollection<TaskModel> tasks, ScrollView scrollview,
+			DateTime selectedDateTime, string jwtToken, int intType)
+		{
+			var taskResponse = await WebServer.ReadTaskFromTime(selectedDateTime.Year, selectedDateTime.Month, jwtToken);
+
+			if (taskResponse.Item2 != HttpStatusCode.OK)
+			{
+				await ToastBar.DisplayToast("Cannot connect to server");
+				return;
+			}
+			
+			var tasksFromServer = taskResponse.Item1
+				.Where(x => x.IntType == intType)
+				.OrderBy(x => x.IntSymbol)
+				.ThenBy(x => x.DueDate)
+				.ToList();
+
+			foreach(var t in tasksFromServer)
+			{
+				tasks.Add(t);
+			}			
+		}
+
+
 		public async Task Logout()
 		{
 			//loop for two times for two page in shell
@@ -93,6 +124,7 @@ namespace todolist.ViewModels
 
 			if (taskResponse.Item2 != HttpStatusCode.OK)
 			{
+				await ToastBar.DisplayToast("Cannot connect to server");
 				return;
 			}
 			var tasksFromServer = taskResponse.Item1.Where(x => x.IntType == intType).ToList();
