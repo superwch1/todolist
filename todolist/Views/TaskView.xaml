@@ -9,12 +9,12 @@
                    HeightRequest="40" VerticalOptions="Start">
             <SwipeView.LeftItems >
                 <SwipeItems Mode="Execute" SwipeBehaviorOnInvoked="Close">
-                    <SwipeItem Invoked="MinusMonth" BackgroundColor="#F3F4E8"/>
+                    <SwipeItem Invoked="AddMonth" BackgroundColor="#F3F4E8"/>
                 </SwipeItems>
             </SwipeView.LeftItems>
             <SwipeView.RightItems>
                 <SwipeItems Mode="Execute" SwipeBehaviorOnInvoked="Close">
-                    <SwipeItem Invoked="AddMonth" BackgroundColor="#F3F4E8" />
+                    <SwipeItem Invoked="MinusMonth" BackgroundColor="#F3F4E8" />
                 </SwipeItems>
             </SwipeView.RightItems>
             <Frame WidthRequest="160" CornerRadius="10" Padding="5" BorderColor="#57472A"
