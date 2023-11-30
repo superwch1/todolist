@@ -21,7 +21,10 @@ public partial class LoginView : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
 
         ViewModel = new LoginViewModel();
+
+        email.ReturnCommand = new Command(() => password.Focus());
         password.ReturnCommand = new Command(() => Login(null, null));
+        password.ReturnType = ReturnType.Go;
     }
 
 

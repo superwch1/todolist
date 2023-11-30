@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using CommunityToolkit.Maui.Alerts;
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
 
@@ -44,20 +43,27 @@ public partial class TaskView : ContentPage
 
 	public async void AddMonth(object seneder, EventArgs args)
 	{
-		SelectedDateTime = SelectedDateTime.AddMonths(1);
-		selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+        await IsLoading.RunMethod(async () =>
+		{
+			SelectedDateTime = SelectedDateTime.AddMonths(-1);
+			selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
 
-		ViewModel.DeleteAllTask(Tasks, scrollview);
-		await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);
+			ViewModel.DeleteAllTask(Tasks, scrollview);
+			await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);
+		});
 	}
 
 	public async void MinusMonth(object seneder, EventArgs args)
 	{
-		SelectedDateTime = SelectedDateTime.AddMonths(-1);
-		selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+		await IsLoading.RunMethod(async () =>
+		{
+			SelectedDateTime = SelectedDateTime.AddMonths(1);
+			selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
 
-		ViewModel.DeleteAllTask(Tasks, scrollview);
-		await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);
+			ViewModel.DeleteAllTask(Tasks, scrollview);
+			await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);
+		});
+		
 	}
 
 	

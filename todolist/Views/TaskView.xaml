@@ -5,7 +5,7 @@
              Shell.NavBarIsVisible="False"
              x:Class="todolist.Views.TaskView">
     <Grid>
-        <SwipeView Threshold="60" Margin="0, 5, 0, 0"
+        <SwipeView Threshold="60" Margin="0, 20, 0, 0"
                    HeightRequest="40" VerticalOptions="Start">
             <SwipeView.LeftItems >
                 <SwipeItems Mode="Execute" SwipeBehaviorOnInvoked="Close">
@@ -23,7 +23,7 @@
             </Frame>
         </SwipeView>
 
-        <ScrollView x:Name="scrollview" Margin="0, 45, 0, 0">
+        <ScrollView x:Name="scrollview" Margin="0, 60, 0, 0">
             <StackLayout x:Name="collectionView">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskModel">
