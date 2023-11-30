@@ -9,8 +9,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationTitle>todolist</ApplicationTitle>
-    <ApplicationId>com.companyname.todolist</ApplicationId>
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationId>com.wch.todolist.ios</ApplicationId>
+    <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
