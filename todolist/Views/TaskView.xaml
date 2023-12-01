@@ -23,12 +23,12 @@
             </Frame>
         </SwipeView>
 
-        <ScrollView x:Name="scrollview" Margin="0, 60, 0, 0">
+        <ScrollView x:Name="scrollview" Margin="0, 80, 0, 0">
             <StackLayout x:Name="collectionView">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskModel">
-                    <StackLayout Margin="25, 0, 25, 0" HorizontalOptions="FillAndExpand">                                
-                        <Frame HeightRequest="45" CornerRadius="10" Margin="0, 20, 0, 0" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
+                    <StackLayout Margin="25, 0, 25, 20" HorizontalOptions="FillAndExpand">                                
+                        <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
                             BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />

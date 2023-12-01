@@ -13,7 +13,7 @@ public partial class TaskView : ContentPage
 	public TaskViewModel ViewModel { get; }
 	public DateTime SelectedDateTime { get; set; }
 
-	//remember to remove twice for functions in lifecycle
+	
 	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, 
 		HubConnection connection)
 	{
@@ -22,8 +22,8 @@ public partial class TaskView : ContentPage
 		IntType = intType;
 		JwtToken = jwtToken;
 		Connection = connection;
-		ViewModel = new TaskViewModel();
 		SelectedDateTime = DateTime.Now;
+		ViewModel = new TaskViewModel(SelectedDateTime);
 		selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
 
 		tasks = tasks
@@ -47,6 +47,7 @@ public partial class TaskView : ContentPage
 		{
 			SelectedDateTime = SelectedDateTime.AddMonths(-1);
 			selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+			ViewModel.SelectedDateTime = SelectedDateTime;
 
 			ViewModel.DeleteAllTask(Tasks, scrollview);
 			await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);
@@ -59,6 +60,7 @@ public partial class TaskView : ContentPage
 		{
 			SelectedDateTime = SelectedDateTime.AddMonths(1);
 			selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+			ViewModel.SelectedDateTime = SelectedDateTime;
 
 			ViewModel.DeleteAllTask(Tasks, scrollview);
 			await ViewModel.ReadTaskFromSelectedPeriod(Tasks, scrollview, SelectedDateTime, JwtToken, IntType);

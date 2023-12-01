@@ -35,7 +35,7 @@
                 <Frame x:Name="contentFrame" Padding="10, 5, 10, 5" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="10">
                     <!-- VerticalOptions need to be start, or else when the content more than 2 line, IOS will crash -->
                     <Editor x:Name="content" FontSize="16" VerticalOptions="Start" VerticalTextAlignment="Start"
-                            MaxLength="250" Focused="EditorFocused" Unfocused="EditorUnfocused" />
+                            Focused="EditorFocused" Unfocused="EditorUnfocused" />
                 </Frame>
             </StackLayout>
 
@@ -45,7 +45,7 @@
             </HorizontalStackLayout>  
 
             <HorizontalStackLayout Margin="0, 20, 0, 0" HorizontalOptions="End">
-                <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius="10" WidthRequest="85" 
+                <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius ="10" WidthRequest="85" 
                         BackgroundColor="#ffef7c" BorderWidth="1"  TextColor="#57472a" FontSize="16"/>
                 <Button x:Name="cancelOrDelete" BorderColor="#57472a" BorderWidth="1" CornerRadius="10" WidthRequest="85"
                         Margin="15, 0, 0, 0" BackgroundColor="#ffef7c" TextColor="#57472a" FontSize="16"/>

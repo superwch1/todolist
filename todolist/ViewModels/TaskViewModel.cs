@@ -4,6 +4,12 @@ namespace todolist.ViewModels
 {
 	public class TaskViewModel
 	{
+		public DateTime SelectedDateTime { get; set; }
+		public TaskViewModel(DateTime selectedDateTime)
+		{
+			SelectedDateTime = selectedDateTime;
+		}
+
 		public void ShowOrHideContent(ObservableCollection<TaskModel> tasks, 
 			ScrollView scrollview, TaskModel selectedTask)
 		{
@@ -23,7 +29,7 @@ namespace todolist.ViewModels
 		public void DeleteTask(ObservableCollection<TaskModel> tasks, ScrollView scrollview, int id)
 		{
 			//since the method is invoked in SignalR, it need to use MainThread for browsing UI
-			MainThread.BeginInvokeOnMainThread(() =>
+			MainThread.BeginInvokeOnMainThread(async () =>
 			{
 				var task = tasks.FirstOrDefault(x => x.Id == id);
 				if (task != null)
@@ -86,12 +92,13 @@ namespace todolist.ViewModels
 			int id, int intType, string topic, string content, string dueDate, int intSymbol)
 		{
 			MainThread.BeginInvokeOnMainThread(() =>
-			{				
-				if (intType == viewIntType)
-				{
-					var newTask = new TaskModel() { Id = id, IntType = intType, Topic = topic, 
-						Content = content, DueDate = Convert.ToDateTime(dueDate), IntSymbol = intSymbol };
+			{		
+				var newTask = new TaskModel() { Id = id, IntType = intType, Topic = topic, 
+					Content = content, DueDate = Convert.ToDateTime(dueDate), IntSymbol = intSymbol };
 
+				if (intType == viewIntType && newTask.DueDate.Year == SelectedDateTime.Year &&
+						newTask.DueDate.Month == SelectedDateTime.Month)
+				{				
 					List<TaskModel> tempTasks = new List<TaskModel>();
 					tempTasks = tasks.ToList();
 

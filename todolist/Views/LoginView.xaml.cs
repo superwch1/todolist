@@ -23,6 +23,8 @@ public partial class LoginView : ContentPage
         ViewModel = new LoginViewModel();
 
         email.ReturnCommand = new Command(() => password.Focus());
+        email.ReturnType = ReturnType.Next;
+
         password.ReturnCommand = new Command(() => Login(null, null));
         password.ReturnType = ReturnType.Go;
     }
