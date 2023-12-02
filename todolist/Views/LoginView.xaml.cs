@@ -11,6 +11,9 @@ public partial class LoginView : ContentPage
     public bool AnimationStarted { get; set; } = false;
     public bool AnimationFinished { get; set; } = false;
     public bool IconPressed { get; set; } = true;
+    public double TopYPosition { get; set; }
+    public double MiddleYPosition { get; set; }
+    public double DistanceBetweenIconAndStack { get; } = 30;
 
 
 	public LoginView()
@@ -36,18 +39,16 @@ public partial class LoginView : ContentPage
 
         absoluteLayout.MaximumWidthRequest = width * 0.8;
 
-        email.WidthRequest = width * 0.8;
+        email.WidthRequest = width * 0.8 - 40; //for padding
         emailBorder.WidthRequest = width * 0.8;
         emailBorder.Margin = new Thickness() { Bottom = 20 };
 
-        password.WidthRequest = width * 0.8;
+        password.WidthRequest = width * 0.8 - 40; //for padding
         passwordBorder.WidthRequest = width * 0.8;
         passwordBorder.Margin = new Thickness() { Bottom = 20 };
 
-        loginButton.WidthRequest = width * 0.8;
+        loginButton.WidthRequest = width * 0.6;
 
-        
-        //clickLabel.WidthRequest = width * 0.8;
 
         IconWidth = width * 0.8;
         iconWithShadow.WidthRequest = IconWidth;
@@ -55,7 +56,7 @@ public partial class LoginView : ContentPage
         shadow.WidthRequest = IconWidth * 0.913;
 
         //input stack needs to be visible in order to get its height
-        inputStack.Margin = new Thickness() { Left = 4000 };
+        inputStack.Opacity = 0;
 
         //it needs to be true otherwise the option will be placed down a little bit in IOS
         absoluteLayout.IgnoreSafeArea = true;
@@ -82,12 +83,12 @@ public partial class LoginView : ContentPage
         await IsLoading.RunMethod(async() => {
             if (IconPressed == true)
             {
-                await iconWithoutShadow.TranslateTo(0, 0, 350);
+                await iconWithoutShadow.TranslateTo(0, TopYPosition - MiddleYPosition, 350);
                 IconPressed = false;
             }
             else 
             {
-                await iconWithoutShadow.TranslateTo(0, IconWidth * 0.1, 350);
+                await iconWithoutShadow.TranslateTo(0, TopYPosition - MiddleYPosition + IconWidth * 0.1, 350);
                 IconPressed = true;
             }
         });
@@ -103,14 +104,14 @@ public partial class LoginView : ContentPage
         AnimationStarted = true;
 
         //clickLabel.IsVisible = false;
-        var centerYPosition = DisplayHeight / 2 - IconWidth * 1.1159 / 2; 
+        MiddleYPosition = DisplayHeight / 2 - IconWidth * 1.1159 / 2; 
         var heightDistance = IconWidth * 0.1;
 
         iconWithShadow.IsVisible = false;
 
         absoluteLayout.VerticalOptions = LayoutOptions.Start;
-        iconWithoutShadow.Margin = new Thickness() { Top = centerYPosition };
-        shadow.Margin = new Thickness() { Top = centerYPosition + IconWidth * 0.18 };
+        iconWithoutShadow.Margin = new Thickness() { Top = MiddleYPosition };
+        shadow.Margin = new Thickness() { Top = MiddleYPosition + IconWidth * 0.18 };
         
         iconWithoutShadow.IsVisible = true;
         shadow.IsVisible = true;
@@ -119,28 +120,27 @@ public partial class LoginView : ContentPage
 
         await Task.Delay(200);
 
-        await iconWithoutShadow.TranslateTo(0, 0, 350);
+        TopYPosition = (DisplayHeight - IconWidth * 1.1159 - inputStack.Height - heightDistance - DistanceBetweenIconAndStack) / 2;
+
+        inputStack.Margin = new Thickness() { Top = TopYPosition + IconWidth * 1.1159 + DistanceBetweenIconAndStack }; 
+
+        var task1 = iconWithoutShadow.TranslateTo(0, TopYPosition - MiddleYPosition, 550);
+        var task2 = shadow.TranslateTo(0, TopYPosition - MiddleYPosition, 550);
+        var task3 = inputStack.FadeTo(1, 550);
+
+        await Task.WhenAll(task1, task2, task3); 
 
         await Task.Delay(200);
-        
-        var topYPosition = (DisplayHeight - IconWidth * 1.1159 - inputStack.Height - heightDistance - 30) / 2;
 
-        iconWithoutShadow.Margin = new Thickness() { Top = topYPosition };
-        shadow.Margin = new Thickness() { Top = topYPosition + IconWidth * 0.18 };
-        inputStack.Margin = new Thickness() { Top = topYPosition + IconWidth * 1.1159 + 30 };  
+        var task4 = iconWithoutShadow.TranslateTo(0, TopYPosition - MiddleYPosition + IconWidth * 0.1, 350);
+        var task5 = inputStack.TranslateTo(0, IconWidth * 0.1, 350);
 
-        await Task.Delay(200);
-
-        var task1 = iconWithoutShadow.TranslateTo(0, IconWidth * 0.1, 350);
-        var task2 = inputStack.TranslateTo(0, IconWidth * 0.1, 350);
-
-        await Task.WhenAll(task1, task2);
-
+        await Task.WhenAll(task4, task5);
 
         //position of keyboard will not be auto adjusted after the Translation in android 
         //registeraccount button no reponse after translation in IOS
         await inputStack.TranslateTo(0, 0, 0);
-        inputStack.Margin = new Thickness() { Top = topYPosition + IconWidth * 1.1159 + 30 + IconWidth * 0.1 }; 
+        inputStack.Margin = new Thickness() { Top = TopYPosition + IconWidth * 1.1159 + DistanceBetweenIconAndStack + IconWidth * 0.1 }; 
         AnimationFinished  = true;
     }
 

@@ -5,8 +5,6 @@
              x:Class="todolist.Views.LoginView">
     <Grid x:Name="absoluteLayout" VerticalOptions="Center">
 
-        <!-- <Label x:Name="clickLabel" Text="Click ME :)" HorizontalTextAlignment="End" FontSize="22"/> -->
-
         <Image x:Name="shadow" Source="shadow" VerticalOptions="Start" IsVisible="False" />
 
         <Image x:Name="iconWithShadow" Source="iconwithshadow" VerticalOptions="Center">
@@ -23,46 +21,31 @@
         
 
         <StackLayout x:Name="inputStack" VerticalOptions="Start">
-            <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
+            <Border x:Name="emailBorder" Stroke="Black" Padding="20, 5, 20, 5" StrokeShape="RoundRectangle 10">
                 <Entry x:Name="email" Placeholder="abc@gmail.com"            
-                        Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+                        Keyboard="Email"  PlaceholderColor="#aeaeae"
                         TextColor="#aeaeae" FontSize="16" 
-                        IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
-                        HorizontalTextAlignment="Center"/>
+                        IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
             </Border>
 
-            <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-                <Entry x:Name="password" Placeholder="••••••"
-                    Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
+            <Border x:Name="passwordBorder" Stroke="Black" Padding="20, 5, 20, 5" StrokeShape="RoundRectangle 10">
+                <Entry x:Name="password" Placeholder="••••••" 
+                    Keyboard="Plain"  PlaceholderColor="#aeaeae"
                     TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
-                    HorizontalTextAlignment="Center"/>
+                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
             </Border>
 
-            <Button x:Name="loginButton" Text="GO" BackgroundColor="#57472a" TextColor="#ffffff"
-                    FontAttributes="Bold" FontSize="18"
-                    Clicked="Login"/>
+            <Button Margin="0, -20, 0, 0" HorizontalOptions="End" Text="Forget Password?"
+                    TextColor="#3E7CFF" Clicked="ForgetPassword" BackgroundColor="#F3F4E8"
+                    Padding="0" FontSize="14" FontAttributes="Italic"/>
 
-            <Button Margin="0, 10, 0, 0" HorizontalOptions="End" Text="Forget Password?"
-                    TextColor="Blue" Clicked="ForgetPassword" BackgroundColor="#F3F4E8"
-                    Padding="0" FontSize="18" FontAttributes="Italic"/>
+            <Button x:Name="loginButton" Margin="0, 40, 0, 0" Text="Log in" BackgroundColor="#57472a" TextColor="#ffffff"
+                    FontAttributes="Bold" FontSize="20" Clicked="Login" Padding="18"
+                    CornerRadius="15"/>
 
-            <Button Margin="0" HorizontalOptions="End" Text="Do not have an account"
-                    TextColor="Blue" Clicked="RegisterAccount" BackgroundColor="#F3F4E8"
-                    Padding="0" FontSize="18"/>
-
-
-            <!-- <Label Margin="0, 15, 0, 0" HorizontalOptions="End">              
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="RegisterAccount" NumberOfTapsRequired="1"/>
-                </Label.GestureRecognizers>
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="Do not have an account" TextColor="Blue" 
-                            FontSize="18" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label> -->
+            <Button Margin="0" HorizontalOptions="Center" Text="Create new account"
+                    TextColor="#57472a" Clicked="RegisterAccount" BackgroundColor="#F3F4E8"
+                    Padding="0" FontSize="14"/>
         </StackLayout>
     </Grid>
 </ContentPage>
