@@ -49,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -59,18 +58,24 @@
     <Compile Update="Shells\TaskShell.xaml.cs">
       <DependentUpon>TaskShell.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\EditTaskView.xaml.cs">
-      <DependentUpon>EditTaskView.xaml</DependentUpon>
+    <Compile Update="Views\TaskViews\PopUpView.xaml.cs">
+      <DependentUpon>PopUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TaskViews\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <MauiXaml Update="Shells\AccountShell.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\EditTaskView.xaml">
+    <MauiXaml Update="Views\TaskViews\PopUpView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ForgetPassword.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\TaskViews\HomeView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\RegisterAccount.xaml">

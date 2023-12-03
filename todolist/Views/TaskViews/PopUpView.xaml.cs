@@ -5,18 +5,18 @@ using Mopups.Services;
 
 namespace todolist.Views;
 
-public partial class EditTaskView : PopupPage
+public partial class PopUpView : PopupPage
 {
 	public HubConnection Connection { get; set; }
-	public EditTaskViewModel ViewModel { get; set; }
+	public PopUpViewViewModel ViewModel { get; set; }
 	TaskModel? Model { get; set; }
 
-	public EditTaskView(TaskModel model, HubConnection connection, int intType)
+	public PopUpView(TaskModel model, HubConnection connection, int intType)
 	{
 		InitializeComponent();
 
 		Connection = connection;
-		ViewModel = new EditTaskViewModel();
+		ViewModel = new PopUpViewModel();
 		Model = model;
 		
 		intTypePicker.SelectedIndex = intType == 0 ? 0 : 1;
