@@ -7,10 +7,10 @@
     Title="todolist">
 
     <TabBar>
-        <Tab Icon="mytask" Title="My Task">
+        <Tab Icon="mytask" Title="My Task" Route="main">
             <ShellContent x:Name="myTask"/>
         </Tab>
-        <Tab Icon="followuptask" Title="FollowUp Task">
+        <Tab Icon="followuptask" Title="FollowUp Task" Route="ABCD">
             <ShellContent x:Name="followUpTask"/>
         </Tab>
     </TabBar>

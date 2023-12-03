@@ -70,16 +70,6 @@ public partial class TaskView : ContentPage
 		
 	}
 
-	
-
-
-	async void Logout(object sender, TappedEventArgs args)
-	{	
-		await IsLoading.RunMethod(async () => {
-			await TerminateSignalR();
-			await ViewModel.Logout();
-		});
-	}
 
 	void DeleteTask(int id)
 	{
@@ -110,10 +100,11 @@ public partial class TaskView : ContentPage
 #if ANDROID
 		height += 56; //height of shell bar
 #elif IOS
-		height -= On<iOS>().SafeInsect().Top;
+		height -= On<iOS>().SafeAreaInsets().Top;
 #endif
 
-		await MopupService.Instance.PushAsync(new MenuView(width, height, 80));	
+		//80 - Margin top 
+		await MopupService.Instance.PushAsync(new MenuView(width, height, 80, Connection));	
 	}
 
 
