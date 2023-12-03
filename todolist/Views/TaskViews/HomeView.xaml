@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
+<TabbedPage
     x:Class="todolist.Views.TaskViews.HomeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Shell.FlyoutBehavior="Disabled"
-    Title="todolist">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <TabBar>
-        <Tab Icon="mytask" Title="My Task" Route="main">
-            <ShellContent x:Name="myTask"/>
-        </Tab>
-        <Tab Icon="followuptask" Title="FollowUp Task" Route="ABCD">
-            <ShellContent x:Name="followUpTask"/>
-        </Tab>
-    </TabBar>
-</Shell>
+</TabbedPage>
 

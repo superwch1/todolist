@@ -19,7 +19,6 @@ namespace todolist.ViewModels
                 await connection.InvokeAsync("CreateTask", 
                     intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
                 await MopupService.Instance.PopAsync();
-                await ToastBar.DisplayToast("Created");
             }
             catch
             {
@@ -34,7 +33,6 @@ namespace todolist.ViewModels
             {
                 await connection.InvokeAsync("DeleteTask", id);
                 await MopupService.Instance.PopAsync();
-                await ToastBar.DisplayToast("Deleted");
             }
             catch
             {
@@ -57,7 +55,6 @@ namespace todolist.ViewModels
                 await connection.InvokeAsync("UpdateTask", 
                     id, intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
                 await MopupService.Instance.PopAsync();
-                await ToastBar.DisplayToast("Updated");
             }
             catch
             {

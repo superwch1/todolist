@@ -7,7 +7,6 @@ namespace todolist.Views;
 
 public partial class MenuView : PopupPage
 {
-
 	public double DeviceWidth { get; set; }
 	public double DeviceHeight { get; set; }
 	public HubConnection Connection { get; set; }
@@ -27,8 +26,10 @@ public partial class MenuView : PopupPage
 
 		search.ReturnType = ReturnType.Go;
 		search.ReturnCommand = new Command(async () => {
-			await MopupService.Instance.PopAsync();
-			await Shell.Current.GoToAsync("////login");
+			var task2 = MopupService.Instance.PopAsync();
+			var task1 = Navigation.PushAsync(new ForgetPasswordView());
+
+			await Task.WhenAll(task1, task2);
 		});
 	}
 

@@ -422,7 +422,7 @@
         <Setter Property="BarBackgroundColor" Value="#FEFFF5" />
         <Setter Property="BarTextColor" Value="Black" />
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
-        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+        <Setter Property="SelectedTabColor" Value="#57472A" />
     </Style>
 
 </ResourceDictionary>

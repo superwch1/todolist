@@ -19,6 +19,8 @@ public partial class TaskView : ContentPage
 	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, 
 		HubConnection connection)
 	{
+		Microsoft.Maui.Controls.NavigationPage.SetHasNavigationBar(this, false);
+
 		InitializeComponent();
 
 		IntType = intType;
