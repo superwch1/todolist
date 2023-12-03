@@ -60,7 +60,7 @@ public partial class App : Application
                 break;
             
             case "AppShell":
-                MainPage = new NavigationPage(new HomeView(tasks, jwtToken, connection));
+                MainPage = new HomeView(tasks, jwtToken, connection);
                 break;
         }
     }

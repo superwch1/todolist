@@ -8,26 +8,29 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="0, 20, 0, 20" />
         </Border.StrokeShape>
-        <StackLayout>
-            <HorizontalStackLayout>
-                <Image Source="len.png" HeightRequest="20"/>
-                <Label Margin="10, 0, 0, 0" Text="Search" FontSize="18" />
-            </HorizontalStackLayout>
+        <Grid>
+            <StackLayout>
+                <HorizontalStackLayout>
+                    <Image Source="len.png" HeightRequest="20"/>
+                    <Label Margin="10, 0, 0, 0" Text="Search" FontSize="18" />
+                </HorizontalStackLayout>
 
-            <Border x:Name="searchBorder" Stroke="Black" Padding="15, 0" 
-                    Margin="0, 10, 0, 0" StrokeShape="RoundRectangle 20">
-                <Entry x:Name="search" Placeholder="looking for..."            
-                        Keyboard="Plain"  PlaceholderColor="#aeaeae"
-                        TextColor="#aeaeae" FontSize="16" />
-            </Border>
+                <Border x:Name="searchBorder" Stroke="Black" Padding="15, 0" 
+                        Margin="0, 10, 0, 0" StrokeShape="RoundRectangle 20">
+                    <Entry x:Name="search" Placeholder="looking for..."            
+                            Keyboard="Plain"  PlaceholderColor="#aeaeae"
+                            TextColor="#aeaeae" FontSize="16" />
+                </Border>
 
-            <HorizontalStackLayout Margin="0, 30, 0, 0">
-                <HorizontalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
-                </HorizontalStackLayout.GestureRecognizers>
-                <Image Source="logout.png" HeightRequest="20"/>
-                <Label Margin="10, 0, 0, 0" Text="Log out" FontSize="18" />
-            </HorizontalStackLayout>
-        </StackLayout>
+                <HorizontalStackLayout Margin="0, 30, 0, 0">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Image Source="logout.png" HeightRequest="20"/>
+                    <Label Margin="10, 0, 0, 0" Text="Log out" FontSize="18" />
+                </HorizontalStackLayout>
+            </StackLayout>
+            <Label x:Name="creditLabel" VerticalOptions="End"/>
+        </Grid>
     </Border>
 </mopups:PopupPage>

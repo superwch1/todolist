@@ -9,10 +9,11 @@ public partial class ForgetPasswordView : ContentPage
 		InitializeComponent();
 		SetControlsProperties();
 
-        ViewModel = new ForgetPasswordViewModel(Navigation);
+        ViewModel = new ForgetPasswordViewModel(Navigation);  
 	}
 
-	public void SetControlsProperties()
+
+    public void SetControlsProperties()
     {
         var width = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
         var height = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;

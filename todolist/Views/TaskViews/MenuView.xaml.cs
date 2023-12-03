@@ -25,16 +25,25 @@ public partial class MenuView : PopupPage
 		viewFrame.Margin = new Thickness() { Top = marginTop };
 
 		search.ReturnType = ReturnType.Go;
-		search.ReturnCommand = new Command(async () => {
-			var task2 = MopupService.Instance.PopAsync();
-			var task1 = Navigation.PushAsync(new ForgetPasswordView());
+		search.ReturnCommand = new Command(async () => {			
+			await MopupService.Instance.PopAsync();
+			await Shell.Current.GoToAsync("login"); 
 
-			await Task.WhenAll(task1, task2);
+			//workaround for grey screen in android for setting TabBar invisible 
+			/*
+				protected override void OnSizeAllocated(double width, double height)
+				{
+					base.OnSizeAllocated(width, height);
+					Shell.SetTabBarIsVisible(this, false);
+				}
+			*/
 		});
+
+		creditLabel.Text = "By Fiona C & John W";
 	}
 
 	async void Logout(object sender, TappedEventArgs args)
 	{	
-		await ViewModel.Logout(Connection);
+		await ViewModel.Logout(Connection);	
 	}
 }
