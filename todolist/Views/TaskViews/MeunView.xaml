@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="todolist.Views.MenuView" BackgroundColor="#80000000">
+    <Border x:Name="viewFrame" BackgroundColor="#fefff5" Padding="10, 20"
+           VerticalOptions="Start" HorizontalOptions="Start">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="0, 20, 0, 20" />
+        </Border.StrokeShape>
+        <StackLayout>
+            <HorizontalStackLayout VerticalOptions="Center">
+                <Image Source="len.png" HeightRequest="20"/>
+                <Label Margin="10, 0, 0, 0" Text="Search" FontSize="18" />
+            </HorizontalStackLayout>
+
+            <Border x:Name="searchBorder" Stroke="Black" Padding="10, 0, 10, 0" 
+                    Margin="0, 10, 0, 10" StrokeShape="RoundRectangle 20">
+                <Entry x:Name="search" Placeholder="looking for..."            
+                        Keyboard="Plain"  PlaceholderColor="#aeaeae"
+                        TextColor="#aeaeae" FontSize="16" />
+            </Border>
+        </StackLayout>
+    </Border>
+</mopups:PopupPage>

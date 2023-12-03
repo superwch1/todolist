@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace todolist.Views;
 
@@ -100,19 +102,33 @@ public partial class TaskView : ContentPage
 		ViewModel.ShowOrHideContent(Tasks, scrollview, selectedTask);
     }
 
+	async void OpenMenu(object seender, TappedEventArgs e)
+	{
+		var width = grid.Width;
+		var height = grid.Height;
+
+#if ANDROID
+		height += 56; //height of shell bar
+#elif IOS
+		height -= On<iOS>().SafeInsect().Top;
+#endif
+
+		await MopupService.Instance.PushAsync(new MenuView(width, height, 80));	
+	}
+
 
 	async void EditTask(object sender, TappedEventArgs e)
     {
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
-		await MopupService.Instance.PushAsync(new EditTaskView(selectedTask, Connection, IntType));
+		await MopupService.Instance.PushAsync(new PopUpView(selectedTask, Connection, IntType));
     }
 
 
 	async void CreateTask(object sender, TappedEventArgs e)
     {
-		await MopupService.Instance.PushAsync(new EditTaskView(null, Connection, IntType));
+		await MopupService.Instance.PushAsync(new PopUpView(null, Connection, IntType));
     }
 
 

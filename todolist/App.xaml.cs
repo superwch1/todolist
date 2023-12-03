@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.SignalR.Client;
+using todolist.Views.TaskViews;
 
 namespace todolist;
 
@@ -59,7 +60,7 @@ public partial class App : Application
                 break;
             
             case "AppShell":
-                MainPage = new TaskShell(tasks, jwtToken, connection);
+                MainPage = new HomeView(tasks, jwtToken, connection);
                 break;
         }
     }

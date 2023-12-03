@@ -8,7 +8,7 @@ namespace todolist.Views;
 public partial class PopUpView : PopupPage
 {
 	public HubConnection Connection { get; set; }
-	public PopUpViewViewModel ViewModel { get; set; }
+	public PopUpViewModel ViewModel { get; set; }
 	TaskModel? Model { get; set; }
 
 	public PopUpView(TaskModel model, HubConnection connection, int intType)

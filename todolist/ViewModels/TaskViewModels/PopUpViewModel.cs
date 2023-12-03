@@ -3,7 +3,7 @@ using Mopups.Services;
 
 namespace todolist.ViewModels
 {
-	public class EditTaskViewModel
+	public class PopUpViewModel
 	{
         public async Task CreateTask(HubConnection connection,
             int intType, string topic, string content, DateTime dueDate, int intSymbol)

@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.SignalR.Client;
+using todolist.Views.TaskViews;
 
 namespace todolist.ViewModels
 {
@@ -55,7 +56,7 @@ namespace todolist.ViewModels
 
 			if (taskReponse.Item2 == HttpStatusCode.OK && connection != null)
 			{
-				Application.Current!.MainPage = new TaskShell(taskReponse.Item1, registerResponse.Item1, connection);
+				Application.Current!.MainPage = new HomeView(taskReponse.Item1, registerResponse.Item1, connection);
 			}
 		}
         }

@@ -1,32 +1,14 @@
-namespace todolist.Views;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 
-public partial class HomeView : FlyoutPage
+namespace todolist.Views.TaskViews;
+
+public partial class HomeView : Shell
 {
-	public HomeView()
+	public HomeView(List<TaskModel> tasks, string jwtToken, HubConnection connection)
 	{
 		InitializeComponent();
-
-        Flyout = new ContentPage
-        {
-            Title = "Menu",
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "Menu item 1" },
-                    new Label { Text = "Menu item 2" }
-                }
-            }
-        };
-
-        // Create the detail page
-        Detail = new NavigationPage(new ContentPage
-        {
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "Detail page content" }
-                }
-            }
-        });
+		myTask.Content = new TaskView(tasks, 0, jwtToken, connection);
+		followUpTask.Content = new TaskView(tasks, 1, jwtToken, connection);
     }
 }
+
