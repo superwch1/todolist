@@ -4,7 +4,7 @@ using Mopups.Services;
 
 namespace todolist.Views;
 
-public partial class TaskView : ContentPage
+public partial class TaskView : FlyoutPage
 {
 	public ObservableCollection<TaskModel> Tasks { get; set;} = new ObservableCollection<TaskModel>();
 	public int IntType { get; }

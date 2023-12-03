@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Core.Platform;
-
-namespace todolist.Views;
+﻿namespace todolist.Views;
 
 public partial class LoginView : ContentPage
 {
@@ -13,7 +11,7 @@ public partial class LoginView : ContentPage
     public bool IconPressed { get; set; } = true;
     public double TopYPosition { get; set; }
     public double MiddleYPosition { get; set; }
-    public double DistanceBetweenIconAndStack { get; } = 30;
+    public double DistanceBetweenIconAndStack { get; } = 10;
 
 
 	public LoginView()
@@ -25,10 +23,7 @@ public partial class LoginView : ContentPage
 
         ViewModel = new LoginViewModel();
 
-        email.ReturnCommand = new Command(() => password.Focus());
-        email.ReturnType = ReturnType.Next;
-
-        password.ReturnCommand = new Command(() => Login(null, null));
+        password.ReturnCommand = new Command(() => Login(password, EventArgs.Empty));
         password.ReturnType = ReturnType.Go;
     }
 
@@ -56,7 +51,8 @@ public partial class LoginView : ContentPage
         shadow.WidthRequest = IconWidth * 0.913;
 
         //input stack needs to be visible in order to get its height
-        inputStack.Opacity = 0;
+        inputStack.Opacity = 0; //even though the user can't see the button, it is clickable
+        inputStack.Margin = new Thickness() { Left = 3000 };
 
         //it needs to be true otherwise the option will be placed down a little bit in IOS
         absoluteLayout.IgnoreSafeArea = true;
@@ -151,7 +147,7 @@ public partial class LoginView : ContentPage
 
     async void RegisterAccount(object sender, EventArgs args)
     {
-        await Navigation.PushAsync(new ForgetPasswordView());
+        await Navigation.PushAsync(new RegisterAccountView());
     }
 
     async void ForgetPassword(object sender, EventArgs args)
