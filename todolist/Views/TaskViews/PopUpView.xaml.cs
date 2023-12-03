@@ -19,7 +19,13 @@ public partial class PopUpView : PopupPage
 		ViewModel = new PopUpViewModel();
 		Model = model;
 		
-		intTypePicker.SelectedIndex = intType == 0 ? 0 : 1;
+		typeLabel.Text = intType == 0 ? "My Task" : "FollowUp Task";
+		typeImage.Source = intType == 0 ? "mytask" : "followuptask";
+		typeFrame.BorderColor = intType == 0 ? Color.FromRgba(124, 148, 113, 255) : Color.FromRgba(99, 113, 125, 255);
+		typeFrame.BackgroundColor = intType == 0 ? Color.FromRgba(230, 241, 225, 255) : Color.FromRgba(213, 222, 230, 255);
+
+		cancel.Clicked += Cancel;
+		cancel.Text = "Cancel";
 
 		//need to be further adjust in the future
 		//the editor did not auto fill up the available space in frame
@@ -30,23 +36,17 @@ public partial class PopUpView : PopupPage
 		{
 			createOrUpdate.Clicked += UpdateTask;
 			createOrUpdate.Text = "Update";
-			cancelOrDelete.Clicked += DeleteTask;
-			cancelOrDelete.Text = "Delete";
+			
 
 			topic.Text = model.Topic;
 			dueDate.Date = model.DueDate;
 			content.Text = model.Content;
-			intSymbolPicker.SelectedIndex = model.IntSymbol == 0 ? 0 : 1;
 		}
 		else 
 		{
 			createOrUpdate.Clicked += CreateTask;
 			createOrUpdate.Text = "Create";
-			cancelOrDelete.Clicked += Cancel;
-			cancelOrDelete.Text = "Cancel";
-			intSymbolPicker.SelectedIndex = 0;
 			dueDate.Date = DateTime.Now;
-	
 		}
 	}
 
@@ -66,11 +66,29 @@ public partial class PopUpView : PopupPage
 #endif
 	}
 
+	public async void ChangeType(object sender, TappedEventArgs args)
+	{
+		if (typeLabel.Text == "My Task")
+		{
+			typeLabel.Text = "FollowUp Task";
+			typeImage.Source = "followuptask";
+			typeFrame.BorderColor = Color.FromRgba(99, 113, 125, 255);
+			typeFrame.BackgroundColor = Color.FromRgba(213, 222, 230, 255);
+		}
+		else 
+		{
+			typeLabel.Text = "My Task";
+			typeImage.Source = "mytask";
+			typeFrame.BorderColor = Color.FromRgba(124, 148, 113, 255);
+			typeFrame.BackgroundColor = Color.FromRgba(230, 241, 225, 255);
+		}
+	}
+
 
 	public async void CreateTask(object sender, EventArgs args)
 	{
-		int intType = intTypePicker.SelectedIndex;
-		int intSymbol = intSymbolPicker.SelectedIndex;
+		int intType = typeLabel.Text == "My Task" ? 0 : 1;
+		int intSymbol = Model == null ? 0 : Model.IntSymbol;
 
 		await IsLoading.RunMethod(() => ViewModel.CreateTask(Connection, intType, topic.Text, content.Text,
 			dueDate.Date, intSymbol));	
@@ -84,8 +102,8 @@ public partial class PopUpView : PopupPage
 
 	public async void UpdateTask(object sender, EventArgs args)
 	{
-		int intType = intTypePicker.SelectedIndex;
-		int intSymbol = intSymbolPicker.SelectedIndex;
+		int intType = typeLabel.Text == "My Task" ? 0 : 1;
+		int intSymbol = Model == null ? 0 : Model.IntSymbol;
 
 		await IsLoading.RunMethod(() => ViewModel.UpdateTask(Connection, Model.Id, intType, topic.Text, 
 			content.Text, dueDate.Date, intSymbol));	

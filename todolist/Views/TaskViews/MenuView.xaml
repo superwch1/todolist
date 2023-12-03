@@ -4,10 +4,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   x:Class="todolist.Views.MenuView" BackgroundColor="#80000000">
     <Border x:Name="viewFrame" BackgroundColor="#fefff5" Padding="20"
-           VerticalOptions="Start" HorizontalOptions="Start">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="0, 20, 0, 20" />
-        </Border.StrokeShape>
+           VerticalOptions="Start" HorizontalOptions="Start" StrokeShape="RoundRectangle 0, 20, 0, 20">
         <Grid>
             <StackLayout>
                 <HorizontalStackLayout>
