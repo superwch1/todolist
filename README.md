@@ -10,5 +10,8 @@ Publish application in IOS platform
 4. Counter check for duplicate version number set background color of app icon
 5. Connect the visual studio to macbook air for distrubution
 6. Remember to have a App-Specific password for apple Id
-7. TrobuleShooting: redownload the profile if not found
-8. TroubleShooting: use transporter to upload .app while having errors "altool" exited with code 1
+7. Troubleshooting: clean and build solution
+8. Troubleshooting: solution->properties->iOS->Bundle Signing, Scheme: Manual Provision / Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic)
+9. Troubleshooting: After building the archive, Distribute->App Store-> Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic), select the valid one that matched with apple account
+10. Trobuleshooting: delete the cache profile in AppData\Local\Xamarin\iOS\Provisioning then redownload the profile in Tools->Options->Xamarin->Apple Accounts->View Details
+11. Troubleshooting: use transporter to upload .app while having errors "altool" exited with code 1
