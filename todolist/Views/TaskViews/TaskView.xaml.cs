@@ -28,7 +28,7 @@ public partial class TaskView : ContentPage
 		Connection = connection;
 		SelectedDateTime = DateTime.Now;
 		ViewModel = new TaskViewModel(SelectedDateTime);
-		selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+		selectedPeriod.Text = SelectedDateTime.ToString("MMM yyyy");
 
 		tasks = tasks
 			.Where(x => x.IntType == IntType)
@@ -50,7 +50,7 @@ public partial class TaskView : ContentPage
         await IsLoading.RunMethod(async () =>
 		{
 			SelectedDateTime = SelectedDateTime.AddMonths(-1);
-			selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+			selectedPeriod.Text = SelectedDateTime.ToString("MMM yyyy");
 			ViewModel.SelectedDateTime = SelectedDateTime;
 
 			ViewModel.DeleteAllTask(Tasks, scrollview);
@@ -63,7 +63,7 @@ public partial class TaskView : ContentPage
 		await IsLoading.RunMethod(async () =>
 		{
 			SelectedDateTime = SelectedDateTime.AddMonths(1);
-			selectedPeriod.Text = SelectedDateTime.ToString("MM-yyyy");
+			selectedPeriod.Text = SelectedDateTime.ToString("MMM yyyy");
 			ViewModel.SelectedDateTime = SelectedDateTime;
 
 			ViewModel.DeleteAllTask(Tasks, scrollview);

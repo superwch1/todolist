@@ -52,7 +52,7 @@ namespace todolist.Models
             }
         }
 
-        public string arrowImageSource = "uparrow";
+        public string arrowImageSource = "downarrow";
         public string ArrowImageSource
         {
             get => arrowImageSource;

@@ -19,7 +19,7 @@ namespace todolist.ViewModels
 			if (task != null)
 			{
 				task.IsContentVisible = !selectedTask.IsContentVisible;
-				task.ArrowImageSource = task.IsContentVisible == true ? "downarrow" : "uparrow";
+				task.ArrowImageSource = task.IsContentVisible == true ? "uparrow" : "downarrow";
 
 				//reduce the height of scrollview after change back to invisible
 				(scrollview as IView).InvalidateMeasure();
