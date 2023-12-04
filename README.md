@@ -12,10 +12,10 @@ Publish application in IOS platform
 6. Remember to have a App-Specific password for apple Id
 7. Troubleshooting: clean and build solution
   
-9. Troubleshooting: solution->properties->iOS->Bundle Signing, Scheme: Manual Provision / Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic)
+8. Troubleshooting: solution->properties->iOS->Bundle Signing, Scheme: Manual Provision / Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic)
 
-10. Troubleshooting: After building the archive, Distribute->App Store-> Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic), select the valid one that matched with apple account
+9. Troubleshooting: After building the archive, Distribute->App Store-> Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic), select the valid one that matched with apple account
   
-12. Trobuleshooting: delete the cache profile in AppData\Local\Xamarin\iOS\Provisioning then redownload the profile in Tools->Options->Xamarin->Apple Accounts->View Details
+10. Trobuleshooting: delete the cache profile in AppData\Local\Xamarin\iOS\Provisioning then redownload the profile in Tools->Options->Xamarin->Apple Accounts->View Details
     
-14. Troubleshooting: use transporter to upload .app while having errors "altool" exited with code 1
+11. Troubleshooting: use transporter to upload .app while having errors "altool" exited with code 1
