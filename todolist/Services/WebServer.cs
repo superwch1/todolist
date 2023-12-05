@@ -74,6 +74,29 @@ namespace todolist.Services
         }
 
 
+        public static async Task<Tuple<string, HttpStatusCode>> ForgetPasswordWithJwtToken(string jwtToken)
+		{
+			try
+			{
+                var url = $"{ServerDomain}/Mobile/ForgetPasswordWithJwtToken";
+
+                var http = new HttpClient();   
+                http.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);             
+                var response = await http.PostAsync(url, null);
+
+                var data = await response.Content.ReadAsStringAsync();
+                var statusCode = response.StatusCode;
+                return Tuple.Create(data, statusCode);
+            }
+            catch
+            {
+                return Tuple.Create("", HttpStatusCode.ExpectationFailed);
+            }
+        }
+
+
+
+
         public static async Task<Tuple<string, HttpStatusCode>> VerifyPasscode(string email, string passcode)
 		{
 			try
