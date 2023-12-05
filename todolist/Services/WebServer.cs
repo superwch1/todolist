@@ -117,7 +117,33 @@ namespace todolist.Services
         }
 
 
-		public static async Task<Tuple<List<TaskModel>, HttpStatusCode>> ReadTaskFromTime(int year, int month, string jwtToken)
+		public static async Task<Tuple<List<TaskModel>, HttpStatusCode>> ReadTaskFromKeyword(string keyword, string jwtToken)
+		{
+			try
+			{
+                var url = $"{ServerDomain}/mobile/ReadTaskFromKeyword?keyword={keyword}";
+
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);
+
+                var response = await httpClient.GetAsync(url);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    var tasks = JsonConvert.DeserializeObject<List<TaskModel>>(jsonString);
+                    return Tuple.Create(tasks!, response.StatusCode);
+                }
+
+                return Tuple.Create(new List<TaskModel>(), HttpStatusCode.ExpectationFailed);
+            }
+            catch
+            {
+                return Tuple.Create(new List<TaskModel>(), HttpStatusCode.ExpectationFailed);
+            }
+        }
+
+
+        public static async Task<Tuple<List<TaskModel>, HttpStatusCode>> ReadTaskFromTime(int year, int month, string jwtToken)
 		{
 			try
 			{

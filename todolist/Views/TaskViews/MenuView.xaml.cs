@@ -10,24 +10,26 @@ public partial class MenuView : PopupPage
 	public double DeviceWidth { get; set; }
 	public double DeviceHeight { get; set; }
 	public HubConnection Connection { get; set; }
+	public string JwtToken { get; set; }
 	public MenuViewModel ViewModel { get; }
 
-	public MenuView(double width, double height, double marginTop, HubConnection connection)
+	public MenuView(double width, double height, double marginTop, HubConnection connection,
+		string jwtToken)
 	{
 		InitializeComponent();	
 		DeviceWidth = width;
 		DeviceHeight = height;
 		Connection = connection;
+		JwtToken = jwtToken;
 		ViewModel = new MenuViewModel();
 
-		viewFrame.WidthRequest = width / 2;
+		viewFrame.WidthRequest = width * 0.6;
 		viewFrame.HeightRequest = height - marginTop;
 		viewFrame.Margin = new Thickness() { Top = marginTop };
 
 		search.ReturnType = ReturnType.Go;
 		search.ReturnCommand = new Command(async () => {			
-			await MopupService.Instance.PopAsync();
-			await Shell.Current.GoToAsync("login"); 
+			await ViewModel.SearchTask(Connection, search.Text, JwtToken);
 
 			//workaround for grey screen in android for setting TabBar invisible 
 			/*

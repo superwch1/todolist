@@ -3,49 +3,45 @@
                   xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   x:Class="todolist.Views.PopUpView" BackgroundColor="#80000000">
-    <Grid VerticalOptions="Center">
-        <Image Source="menu.png" HorizontalOptions="Start" VerticalOptions="Start" 
-                   Margin="0, -20, 0, 0" HeightRequest="40" />
-        <Frame x:Name="viewFrame" Margin="20" CornerRadius="20" BackgroundColor="#fefff5">
-            <VerticalStackLayout Padding="0, 20, 0, 20">      
-                <Frame x:Name="topicFrame" Padding="20, 0, 20, 0" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="20">
-                    <Entry x:Name="topic" FontSize="16" VerticalOptions="Center" VerticalTextAlignment="Center" 
-                        Placeholder="Topic" />
-                </Frame>     
+    <Frame x:Name="viewFrame" VerticalOptions="Center" Margin="20" CornerRadius="20" BackgroundColor="#fefff5">
+        <VerticalStackLayout Padding="0, 20, 0, 20">      
+            <Frame x:Name="topicFrame" Padding="20, 0, 20, 0" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="20">
+                <Entry x:Name="topic" FontSize="16" VerticalOptions="Center" VerticalTextAlignment="Center" 
+                    Placeholder="Topic" />
+            </Frame>     
 
-                <HorizontalStackLayout Margin="0, 30, 0, -5">
-                    <!-- Android can't use border in popup -->
-                    <Frame Padding="10, 0, 10, 0" Margin="10, 0, 0, 0" BackgroundColor="#FFE5E7" BorderColor="#9C7477" 
-                        CornerRadius="10">
-                        <HorizontalStackLayout>
-                            <Image Source="datepicker" HeightRequest="20" />
-                            <DatePicker x:Name="dueDate" Margin="5, 0, 0, 0" Format="dd/MM/yyyy" />
-                        </HorizontalStackLayout>
-                    </Frame>
-
-                    <Frame x:Name="typeFrame" Padding="10, 0, 10, 0" Margin="10, 0, 0, 0" CornerRadius="10">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ChangeType"/>
-                        </Frame.GestureRecognizers>
-                        <HorizontalStackLayout >
-                            <Image x:Name="typeImage" HeightRequest="20" />
-                            <Label x:Name="typeLabel" Margin="5, 0, 0, 0" VerticalTextAlignment="Center"/>
-                        </HorizontalStackLayout>
-                    </Frame>
-                </HorizontalStackLayout>
-                <Frame x:Name="contentFrame" Padding="10, 5, 10, 5" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="10">
-                        <!-- VerticalOptions need to be start, or else when the content more than 2 line, IOS will crash -->
-                        <Editor x:Name="content" FontSize="16" VerticalOptions="Start" VerticalTextAlignment="Start"
-                                Focused="EditorFocused" Unfocused="EditorUnfocused"/>
+            <HorizontalStackLayout Margin="0, 30, 0, -5">
+                <!-- Android can't use border in popup -->
+                <Frame Padding="10, 0, 10, 0" Margin="10, 0, 0, 0" BackgroundColor="#FFE5E7" BorderColor="#9C7477" 
+                    CornerRadius="10">
+                    <HorizontalStackLayout>
+                        <Image Source="datepicker" HeightRequest="20" />
+                        <DatePicker x:Name="dueDate" Margin="5, 0, 0, 0" Format="dd/MM/yyyy" />
+                    </HorizontalStackLayout>
                 </Frame>
-                
-                <HorizontalStackLayout Margin="0, 20, 0, 0" HorizontalOptions="End">
-                    <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius ="10" WidthRequest="70" 
-                            BackgroundColor="#ffef7c" BorderWidth="1"  TextColor="#57472a" FontSize="16"/>
-                    <Button x:Name="cancel" BorderColor="#57472a" BorderWidth="1" CornerRadius="10" WidthRequest="70"
-                            Margin="15, 0, 0, 0" BackgroundColor="#FEFFF5" TextColor="#57472a" FontSize="16"/>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </Frame>
-    </Grid>
+
+                <Frame x:Name="typeFrame" Padding="10, 0, 10, 0" Margin="10, 0, 0, 0" CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ChangeType"/>
+                    </Frame.GestureRecognizers>
+                    <HorizontalStackLayout >
+                        <Image x:Name="typeImage" HeightRequest="20" />
+                        <Label x:Name="typeLabel" Margin="5, 0, 0, 0" VerticalTextAlignment="Center"/>
+                    </HorizontalStackLayout>
+                </Frame>
+            </HorizontalStackLayout>
+            <Frame x:Name="contentFrame" Padding="10, 5, 10, 5" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="10">
+                    <!-- VerticalOptions need to be start, or else when the content more than 2 line, IOS will crash -->
+                    <Editor x:Name="content" FontSize="16" VerticalOptions="Start" VerticalTextAlignment="Start"
+                            Focused="EditorFocused" Unfocused="EditorUnfocused"/>
+            </Frame>
+            
+            <HorizontalStackLayout Margin="0, 20, 0, 0" HorizontalOptions="End">
+                <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius ="10" WidthRequest="85" 
+                        BackgroundColor="#ffef7c" BorderWidth="1"  TextColor="#57472a" FontSize="16"/>
+                <Button x:Name="cancel" BorderColor="#57472a" BorderWidth="1" CornerRadius="10" WidthRequest="85"
+                        Margin="15, 0, 0, 0" BackgroundColor="#FEFFF5" TextColor="#57472a" FontSize="16"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
 </mopups:PopupPage>

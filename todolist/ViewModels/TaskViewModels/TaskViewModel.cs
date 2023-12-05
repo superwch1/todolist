@@ -164,6 +164,35 @@ namespace todolist.ViewModels
 				DeleteTask(tasks, scrollview, id); 
 			}
 		}
+
+
+		public async Task CounterCheckTaskFromKeyword(ObservableCollection<TaskModel> tasks,
+			ScrollView scrollview, string keyword, string jwtToken)
+		{
+			var taskResponse = await WebServer.ReadTaskFromKeyword(keyword, jwtToken);
+
+			if (taskResponse.Item2 != HttpStatusCode.OK)
+			{
+				await ToastBar.DisplayToast("Cannot connect to server");
+				return;
+			}
+			var tasksFromServer = taskResponse.Item1.ToList();
+
+			foreach(var t in tasksFromServer) 
+			{
+				var task = tasks.Where(x => x.Id == t.Id).FirstOrDefault();
+				if (task != null)
+				{
+					if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
+						t.IntSymbol != task.IntSymbol) 
+					{
+						DeleteTask(tasks, scrollview, task.Id);
+						CreateTask(tasks, scrollview, t.IntType, t.Id, t.IntType, t.Topic, t.Content,
+							t.DueDate.ToString(), t.IntSymbol);
+					}
+				}
+			}
+		}
 	}
 }
 

@@ -112,6 +112,10 @@ public partial class PopUpView : PopupPage
 
 	public async void Cancel(object sender, EventArgs args)
 	{
-		await MopupService.Instance.PopAsync();
+		try
+		{
+			await MopupService.Instance.PopAsync();
+		}
+		catch { }
 	}
 }

@@ -19,8 +19,6 @@ public partial class TaskView : ContentPage
 	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, 
 		HubConnection connection)
 	{
-		Microsoft.Maui.Controls.NavigationPage.SetHasNavigationBar(this, false);
-
 		InitializeComponent();
 
 		IntType = intType;
@@ -106,7 +104,7 @@ public partial class TaskView : ContentPage
 #endif
 
 		//80 - Margin top 
-		await MopupService.Instance.PushAsync(new MenuView(width, height, 80, Connection));	
+		await MopupService.Instance.PushAsync(new MenuView(width, height, 80, Connection, JwtToken));	
 	}
 
 
