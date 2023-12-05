@@ -29,7 +29,7 @@ public partial class MenuView : PopupPage
 
 		search.ReturnType = ReturnType.Go;
 		search.ReturnCommand = new Command(async () => {			
-			await ViewModel.SearchTask(Connection, search.Text, JwtToken);
+			await ViewModel.SearchTask(Connection, search.Text, JwtToken, DeviceHeight);
 
 			//workaround for grey screen in android for setting TabBar invisible 
 			/*

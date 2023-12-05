@@ -80,7 +80,7 @@ public partial class TaskView : ContentPage
 	void DeleteThenCreateTask(int id, int intType, string topic, string content, string dueDate, int intSymbol)
 	{
 		ViewModel.DeleteTask(Tasks, scrollview, id);
-		ViewModel.CreateTask(Tasks, scrollview, IntType, id, intType, topic, content, dueDate, intSymbol);
+		ViewModel.CreateTask(Tasks, scrollview, false, IntType, id, intType, topic, content, dueDate, intSymbol);
 	}
 
 

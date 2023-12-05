@@ -26,7 +26,7 @@
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
                         </HorizontalStackLayout.GestureRecognizers>
-                        <Image Source="resetpassword.png" HeightRequest="20"/>
+                        <Image Source="logout.png" HeightRequest="20"/>
                         <Label Margin="10, 0, 0, 0" Text="Reset Password" FontSize="18" />
                     </HorizontalStackLayout>
 
@@ -34,7 +34,7 @@
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
                         </HorizontalStackLayout.GestureRecognizers>
-                        <Image Source="termsandconditions.png" HeightRequest="20"/>
+                        <Image Source="logout.png" HeightRequest="20"/>
                         <Label Margin="10, 0, 0, 0" Text="Terms &amp; Conditions" FontSize="18" />
                     </HorizontalStackLayout>
 
@@ -42,7 +42,7 @@
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
                         </HorizontalStackLayout.GestureRecognizers>
-                        <Image Source="privacypolicy.png" HeightRequest="20"/>
+                        <Image Source="logout.png" HeightRequest="20"/>
                         <Label Margin="10, 0, 0, 0" Text="Privacy Policy" FontSize="18" />
                     </HorizontalStackLayout>
 

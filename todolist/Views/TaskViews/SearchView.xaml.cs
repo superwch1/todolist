@@ -20,10 +20,16 @@ public partial class SearchView : ContentPage, IQueryAttributable
     }
 
 	//workaround for grey screen in android for setting TabBar invisible 
-	protected override void OnSizeAllocated(double width, double height)
+	protected override async void OnSizeAllocated(double width, double height)
 	{
 		base.OnSizeAllocated(width, height);
 		Shell.SetTabBarIsVisible(this, false);
+
+#if ANDROID
+		var shellTabHeight = 56;
+		workAroundScrollView.IsVisible = true;
+		workAroundScrollView.Margin = new Thickness() { Top = grid.Height + shellTabHeight - 5 };
+#endif
 	}
 
 
@@ -41,6 +47,8 @@ public partial class SearchView : ContentPage, IQueryAttributable
 
 		Tasks = new ObservableCollection<TaskModel>(tasks);
 		BindableLayout.SetItemsSource(collectionView, Tasks);	
+
+		Title = $"Search Result: {Keyword}";
     }
 
 

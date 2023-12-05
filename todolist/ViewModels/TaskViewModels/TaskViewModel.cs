@@ -88,7 +88,7 @@ namespace todolist.ViewModels
 
 
 		public void CreateTask(ObservableCollection<TaskModel> tasks,
-			ScrollView scrollView, int viewIntType,
+			ScrollView scrollView, bool ingoreTime, int viewIntType,
 			int id, int intType, string topic, string content, string dueDate, int intSymbol)
 		{
 			MainThread.BeginInvokeOnMainThread(() =>
@@ -120,6 +120,30 @@ namespace todolist.ViewModels
 						tasks.Insert(index, newTask); // Insert the item at the calculated index
 					}
 				}
+
+				else if (ingoreTime == true)
+				{
+					List<TaskModel> tempTasks = new List<TaskModel>();
+					tempTasks = tasks.ToList();
+
+					tempTasks.Add(newTask);
+
+					tempTasks = tempTasks
+						.OrderBy(x => x.IntSymbol)
+						.ThenBy(x => x.DueDate)
+						.ToList();
+
+					var index = tempTasks.IndexOf(newTask);
+					
+					if (index >= tasks.Count)
+					{
+						tasks.Add(newTask); // Add the item to the end of the list
+					}
+					else
+					{
+						tasks.Insert(index, newTask); // Insert the item at the calculated index
+					}
+				}	
 			});	
 		}
 
@@ -146,7 +170,7 @@ namespace todolist.ViewModels
 						t.IntSymbol != task.IntSymbol) 
 					{
 						DeleteTask(tasks, scrollview, task.Id);
-						CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+						CreateTask(tasks, scrollview, false, intType, t.Id, t.IntType, t.Topic, t.Content,
 							t.DueDate.ToString(), t.IntSymbol);
 					}
 					tasksId.Remove(task.Id);
@@ -154,7 +178,7 @@ namespace todolist.ViewModels
 				
 				else
 				{
-					CreateTask(tasks, scrollview, intType, t.Id, t.IntType, t.Topic, t.Content,
+					CreateTask(tasks, scrollview, false, intType, t.Id, t.IntType, t.Topic, t.Content,
 						t.DueDate.ToString(), t.IntSymbol);
 				}	
 			}
@@ -187,7 +211,7 @@ namespace todolist.ViewModels
 						t.IntSymbol != task.IntSymbol) 
 					{
 						DeleteTask(tasks, scrollview, task.Id);
-						CreateTask(tasks, scrollview, t.IntType, t.Id, t.IntType, t.Topic, t.Content,
+						CreateTask(tasks, scrollview, true, t.IntType, t.Id, t.IntType, t.Topic, t.Content,
 							t.DueDate.ToString(), t.IntSymbol);
 					}
 				}

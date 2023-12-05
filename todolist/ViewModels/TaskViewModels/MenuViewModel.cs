@@ -29,7 +29,8 @@ namespace todolist.ViewModels
 		}
 
 
-		public async Task SearchTask(HubConnection connection, string keyword, string jwtToken)
+		public async Task SearchTask(HubConnection connection, string keyword, string jwtToken,
+			double deviceHeight)
 		{
 			var taskReponse = await WebServer.ReadTaskFromKeyword(keyword, jwtToken);
             if (taskReponse.Item2 != HttpStatusCode.OK)
