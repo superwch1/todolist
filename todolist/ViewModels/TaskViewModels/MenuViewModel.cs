@@ -1,6 +1,8 @@
 using System.Net;
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
+using Newtonsoft.Json;
+using todolist.Views.AccountViews;
 
 namespace todolist.ViewModels
 {
@@ -25,12 +27,11 @@ namespace todolist.ViewModels
 				LifeCycleMethods.DeactivatedActions.RemoveAt(LifeCycleMethods.DeactivatedActions.Count - 1);
 			}
 			await UserDatabase.UpdateItemAsync(new UserModel() { Id = 1, JwtToken = "" });
-			Application.Current!.MainPage = new NavigationPage(new LoginView());
+			Application.Current!.MainPage = new AccountShell();
 		}
 
 
-		public async Task SearchTask(HubConnection connection, string keyword, string jwtToken,
-			double deviceHeight)
+		public async Task SearchTask(HubConnection connection, string keyword, string jwtToken)
 		{
 			var taskReponse = await WebServer.ReadTaskFromKeyword(keyword, jwtToken);
             if (taskReponse.Item2 != HttpStatusCode.OK)
@@ -59,6 +60,32 @@ namespace todolist.ViewModels
 			{
 				await ToastBar.DisplayToast("No search results");
 			}		
+		}
+
+
+		public async Task ResetPassword(string jwtToken)
+		{
+			var taskReponse = await WebServer.ForgetPasswordWithJwtToken(jwtToken);
+            if (taskReponse.Item2 != HttpStatusCode.OK)
+            {
+                await ToastBar.DisplayToast("Cannot connect to server");
+                return;
+            }
+
+			dynamic content = JsonConvert.DeserializeObject(taskReponse.Item1);
+			string resetToken = content.resetToken;
+			string email = content.email;
+
+			try 
+			{
+				await MopupService.Instance.PopAsync();
+				await Shell.Current.GoToAsync("resetpassword",
+                    new Dictionary<string, object>{
+                        { "email", email },
+                        { "resetToken", resetToken }
+                    });
+			}
+			catch { }
 		}
     }
 }

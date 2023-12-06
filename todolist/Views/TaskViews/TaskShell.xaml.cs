@@ -2,12 +2,12 @@
 
 namespace todolist.Views.TaskViews;
 
-public partial class HomeView : Shell
+public partial class TaskShell : Shell
 {
-	public HomeView(List<TaskModel> tasks, string jwtToken, HubConnection connection)
+	public TaskShell(List<TaskModel> tasks, string jwtToken, HubConnection connection)
 	{
 		Routing.RegisterRoute("searchview", typeof(SearchView));
-		Routing.RegisterRoute("login", typeof(LoginView));
+		Routing.RegisterRoute("resetpassword", typeof(ResetPasswordView));
 
 		InitializeComponent();
 		myTask.Content = new TaskView(tasks, 0, jwtToken, connection);

@@ -1,16 +1,20 @@
 namespace todolist.Views;
 
-public partial class VerifyPasscodeView : ContentPage
+public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
 {
-	public VerifyPasscodeViewModel ViewModel { get; }
+	public VerifyPasscodeViewModel ViewModel { get; set; }
 
-	public VerifyPasscodeView(string email)
+	public VerifyPasscodeView()
 	{
 		InitializeComponent();
 		SetControlsProperties();
-
-		ViewModel = new VerifyPasscodeViewModel(Navigation, email);
 	}
+
+	public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+		string email = query["email"] as string;	
+		ViewModel = new VerifyPasscodeViewModel(email);
+    }
 
 	public void SetControlsProperties()
     {

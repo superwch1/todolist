@@ -7,8 +7,6 @@ namespace todolist.Views;
 
 public partial class MenuView : PopupPage
 {
-	public double DeviceWidth { get; set; }
-	public double DeviceHeight { get; set; }
 	public HubConnection Connection { get; set; }
 	public string JwtToken { get; set; }
 	public MenuViewModel ViewModel { get; }
@@ -17,8 +15,6 @@ public partial class MenuView : PopupPage
 		string jwtToken)
 	{
 		InitializeComponent();	
-		DeviceWidth = width;
-		DeviceHeight = height;
 		Connection = connection;
 		JwtToken = jwtToken;
 		ViewModel = new MenuViewModel();
@@ -29,7 +25,7 @@ public partial class MenuView : PopupPage
 
 		search.ReturnType = ReturnType.Go;
 		search.ReturnCommand = new Command(async () => {			
-			await ViewModel.SearchTask(Connection, search.Text, JwtToken, DeviceHeight);
+			await ViewModel.SearchTask(Connection, search.Text, JwtToken);
 
 			//workaround for grey screen in android for setting TabBar invisible 
 			/*
@@ -46,6 +42,11 @@ public partial class MenuView : PopupPage
 
 	async void Logout(object sender, TappedEventArgs args)
 	{	
-		await ViewModel.Logout(Connection);	
+		await IsLoading.RunMethod(() => ViewModel.Logout(Connection));
+	}
+
+	async void ResetPassword(object sender, TappedEventArgs args)
+	{	
+		await IsLoading.RunMethod(() => ViewModel.ResetPassword(JwtToken));
 	}
 }

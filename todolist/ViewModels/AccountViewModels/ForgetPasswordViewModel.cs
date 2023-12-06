@@ -5,13 +5,6 @@ namespace todolist.ViewModels
 {
 	public class ForgetPasswordViewModel
 	{
-        public INavigation Navigation { get; }
-
-        public ForgetPasswordViewModel(INavigation navigation)
-        {
-            Navigation = navigation;
-        }
-
         public async Task ForgetPassword(Entry email)
         {
             string pattern = @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$";
@@ -34,7 +27,11 @@ namespace todolist.ViewModels
 
             if (registerResponse.Item2 == HttpStatusCode.OK)
             {
-                await Navigation.PushAsync(new VerifyPasscodeView(email.Text));
+                await ToastBar.DisplayToast("Passcode sent");
+                await Shell.Current.GoToAsync("verifypasscode",
+                    new Dictionary<string, object>{
+                        { "email", email.Text }
+                    });
             }
         }
     }

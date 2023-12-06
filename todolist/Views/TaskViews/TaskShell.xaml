@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="todolist.Views.TaskViews.HomeView"
+    x:Class="todolist.Views.TaskViews.TaskShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Shell.FlyoutBehavior="Disabled"
-    Title="todolist">
+    Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
         <Tab Icon="mytask" Title="My Task" Route="main">

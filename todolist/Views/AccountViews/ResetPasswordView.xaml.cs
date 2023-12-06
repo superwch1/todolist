@@ -1,16 +1,23 @@
 namespace todolist.Views;
 
-public partial class ResetPasswordView : ContentPage
+public partial class ResetPasswordView : ContentPage, IQueryAttributable
 {
-	public ResetPasswordViewModel ViewModel { get; }
+	public ResetPasswordViewModel ViewModel { get; set; }
 
-	public ResetPasswordView(string email, string resetToken)
+	public ResetPasswordView()
 	{
 		InitializeComponent();
-		SetControlsProperties();
+		SetControlsProperties();	
 
-		ViewModel = new ResetPasswordViewModel(resetToken, email, Navigation);	
+		Shell.SetTabBarIsVisible(this, false);
 	}
+
+	public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+		string email = query["email"] as string;	
+		string resetToken = query["resetToken"] as string;
+		ViewModel = new ResetPasswordViewModel(resetToken, email);	
+    }
 
 
 	public void SetControlsProperties()

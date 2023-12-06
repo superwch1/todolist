@@ -6,13 +6,11 @@ namespace todolist.ViewModels
 	{
         public string ResetToken { get; }
         public string Email { get; }
-        public INavigation Navigation { get; }
 
-        public ResetPasswordViewModel(string resetToken, string email, INavigation navigation)
+        public ResetPasswordViewModel(string resetToken, string email)
         {
             ResetToken = resetToken;
             Email = email;
-            Navigation = navigation;
         }
 
         public async Task ResetPassword(Entry password, Entry confirmPassword)
@@ -51,7 +49,7 @@ namespace todolist.ViewModels
             if (registerResponse.Item2 == HttpStatusCode.OK)
             {
                 await ToastBar.DisplayToast("Password Updated");
-                await Navigation.PopToRootAsync();
+                await Shell.Current.Navigation.PopToRootAsync();
             }
         }
     }

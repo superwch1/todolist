@@ -4,12 +4,10 @@ namespace todolist.ViewModels
 {
 	public class VerifyPasscodeViewModel
 	{
-        public INavigation Navigation { get; }
         public string Email { get; }
 
-        public VerifyPasscodeViewModel(INavigation navigation, string email)
+        public VerifyPasscodeViewModel(string email)
         {
-            Navigation = navigation;
             Email = email;
         }
 
@@ -35,7 +33,12 @@ namespace todolist.ViewModels
             if (registerResponse.Item2 == HttpStatusCode.OK)
             {
                 string resetToken = registerResponse.Item1;
-                await Navigation.PushAsync(new ResetPasswordView(Email, resetToken));
+                
+                await Shell.Current.GoToAsync("resetpassword",
+                    new Dictionary<string, object>{
+                        { "email", Email },
+                        { "resetToken", resetToken }
+                    });
             }
         }
     }

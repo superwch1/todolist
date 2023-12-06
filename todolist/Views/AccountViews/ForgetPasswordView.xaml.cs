@@ -7,7 +7,7 @@ public partial class ForgetPasswordView : ContentPage
 	public ForgetPasswordView()
 	{
 		InitializeComponent();
-        ViewModel = new ForgetPasswordViewModel(Navigation);  
+        ViewModel = new ForgetPasswordViewModel();  
 	}
 
 

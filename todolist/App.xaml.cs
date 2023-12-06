@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.SignalR.Client;
+using todolist.Views.AccountViews;
 using todolist.Views.TaskViews;
 
 namespace todolist;
@@ -56,11 +57,11 @@ public partial class App : Application
         switch (view)
         {
             case "Login":
-                MainPage = new NavigationPage(new LoginView());
+                MainPage = new AccountShell();
                 break;
             
             case "AppShell":
-                MainPage = new HomeView(tasks, jwtToken, connection);
+                MainPage = new TaskShell(tasks, jwtToken, connection);
                 break;
         }
     }

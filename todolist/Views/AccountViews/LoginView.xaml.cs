@@ -22,9 +22,7 @@ public partial class LoginView : ContentPage
         NavigationPage.SetHasNavigationBar(this, false);
 
         ViewModel = new LoginViewModel();
-
-        password.ReturnCommand = new Command(() => Login(password, EventArgs.Empty));
-        password.ReturnType = ReturnType.Go;
+        Shell.SetNavBarIsVisible(this, false); 
     }
 
 
@@ -149,11 +147,11 @@ public partial class LoginView : ContentPage
 
     async void RegisterAccount(object sender, EventArgs args)
     {
-        await Navigation.PushAsync(new RegisterAccountView());
+        await IsLoading.RunMethod(() => Shell.Current.GoToAsync("registeraccount"));
     }
 
     async void ForgetPassword(object sender, EventArgs args)
     {
-        await Navigation.PushAsync(new ForgetPasswordView());
+        await IsLoading.RunMethod(() => Shell.Current.GoToAsync("forgetpassword"));
     }
 }

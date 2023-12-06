@@ -24,7 +24,7 @@
 
                     <HorizontalStackLayout Margin="0, 30, 0, 0">
                         <HorizontalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ResetPassword"/>
                         </HorizontalStackLayout.GestureRecognizers>
                         <Image Source="logout.png" HeightRequest="20"/>
                         <Label Margin="10, 0, 0, 0" Text="Reset Password" FontSize="18" />
