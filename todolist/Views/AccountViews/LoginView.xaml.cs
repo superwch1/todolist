@@ -50,6 +50,8 @@ public partial class LoginView : ContentPage
         iconWithoutShadow.WidthRequest = IconWidth;
         shadow.WidthRequest = IconWidth * 0.913;
 
+        clickLabel.Margin = new Thickness() { Bottom = IconWidth + 100 };
+
         //input stack needs to be visible in order to get its height
         inputStack.Opacity = 0; //even though the user can't see the button, it is clickable
         inputStack.Margin = new Thickness() { Left = 3000 };
@@ -99,7 +101,7 @@ public partial class LoginView : ContentPage
         }
         AnimationStarted = true;
 
-        //clickLabel.IsVisible = false;
+        clickLabel.IsVisible = false;
         MiddleYPosition = DisplayHeight / 2 - IconWidth * 1.1159 / 2; 
         var heightDistance = IconWidth * 0.1;
 

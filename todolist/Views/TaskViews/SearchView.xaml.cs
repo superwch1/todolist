@@ -41,8 +41,7 @@ public partial class SearchView : ContentPage, IQueryAttributable
 		Keyword = query["keyword"] as string;
 
 		tasks = tasks
-			.OrderBy(x => x.IntSymbol)
-			.ThenBy(x => x.DueDate)
+			.OrderBy(x => x.DueDate)
 			.ToList();
 
 		Tasks = new ObservableCollection<TaskModel>(tasks);

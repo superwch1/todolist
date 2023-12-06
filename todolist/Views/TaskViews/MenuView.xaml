@@ -15,7 +15,7 @@
                         <Label Margin="10, 0, 0, 0" Text="Search" FontSize="18" />
                     </HorizontalStackLayout>
 
-                    <Border x:Name="searchBorder" Stroke="Black" Padding="15, 0" 
+                    <Border x:Name="searchBorder" Stroke="Black" Padding="15, 0" BackgroundColor="#ffffff"
                             Margin="0, 10, 0, 0" StrokeShape="RoundRectangle 20">
                         <Entry x:Name="search" Placeholder="I'm looking for..."            
                                 Keyboard="Plain"  PlaceholderColor="#aeaeae"
