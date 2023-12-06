@@ -14,6 +14,6 @@ Publish application in IOS platform
 
 Troubleshooing in IOS
 1. solution->properties->iOS->Bundle Signing, Scheme: Manual Provision / Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic)
-2. After building the archive, Distribute->App Store-> Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic), select the valid one that matched with apple account
+2. After building the archive, Distribute->App Store->Signing identity: whatever (not automatic) / Provisoning profile: whatever (not automatic), select the valid one that matched with apple account
 3. delete the cache profile in AppData\Local\Xamarin\iOS\Provisioning then redownload the profile in Tools->Options->Xamarin->Apple Accounts->View Details
-4. use transporter to upload .app while having errors "altool" exited with code 1
+4. use xcode (Window-> Organizer->Archives->Distibute App) for distribution after sucessful archive or having errors "altool" exited with code 1
