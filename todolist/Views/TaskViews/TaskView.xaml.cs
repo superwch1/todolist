@@ -43,6 +43,7 @@ public partial class TaskView : ContentPage
 		InitializeSignalR();
     }
 
+
 	public async void AddMonth(object seneder, EventArgs args)
 	{
         await IsLoading.RunMethod(async () =>

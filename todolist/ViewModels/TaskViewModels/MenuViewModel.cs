@@ -33,6 +33,12 @@ namespace todolist.ViewModels
 
 		public async Task SearchTask(HubConnection connection, string keyword, string jwtToken)
 		{
+			if (String.IsNullOrEmpty(keyword))
+			{
+				await ToastBar.DisplayToast("Please enter keyword");
+                return;
+			}
+
 			var taskReponse = await WebServer.ReadTaskFromKeyword(keyword, jwtToken);
             if (taskReponse.Item2 != HttpStatusCode.OK)
             {

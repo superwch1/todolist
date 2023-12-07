@@ -33,6 +33,18 @@ public partial class SearchView : ContentPage, IQueryAttributable
 	}
 
 
+	//workaround for the add button hidden under tab after navigate back from serach view in IOS
+	//it happens when you expand all of the task in search view then go backwards
+	protected override void OnDisappearing()
+	{
+		base.OnDisappearing();
+
+#if IOS
+		Shell.SetTabBarIsVisible(this, true);
+#endif
+	}
+
+
    	public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
 		JwtToken = query["jwtToken"] as string;
