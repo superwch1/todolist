@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using todolist.Views.AccountViews;
 
 namespace todolist.Views.TaskViews;
 
@@ -8,6 +9,7 @@ public partial class TaskShell : Shell
 	{
 		Routing.RegisterRoute("searchview", typeof(SearchView));
 		Routing.RegisterRoute("resetpassword", typeof(ResetPasswordView));
+		Routing.RegisterRoute("policy", typeof(PolicyView));
 
 		InitializeComponent();
 		myTask.Content = new TaskView(tasks, 0, jwtToken, connection);

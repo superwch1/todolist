@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
+using todolist.ViewModels.TaskViewModels;
 
-namespace todolist.Views;
+namespace todolist.Views.TaskViews;
 
 public partial class TaskView : ContentPage
 {
@@ -105,7 +106,7 @@ public partial class TaskView : ContentPage
 #endif
 
 		//80 - Margin top 
-		await MopupService.Instance.PushAsync(new MenuView(width, height, 80, Connection, JwtToken));	
+		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new MenuView(width, height, 80, Connection, JwtToken)));
 	}
 
 
@@ -114,13 +115,13 @@ public partial class TaskView : ContentPage
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
-		await MopupService.Instance.PushAsync(new PopUpView(selectedTask, Connection, IntType));
+		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(selectedTask, Connection, IntType)));
     }
 
 
 	async void CreateTask(object sender, TappedEventArgs e)
     {
-		await MopupService.Instance.PushAsync(new PopUpView(null, Connection, IntType));
+		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(null, Connection, IntType)));
     }
 
 

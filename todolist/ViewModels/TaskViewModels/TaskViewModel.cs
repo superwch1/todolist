@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
-namespace todolist.ViewModels
+using todolist.Views.AccountViews;
+namespace todolist.ViewModels.TaskViewModels
 {
 	public class TaskViewModel
 	{

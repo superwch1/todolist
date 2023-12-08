@@ -1,4 +1,6 @@
-namespace todolist.Views;
+using todolist.ViewModels.AccountViewModels;
+
+namespace todolist.Views.AccountViews;
 
 public partial class ForgetPasswordView : ContentPage
 {

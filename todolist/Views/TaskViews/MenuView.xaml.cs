@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Pages;
-using Mopups.Services;
+using todolist.ViewModels.TaskViewModels;
 
 
-namespace todolist.Views;
+namespace todolist.Views.TaskViews;
 
 public partial class MenuView : PopupPage
 {
@@ -15,6 +15,7 @@ public partial class MenuView : PopupPage
 		string jwtToken)
 	{
 		InitializeComponent();	
+		
 		Connection = connection;
 		JwtToken = jwtToken;
 		ViewModel = new MenuViewModel();
@@ -26,15 +27,6 @@ public partial class MenuView : PopupPage
 		search.ReturnType = ReturnType.Go;
 		search.ReturnCommand = new Command(async () => {			
 			await ViewModel.SearchTask(Connection, search.Text, JwtToken);
-
-			//workaround for grey screen in android for setting TabBar invisible 
-			/*
-				protected override void OnSizeAllocated(double width, double height)
-				{
-					base.OnSizeAllocated(width, height);
-					Shell.SetTabBarIsVisible(this, false);
-				}
-			*/
 		});
 
 		creditLabel.Text = "By Fiona C & John W";
@@ -48,5 +40,15 @@ public partial class MenuView : PopupPage
 	async void ResetPassword(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.ResetPassword(JwtToken));
+	}
+
+	async void ReadPrivacyPolicy(object sender, TappedEventArgs args)
+	{	
+		await IsLoading.RunMethod(() => ViewModel.ReadPrivacyPolicy());
+	}
+
+	async void ReadTermsAndConditions(object sender, TappedEventArgs args)
+	{	
+		await IsLoading.RunMethod(() => ViewModel.ReadTermsAndConditions());
 	}
 }

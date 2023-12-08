@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
 
-namespace todolist.ViewModels
+namespace todolist.ViewModels.TaskViewModels
 {
 	public class PopUpViewModel
 	{

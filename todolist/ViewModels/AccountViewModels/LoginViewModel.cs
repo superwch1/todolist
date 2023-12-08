@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using todolist.Views.TaskViews;
 
-namespace todolist.ViewModels
+namespace todolist.ViewModels.AccountViewModels
 {
 	public class LoginViewModel
 	{

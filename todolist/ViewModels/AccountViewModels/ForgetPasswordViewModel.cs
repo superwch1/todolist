@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace todolist.ViewModels
+namespace todolist.ViewModels.AccountViewModels
 {
 	public class ForgetPasswordViewModel
 	{

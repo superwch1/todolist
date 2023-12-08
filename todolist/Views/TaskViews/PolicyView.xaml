@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="todolist.Views.TaskViews.PolicyView"
+             Title="Forget Password">
+    <Border VerticalOptions="Center" Padding="20" Margin="20, 30, 20, 30" BackgroundColor="#ffffff" 
+            StrokeShape="RoundRectangle 20" StrokeThickness="1" Stroke="#000000">
+        <ScrollView>
+                <Label x:Name="policyLabel" />
+        </ScrollView>
+    </Border>
+</ContentPage>

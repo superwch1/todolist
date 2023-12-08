@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace todolist.ViewModels
+namespace todolist.ViewModels.AccountViewModels
 {
 	public class ResetPasswordViewModel
 	{

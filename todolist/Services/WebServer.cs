@@ -140,6 +140,7 @@ namespace todolist.Services
         }
 
 
+  
 		public static async Task<Tuple<List<TaskModel>, HttpStatusCode>> ReadTaskFromKeyword(string keyword, string jwtToken)
 		{
 			try
@@ -188,6 +189,54 @@ namespace todolist.Services
             catch
             {
                 return Tuple.Create(new List<TaskModel>(), HttpStatusCode.ExpectationFailed);
+            }
+        }
+
+
+        public static async Task<Tuple<string, HttpStatusCode>> ReadPrivacyPolicy()
+		{
+			try
+			{
+                var url = $"{ServerDomain}/mobile/ReadPrivacyPolicy";
+
+                var httpClient = new HttpClient();
+
+                var response = await httpClient.GetAsync(url);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var policyContent = await response.Content.ReadAsStringAsync();
+                    return Tuple.Create(policyContent, response.StatusCode);
+                }
+
+                return Tuple.Create("", HttpStatusCode.ExpectationFailed);
+            }
+            catch
+            {
+                return Tuple.Create("", HttpStatusCode.ExpectationFailed);
+            }
+        }
+
+
+        public static async Task<Tuple<string, HttpStatusCode>> ReadTermsAndConditions()
+		{
+			try
+			{
+                var url = $"{ServerDomain}/mobile/ReadTermsAndConditions";
+
+                var httpClient = new HttpClient();
+
+                var response = await httpClient.GetAsync(url);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var policyContent = await response.Content.ReadAsStringAsync();
+                    return Tuple.Create(policyContent, response.StatusCode);
+                }
+
+                return Tuple.Create("", HttpStatusCode.ExpectationFailed);
+            }
+            catch
+            {
+                return Tuple.Create("", HttpStatusCode.ExpectationFailed);
             }
         }
 	}

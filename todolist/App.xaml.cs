@@ -24,31 +24,31 @@ public partial class App : Application
             if (account == null)
             {
                 await UserDatabase.CreateItemAsync(new UserModel() { Id = 1, JwtToken = "" });
-                view = "Login";
+                view = "AccountShell";
                 return;
             }
 
             if (account.JwtToken == "")
             {
-                view = "Login";
+                view = "AccountShell";
                 return;
             }
 
             var taskReponse = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, account.JwtToken);
             if (taskReponse.Item2 != HttpStatusCode.OK)
             {
-                view = "Login";
+                view = "AccountShell";
                 return;
             }
 
             connection = await SignalR.BuildHubConnection(account.JwtToken);
             if (connection == null)
             {
-                view = "Login";
+                view = "AccountShell";
                 return;
             }
 
-            view = "AppShell";
+            view = "TaskShell";
             tasks = taskReponse.Item1;
             jwtToken = account.JwtToken;
 
@@ -56,11 +56,11 @@ public partial class App : Application
 
         switch (view)
         {
-            case "Login":
+            case "AccountShell":
                 MainPage = new AccountShell();
                 break;
             
-            case "AppShell":
+            case "TaskShell":
                 MainPage = new TaskShell(tasks, jwtToken, connection);
                 break;
         }

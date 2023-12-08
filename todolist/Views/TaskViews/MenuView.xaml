@@ -2,7 +2,7 @@
 <mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                   xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  x:Class="todolist.Views.MenuView" BackgroundColor="#80000000">
+                  x:Class="todolist.Views.TaskViews.MenuView" BackgroundColor="#20000000">
     <Grid VerticalOptions="Start" HorizontalOptions="Start" >
         <Image Source="circlemenu.png" HorizontalOptions="Start" VerticalOptions="Start" 
             Margin="10, 11, 0, 0" HeightRequest="60" />
@@ -26,23 +26,20 @@
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ResetPassword"/>
                         </HorizontalStackLayout.GestureRecognizers>
-                        <Image Source="logout.png" HeightRequest="20"/>
                         <Label Margin="10, 0, 0, 0" Text="Reset Password" FontSize="18" />
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Margin="0, 30, 0, 0">
                         <HorizontalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ReadTermsAndConditions"/>
                         </HorizontalStackLayout.GestureRecognizers>
-                        <Image Source="logout.png" HeightRequest="20"/>
                         <Label Margin="10, 0, 0, 0" Text="Terms &amp; Conditions" FontSize="18" />
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Margin="0, 30, 0, 0">
                         <HorizontalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ReadPrivacyPolicy"/>
                         </HorizontalStackLayout.GestureRecognizers>
-                        <Image Source="logout.png" HeightRequest="20"/>
                         <Label Margin="10, 0, 0, 0" Text="Privacy Policy" FontSize="18" />
                     </HorizontalStackLayout>
 

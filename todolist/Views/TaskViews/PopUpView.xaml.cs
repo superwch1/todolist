@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Pages;
 using Mopups.Services;
+using todolist.ViewModels.TaskViewModels;
 
 
-namespace todolist.Views;
+namespace todolist.Views.TaskViews;
 
 public partial class PopUpView : PopupPage
 {
@@ -29,15 +30,14 @@ public partial class PopUpView : PopupPage
 
 		//need to be further adjust in the future
 		//the editor did not auto fill up the available space in frame
-		content.HeightRequest = 220;
-		contentFrame.HeightRequest = 220;
+		content.HeightRequest = 200;
+		contentFrame.HeightRequest = 200;
 
 		if (model != null)
 		{
 			createOrUpdate.Clicked += UpdateTask;
 			createOrUpdate.Text = "Update";
 			
-
 			topic.Text = model.Topic;
 			dueDate.Date = model.DueDate;
 			content.Text = model.Content;
@@ -54,7 +54,7 @@ public partial class PopUpView : PopupPage
 	public async void EditorFocused(object sender, FocusEventArgs args)
 	{
 #if IOS
-		await viewFrame.TranslateTo(0, -100);
+		await viewFrame.TranslateTo(0, -110);
 #endif
 	}
 

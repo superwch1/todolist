@@ -1,8 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
+using todolist.ViewModels.TaskViewModels;
 
-namespace todolist.Views;
+namespace todolist.Views.TaskViews;
 
 
 public partial class SearchView : ContentPage, IQueryAttributable
