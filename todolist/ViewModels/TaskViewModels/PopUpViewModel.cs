@@ -27,20 +27,6 @@ namespace todolist.ViewModels.TaskViewModels
         }
 
 
-        public async Task DeleteTask(HubConnection connection, int id)
-        {
-            try 
-            {
-                await connection.InvokeAsync("DeleteTask", id);
-                await MopupService.Instance.PopAsync();
-            }
-            catch
-            {
-                await ToastBar.DisplayToast("Cannont connect to server");
-            }
-        }
-
-
         public async Task UpdateTask(HubConnection connection,
             int id, int intType, string topic, string content, DateTime dueDate, int intSymbol)
         {

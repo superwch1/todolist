@@ -39,6 +39,22 @@ namespace todolist.Models
             }
         }
 
+        public bool IsDoneIconVisible
+        {
+            get
+            {
+                if (IntSymbol == 0) 
+                {
+
+                    return false;
+                }
+                else 
+                {
+                    return true;
+                }
+            }
+        }
+
         public bool isContentVisible = false;
         public bool IsContentVisible
         {

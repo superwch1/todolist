@@ -1,6 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Net;
+using Microsoft.AspNetCore.SignalR.Client;
+using Mopups.Services;
 using todolist.Views.AccountViews;
+using todolist.Views.TaskViews;
 namespace todolist.ViewModels.TaskViewModels
 {
 	public class TaskViewModel
@@ -10,6 +13,20 @@ namespace todolist.ViewModels.TaskViewModels
 		{
 			SelectedDateTime = selectedDateTime;
 		}
+
+		public async Task UpdateTask(HubConnection connection, TaskModel model)
+        {
+            try 
+            {
+                await connection.InvokeAsync("UpdateTask", model.Id, model.IntType, model.Topic, 
+					model.Content, model.DueDate.Date.ToString("dd-MM-yyyy"), model.IntSymbol);
+            }
+            catch
+            {
+                await ToastBar.DisplayToast("Cannont connect to server");
+            }
+        }
+
 
 		public void ShowOrHideContent(ObservableCollection<TaskModel> tasks, 
 			ScrollView scrollview, TaskModel selectedTask)
@@ -217,6 +234,59 @@ namespace todolist.ViewModels.TaskViewModels
 					}
 				}
 			}
+		}
+
+
+		public async void SwipeChanging(SwipeView swipeView, SwipeChangingEventArgs args, 
+			double offSet, HubConnection connection)
+		{
+			if (args.SwipeDirection == SwipeDirection.Left)
+			{
+				var frame = (StackLayout)swipeView.Parent;
+				double alpha = 1 + Math.Max(-1, offSet / 50);
+				frame.Opacity = alpha;
+
+				if (offSet < -50)
+				{
+					var selectedTask = (TaskModel)swipeView.BindingContext;
+					var deleteAlertView = new DeleteAlertView(connection, selectedTask);
+					deleteAlertView.Disappearing += (sender, args) => {
+						frame.Opacity = 1;
+						swipeView.IsEnabled = true;
+					};
+
+					//stop user from further swiping and open duplicate alert
+					swipeView.IsEnabled = false;
+					await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(deleteAlertView));
+				}
+			}
+			else if (args.SwipeDirection == SwipeDirection.Right && offSet > 50)
+			{
+				var selectedTask = (TaskModel)swipeView.BindingContext;
+				selectedTask.IntSymbol = selectedTask.IntSymbol == 0 ? 1 : 0;
+				await IsLoading.RunMethod(() => UpdateTask(connection, selectedTask));
+			}
+		}
+
+
+		public void SwipeEnded(object sender, SwipeEndedEventArgs args, double offSet,
+			ObservableCollection<TaskModel> tasks, ScrollView scrollView)
+		{
+			var swipeView = (Microsoft.Maui.Controls.SwipeView)sender;
+			var frame = (Frame)swipeView.Content;
+    		var selectedTask = (TaskModel)frame.BindingContext;
+
+			if (offSet < 5 && offSet > -5)
+			{
+				ShowOrHideContent(tasks, scrollView, selectedTask);
+			}
+
+			if (args.SwipeDirection == SwipeDirection.Left && offSet >= -50)
+			{
+				var stackLayout = (StackLayout)swipeView.Parent;
+				stackLayout.Opacity = 1;
+			}
+			swipeView.Close();
 		}
 	}
 }

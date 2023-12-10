@@ -94,11 +94,6 @@ public partial class PopUpView : PopupPage
 			dueDate.Date, intSymbol));	
 	}
 
-	public async void DeleteTask(object sender, EventArgs args)
-	{
-		await IsLoading.RunMethod(() => ViewModel.DeleteTask(Connection, Model.Id));	
-	}
-
 
 	public async void UpdateTask(object sender, EventArgs args)
 	{

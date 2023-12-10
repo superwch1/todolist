@@ -4,7 +4,6 @@ using Mopups.Services;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 using todolist.ViewModels.TaskViewModels;
-
 namespace todolist.Views.TaskViews;
 
 public partial class TaskView : ContentPage
@@ -15,6 +14,7 @@ public partial class TaskView : ContentPage
 	public string JwtToken { get; }
 	public TaskViewModel ViewModel { get; }
 	public DateTime SelectedDateTime { get; set; }
+	public double OffSet { get; set; }
 
 	
 	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, 
@@ -45,7 +45,7 @@ public partial class TaskView : ContentPage
     }
 
 
-	public async void AddMonth(object seneder, EventArgs args)
+	public async void MinusMonth(object seneder, EventArgs args)
 	{
         await IsLoading.RunMethod(async () =>
 		{
@@ -58,7 +58,7 @@ public partial class TaskView : ContentPage
 		});
 	}
 
-	public async void MinusMonth(object seneder, EventArgs args)
+	public async void AddMonth(object seneder, EventArgs args)
 	{
 		await IsLoading.RunMethod(async () =>
 		{
@@ -85,6 +85,20 @@ public partial class TaskView : ContentPage
 		ViewModel.CreateTask(Tasks, scrollview, false, IntType, id, intType, topic, content, dueDate, intSymbol);
 	}
 
+
+	async void SwipeChanging(object sender, SwipeChangingEventArgs args)
+	{
+		OffSet = args.Offset;
+		var swipeView = (Microsoft.Maui.Controls.SwipeView)sender;
+
+		ViewModel.SwipeChanging(swipeView, args, OffSet, Connection);
+	}
+
+
+	async void SwipeEnded(object sender, SwipeEndedEventArgs args)
+	{
+		ViewModel.SwipeEnded(sender, args, OffSet, Tasks, scrollview);
+	}
 
 	void ShowOrHideContent(object sender, TappedEventArgs e)
     {
