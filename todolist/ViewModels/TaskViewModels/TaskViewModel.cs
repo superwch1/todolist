@@ -251,7 +251,9 @@ namespace todolist.ViewModels.TaskViewModels
 					var selectedTask = (TaskModel)swipeView.BindingContext;
 					var deleteAlertView = new DeleteAlertView(connection, selectedTask);
 					deleteAlertView.Disappearing += (sender, args) => {
-						frame.Opacity = 1;					
+						frame.Opacity = 1;	
+						swipeView.IsEnabled = true;
+						swipeView.Close();		
 					};
 
 					//stop user from further swiping and open duplicated alert
@@ -263,8 +265,8 @@ namespace todolist.ViewModels.TaskViewModels
 			{
 				var selectedTask = (TaskModel)swipeView.BindingContext;
 				selectedTask.IntSymbol = selectedTask.IntSymbol == 0 ? 1 : 0;
-				
-				swipeView.IsEnabled = false;
+
+				//still figuring how to stop using sending repeating invoke when no connection
 				await IsLoading.RunMethod(() => UpdateTask(connection, selectedTask));
 			}
 		}
@@ -286,11 +288,6 @@ namespace todolist.ViewModels.TaskViewModels
 			{
 				var stackLayout = (StackLayout)swipeView.Parent;
 				stackLayout.Opacity = 1;
-			}
-
-			if (args.SwipeDirection == SwipeDirection.Left || args.SwipeDirection == SwipeDirection.Right)
-			{
-				swipeView.IsEnabled = true;
 			}
 			swipeView.Close();
 		}

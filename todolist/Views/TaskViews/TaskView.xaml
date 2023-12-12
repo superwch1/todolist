@@ -49,14 +49,7 @@
                                         </SwipeItemView>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
-                                <SwipeView.BottomItems>
-                                    <SwipeItems>
-                                        <SwipeItemView>
-                                            <Grid HeightRequest="1" />
-                                        </SwipeItemView>
-                                    </SwipeItems>
-                                </SwipeView.BottomItems>
-                                <!-- If I add Both top and bottom Items, the tap will not work anymore -->
+                                <!-- If I add top or bottom Items, the tap will not work anymore -->
                                 <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
                                     BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
                                     <Frame.GestureRecognizers>
