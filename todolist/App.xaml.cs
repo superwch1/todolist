@@ -41,8 +41,8 @@ public partial class App : Application
                 return;
             }
 
-            connection = await SignalR.BuildHubConnection(account.JwtToken);
-            if (connection == null)
+            SignalR.Connection = await SignalR.BuildHubConnection(account.JwtToken);
+            if (SignalR.Connection == null)
             {
                 view = "AccountShell";
                 return;
@@ -61,7 +61,7 @@ public partial class App : Application
                 break;
             
             case "TaskShell":
-                MainPage = new TaskShell(tasks, jwtToken, connection);
+                MainPage = new TaskShell(tasks, jwtToken);
                 break;
         }
     }

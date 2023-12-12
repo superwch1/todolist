@@ -4,6 +4,8 @@ namespace todolist.Services
 {
     public class SignalR 
     {
+        public static HubConnection? Connection { get; set; }
+
         public async static Task<HubConnection?> BuildHubConnection(string jwtToken){
             try 
             {

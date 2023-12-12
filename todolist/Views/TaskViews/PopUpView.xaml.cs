@@ -8,15 +8,13 @@ namespace todolist.Views.TaskViews;
 
 public partial class PopUpView : PopupPage
 {
-	public HubConnection Connection { get; set; }
 	public PopUpViewModel ViewModel { get; set; }
 	TaskModel? Model { get; set; }
 
-	public PopUpView(TaskModel model, HubConnection connection, int intType)
+	public PopUpView(TaskModel model, int intType)
 	{
 		InitializeComponent();
 
-		Connection = connection;
 		ViewModel = new PopUpViewModel();
 		Model = model;
 		
@@ -90,7 +88,7 @@ public partial class PopUpView : PopupPage
 		int intType = typeLabel.Text == "My Task" ? 0 : 1;
 		int intSymbol = Model == null ? 0 : Model.IntSymbol;
 
-		await IsLoading.RunMethod(() => ViewModel.CreateTask(Connection, intType, topic.Text, content.Text,
+		await IsLoading.RunMethod(() => ViewModel.CreateTask(intType, topic.Text, content.Text,
 			dueDate.Date, intSymbol));	
 	}
 
@@ -100,7 +98,7 @@ public partial class PopUpView : PopupPage
 		int intType = typeLabel.Text == "My Task" ? 0 : 1;
 		int intSymbol = Model == null ? 0 : Model.IntSymbol;
 
-		await IsLoading.RunMethod(() => ViewModel.UpdateTask(Connection, Model.Id, intType, topic.Text, 
+		await IsLoading.RunMethod(() => ViewModel.UpdateTask(Model.Id, intType, topic.Text, 
 			content.Text, dueDate.Date, intSymbol));	
 	}
 

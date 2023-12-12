@@ -9,7 +9,6 @@ namespace todolist.Views.TaskViews;
 public partial class SearchView : ContentPage, IQueryAttributable
 {
 	public ObservableCollection<TaskModel> Tasks { get; set;} = new ObservableCollection<TaskModel>();
-	public HubConnection Connection { get; set; }
 	public string JwtToken { get; set; }
 	public string Keyword { get; set; }
 	public TaskViewModel ViewModel { get; } = new TaskViewModel(DateTime.Now);
@@ -49,7 +48,6 @@ public partial class SearchView : ContentPage, IQueryAttributable
    	public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
 		JwtToken = query["jwtToken"] as string;
-		Connection = query["connection"] as HubConnection;
 		List<TaskModel> tasks = query["tasks"] as List<TaskModel>;
 		Keyword = query["keyword"] as string;
 
@@ -78,7 +76,7 @@ public partial class SearchView : ContentPage, IQueryAttributable
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
-		var popUpView = new PopUpView(selectedTask, Connection, selectedTask.IntType);
+		var popUpView = new PopUpView(selectedTask, selectedTask.IntType);
 		await MopupService.Instance.PushAsync(popUpView);
 
 		//after the popup is disappeared, it runs the following function

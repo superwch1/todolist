@@ -7,16 +7,14 @@ namespace todolist.Views.TaskViews;
 
 public partial class MenuView : PopupPage
 {
-	public HubConnection Connection { get; set; }
 	public string JwtToken { get; set; }
 	public MenuViewModel ViewModel { get; }
 
-	public MenuView(double width, double height, double marginTop, HubConnection connection,
+	public MenuView(double width, double height, double marginTop,
 		string jwtToken)
 	{
 		InitializeComponent();	
 		
-		Connection = connection;
 		JwtToken = jwtToken;
 		ViewModel = new MenuViewModel();
 
@@ -26,7 +24,7 @@ public partial class MenuView : PopupPage
 
 		search.ReturnType = ReturnType.Go;
 		search.ReturnCommand = new Command(async () => {			
-			await ViewModel.SearchTask(Connection, search.Text, JwtToken);
+			await ViewModel.SearchTask(search.Text, JwtToken);
 		});
 
 		creditLabel.Text = "By Fiona C & John W";
@@ -34,7 +32,7 @@ public partial class MenuView : PopupPage
 
 	async void Logout(object sender, TappedEventArgs args)
 	{	
-		await IsLoading.RunMethod(() => ViewModel.Logout(Connection));
+		await IsLoading.RunMethod(() => ViewModel.Logout());
 	}
 
 	async void ResetPassword(object sender, TappedEventArgs args)

@@ -8,7 +8,7 @@ namespace todolist.ViewModels.TaskViewModels
 {
 	public class MenuViewModel
 	{
-       	public async Task Logout(HubConnection connection)
+       	public async Task Logout()
 		{
 			try 
 			{
@@ -16,9 +16,9 @@ namespace todolist.ViewModels.TaskViewModels
 			}
 			catch { }
 
-			connection.Remove("DeleteTask");
-			connection.Remove("DeleteThenCreateTask");
-			await connection.StopAsync();
+			SignalR.Connection.Remove("DeleteTask");
+			SignalR.Connection.Remove("DeleteThenCreateTask");
+			await SignalR.Connection?.StopAsync();
 
 			//loop for two times for two page in shell
 			for(var i = 0; i < 2; i++)
@@ -31,7 +31,7 @@ namespace todolist.ViewModels.TaskViewModels
 		}
 
 
-		public async Task SearchTask(HubConnection connection, string keyword, string jwtToken)
+		public async Task SearchTask(string keyword, string jwtToken)
 		{
 			if (String.IsNullOrEmpty(keyword))
 			{
@@ -54,7 +54,6 @@ namespace todolist.ViewModels.TaskViewModels
 					await MopupService.Instance.PopAsync();
 					await Shell.Current.GoToAsync($"searchview",
 						new Dictionary<string, object>{
-							{ "connection", connection },
 							{ "jwtToken", jwtToken },
 							{ "tasks", tasks },
 							{ "keyword", keyword }

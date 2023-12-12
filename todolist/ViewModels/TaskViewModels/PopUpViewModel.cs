@@ -5,7 +5,7 @@ namespace todolist.ViewModels.TaskViewModels
 {
 	public class PopUpViewModel
 	{
-        public async Task CreateTask(HubConnection connection,
+        public async Task CreateTask(
             int intType, string topic, string content, DateTime dueDate, int intSymbol)
         {
             if (String.IsNullOrEmpty(topic))
@@ -16,7 +16,7 @@ namespace todolist.ViewModels.TaskViewModels
 
             try 
             {
-                await connection.InvokeAsync("CreateTask", 
+                await SignalR.Connection.InvokeAsync("CreateTask", 
                     intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
                 await MopupService.Instance.PopAsync();
             }
@@ -27,7 +27,7 @@ namespace todolist.ViewModels.TaskViewModels
         }
 
 
-        public async Task UpdateTask(HubConnection connection,
+        public async Task UpdateTask(
             int id, int intType, string topic, string content, DateTime dueDate, int intSymbol)
         {
             if (String.IsNullOrEmpty(topic))
@@ -38,7 +38,7 @@ namespace todolist.ViewModels.TaskViewModels
 
             try 
             {
-                await connection.InvokeAsync("UpdateTask", 
+                await SignalR.Connection.InvokeAsync("UpdateTask", 
                     id, intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
                 await MopupService.Instance.PopAsync();
             }

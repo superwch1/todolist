@@ -7,15 +7,13 @@ namespace todolist.Views.TaskViews;
 
 public partial class DeleteAlertView : PopupPage
 {
-	public HubConnection Connection { get; set; }
 	TaskModel Model { get; set; }
 
-	public DeleteAlertView(HubConnection connection, TaskModel model)
+	public DeleteAlertView(TaskModel model)
 	{
 		InitializeComponent();
 
 		Model = model;
-		Connection = connection;
 	}
 
 
@@ -24,7 +22,7 @@ public partial class DeleteAlertView : PopupPage
 		try
 		{
 			await MopupService.Instance.PopAsync();
-			await Connection.InvokeAsync("DeleteTask", Model.Id);
+			await SignalR.Connection.InvokeAsync("DeleteTask", Model.Id);
 		}
 		catch 
 		{ 

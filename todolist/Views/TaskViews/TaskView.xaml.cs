@@ -10,21 +10,18 @@ public partial class TaskView : ContentPage
 {
 	public ObservableCollection<TaskModel> Tasks { get; set;} = new ObservableCollection<TaskModel>();
 	public int IntType { get; }
-	public HubConnection Connection { get; set; }
 	public string JwtToken { get; }
 	public TaskViewModel ViewModel { get; }
 	public DateTime SelectedDateTime { get; set; }
 	public double OffSet { get; set; }
 
 	
-	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, 
-		HubConnection connection)
+	public TaskView(List<TaskModel> tasks, int intType, string jwtToken)
 	{
 		InitializeComponent();
 
 		IntType = intType;
 		JwtToken = jwtToken;
-		Connection = connection;
 		SelectedDateTime = DateTime.Now;
 		ViewModel = new TaskViewModel(SelectedDateTime);
 		selectedPeriod.Text = SelectedDateTime.ToString("MMM yyyy");
@@ -91,7 +88,7 @@ public partial class TaskView : ContentPage
 		OffSet = args.Offset;
 		var swipeView = (Microsoft.Maui.Controls.SwipeView)sender;
 
-		ViewModel.SwipeChanging(swipeView, args, OffSet, Connection);
+		ViewModel.SwipeChanging(swipeView, args, OffSet);
 	}
 
 
@@ -122,7 +119,7 @@ public partial class TaskView : ContentPage
 #endif
 
 		//80 - Margin top 
-		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new MenuView(width, height, 80, Connection, JwtToken)));
+		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new MenuView(width, height, 80, JwtToken)));
 	}
 
 
@@ -131,21 +128,21 @@ public partial class TaskView : ContentPage
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
-		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(selectedTask, Connection, IntType)));
+		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(selectedTask, IntType)));
     }
 
 
 	async void CreateTask(object sender, TappedEventArgs e)
     {
-		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(null, Connection, IntType)));
+		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(null, IntType)));
     }
 
 
 	public void InitializeSignalR()
 	{
-		Connection.On<int>("DeleteTask", DeleteTask);
-		Connection.On<int, int, string, string, string, int>("DeleteThenCreateTask", DeleteThenCreateTask);
-		Connection.Reconnected += async (connectionId) => 
+		SignalR.Connection.On<int>("DeleteTask", DeleteTask);
+		SignalR.Connection.On<int, int, string, string, string, int>("DeleteThenCreateTask", DeleteThenCreateTask);
+		SignalR.Connection.Reconnected += async (connectionId) => 
 		{
 			await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 		};
@@ -153,9 +150,9 @@ public partial class TaskView : ContentPage
 
 	public async Task TerminateSignalR()
 	{
-		Connection.Remove("DeleteTask");
-		Connection.Remove("DeleteThenCreateTask");
-		await Connection.StopAsync();
+		SignalR.Connection.Remove("DeleteTask");
+		SignalR.Connection.Remove("DeleteThenCreateTask");
+		await SignalR.Connection.StopAsync();
 	}
 
 
@@ -167,12 +164,12 @@ public partial class TaskView : ContentPage
 
 	public async Task ActivatedFunction()
 	{
-		if (Connection.State == HubConnectionState.Disconnected){
+		if (SignalR.Connection.State == HubConnectionState.Disconnected){
 			var connection = await SignalR.BuildHubConnection(JwtToken);
 
 			if (connection != null && connection.State == HubConnectionState.Connected)
 			{
-				Connection = connection;
+				SignalR.Connection = connection;
 				InitializeSignalR();
 				await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 			}
@@ -180,16 +177,16 @@ public partial class TaskView : ContentPage
 
 		var count = LifeCycleMethods.EnterForegroundCount;
 
-		while(Connection.State == HubConnectionState.Disconnected 
+		while(SignalR.Connection.State == HubConnectionState.Disconnected 
 			&& count == LifeCycleMethods.EnterForegroundCount){
 	
 			await Task.Delay(5000);
-			if (Connection.State == HubConnectionState.Disconnected)
+			if (SignalR.Connection.State == HubConnectionState.Disconnected)
 			{
 				var connection = await SignalR.BuildHubConnection(JwtToken);
 
 				if (connection != null && connection.State == HubConnectionState.Connected){
-					Connection = connection;
+					SignalR.Connection = connection;
 					InitializeSignalR();
 					await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
 				}

@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using Microsoft.AspNetCore.SignalR.Client;
 using todolist.Views.TaskViews;
 
 namespace todolist.ViewModels.AccountViewModels
@@ -36,12 +35,12 @@ namespace todolist.ViewModels.AccountViewModels
             {
                 await UserDatabase.UpdateItemAsync(new UserModel() { Id = 1, JwtToken = loginResponse.Item1 });
 
-                HubConnection? connection = await SignalR.BuildHubConnection(loginResponse.Item1);
+                SignalR.Connection = await SignalR.BuildHubConnection(loginResponse.Item1);
                 var taskReponse = await WebServer.ReadTaskFromTime(DateTime.Now.Year, DateTime.Now.Month, loginResponse.Item1);     
 
-                if (taskReponse.Item2 == HttpStatusCode.OK && connection != null)
+                if (taskReponse.Item2 == HttpStatusCode.OK && SignalR.Connection != null)
                 {
-                    Application.Current!.MainPage = new TaskShell(taskReponse.Item1, loginResponse.Item1, connection);
+                    Application.Current!.MainPage = new TaskShell(taskReponse.Item1, loginResponse.Item1);
                 }
             }
         }

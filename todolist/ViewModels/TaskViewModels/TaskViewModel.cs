@@ -14,11 +14,11 @@ namespace todolist.ViewModels.TaskViewModels
 			SelectedDateTime = selectedDateTime;
 		}
 
-		public async Task UpdateTask(HubConnection connection, TaskModel model)
+		public async Task UpdateTask(TaskModel model)
         {
             try 
             {
-                await connection.InvokeAsync("UpdateTask", model.Id, model.IntType, model.Topic, 
+                await SignalR.Connection.InvokeAsync("UpdateTask", model.Id, model.IntType, model.Topic, 
 					model.Content, model.DueDate.Date.ToString("dd-MM-yyyy"), model.IntSymbol);
             }
             catch
@@ -238,7 +238,7 @@ namespace todolist.ViewModels.TaskViewModels
 
 
 		public async void SwipeChanging(SwipeView swipeView, SwipeChangingEventArgs args, 
-			double offSet, HubConnection connection)
+			double offSet)
 		{
 			if (args.SwipeDirection == SwipeDirection.Left)
 			{
@@ -249,7 +249,7 @@ namespace todolist.ViewModels.TaskViewModels
 				if (offSet < -50)
 				{
 					var selectedTask = (TaskModel)swipeView.BindingContext;
-					var deleteAlertView = new DeleteAlertView(connection, selectedTask);
+					var deleteAlertView = new DeleteAlertView(selectedTask);
 					deleteAlertView.Disappearing += (sender, args) => {
 						frame.Opacity = 1;	
 						swipeView.IsEnabled = true;
@@ -267,7 +267,7 @@ namespace todolist.ViewModels.TaskViewModels
 				selectedTask.IntSymbol = selectedTask.IntSymbol == 0 ? 1 : 0;
 
 				//still figuring how to stop using sending repeating invoke when no connection
-				await IsLoading.RunMethod(() => UpdateTask(connection, selectedTask));
+				await IsLoading.RunMethod(() => UpdateTask(selectedTask));
 			}
 		}
 
