@@ -10,11 +10,18 @@ public partial class ForgetPasswordView : ContentPage
 	{
 		InitializeComponent();
         ViewModel = new ForgetPasswordViewModel();  
+
+        Shell.SetNavBarIsVisible(this, false);
 	}
 
 
     public async void ForgetPassword(object sender, EventArgs args)
     {
         await IsLoading.RunMethod(() => ViewModel.ForgetPassword(email));
+    }
+
+    async void GoBack(object sender, TappedEventArgs args)
+    {
+        await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }
 }

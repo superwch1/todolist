@@ -45,8 +45,6 @@
                 </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
-        </ScrollView>
-
-        
+        </ScrollView>     
     </Grid>
 </ContentPage>

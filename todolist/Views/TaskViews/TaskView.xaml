@@ -77,7 +77,8 @@
                                             </Grid.ColumnDefinitions>
 
                                             <Image Source="tick" Margin="0, 0, 10, 0" IsVisible="{Binding IsDoneIconVisible}" HeightRequest="20"/>
-                                            <Label Text="{Binding Topic}" Grid.Column="1" MaxLines="1" LineBreakMode="TailTruncation"  FontSize="18" VerticalOptions="Center" />
+                                            <Label Text="{Binding Topic}" Grid.Column="1" MaxLines="1" LineBreakMode="TailTruncation"  
+                                                  FontSize="18" VerticalOptions="Center" />
 
                                             <!-- ImageButton Height don't work in IOS -->
                                             <Image Source="{Binding ArrowImageSource}" Grid.Column="2" HeightRequest="10"

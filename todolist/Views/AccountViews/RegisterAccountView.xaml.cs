@@ -9,34 +9,53 @@ public partial class RegisterAccountView : ContentPage
 	public RegisterAccountView()
 	{
 		InitializeComponent();
-		SetControlsProperties();
-
 		ViewModel = new RegisterAccountViewModel();
+
+		Shell.SetNavBarIsVisible(this, false);
 	}
 
-
-	public void SetControlsProperties()
-    {
-        var width = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
-        var height = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
-
-        email.WidthRequest = width * 0.8;
-        emailBorder.WidthRequest = width * 0.8;
-        emailBorder.Margin = new Thickness() { Bottom = height * 0.02 };
-
-		password.WidthRequest = width * 0.8;
-        passwordBorder.WidthRequest = width * 0.8;
-        passwordBorder.Margin = new Thickness() { Bottom = height * 0.02 };
-
-		confirmPassword.WidthRequest = width * 0.8;
-        confirmPasswordBorder.WidthRequest = width * 0.8;
-        confirmPasswordBorder.Margin = new Thickness() { Bottom = height * 0.02 };
-
-        stack.WidthRequest = width * 0.8;
-    }
 
 	public async void RegisterAccount(object sender, EventArgs args)
 	{
 		await IsLoading.RunMethod(() => ViewModel.RegisterAccount(email, password, confirmPassword));
 	}
+
+
+	public void PasswordTextChanged(object sender, TextChangedEventArgs e)
+	{
+		if (e.NewTextValue.Length >= 6 && e.NewTextValue.Length <= 20)
+		{
+			passwordIcon.Source = "tick";
+		}
+		else
+		{
+			passwordIcon.Source = "cross";
+		}
+
+		if (e.NewTextValue == confirmPassword.Text)
+		{
+			confirmPasswordIcon.Source = "tick";
+		}
+		else
+		{
+			confirmPasswordIcon.Source = "cross";
+		}
+	}
+
+	public void ConfirmPasswordTextChanged(object sender, TextChangedEventArgs e)
+	{
+		if (e.NewTextValue == password.Text)
+		{
+			confirmPasswordIcon.Source = "tick";
+		}
+		else
+		{
+			confirmPasswordIcon.Source = "cross";
+		}
+	}
+
+	async void GoBack(object sender, TappedEventArgs args)
+    {
+        await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
+    }
 }

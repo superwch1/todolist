@@ -100,6 +100,7 @@ public partial class TaskView : ContentPage
 		ViewModel.SwipeEnded(sender, args, OffSet, Tasks, scrollview);
 	}
 
+
 	void ShowOrHideContent(object sender, TappedEventArgs e)
     {
 		var frame = (Frame)sender;
@@ -107,6 +108,7 @@ public partial class TaskView : ContentPage
 
 		ViewModel.ShowOrHideContent(Tasks, scrollview, selectedTask);
     }
+
 
 	async void OpenMenu(object seender, TappedEventArgs e)
 	{

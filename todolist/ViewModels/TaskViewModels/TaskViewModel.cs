@@ -251,11 +251,10 @@ namespace todolist.ViewModels.TaskViewModels
 					var selectedTask = (TaskModel)swipeView.BindingContext;
 					var deleteAlertView = new DeleteAlertView(connection, selectedTask);
 					deleteAlertView.Disappearing += (sender, args) => {
-						frame.Opacity = 1;
-						swipeView.IsEnabled = true;
+						frame.Opacity = 1;					
 					};
 
-					//stop user from further swiping and open duplicate alert
+					//stop user from further swiping and open duplicated alert
 					swipeView.IsEnabled = false;
 					await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(deleteAlertView));
 				}
@@ -264,6 +263,8 @@ namespace todolist.ViewModels.TaskViewModels
 			{
 				var selectedTask = (TaskModel)swipeView.BindingContext;
 				selectedTask.IntSymbol = selectedTask.IntSymbol == 0 ? 1 : 0;
+				
+				swipeView.IsEnabled = false;
 				await IsLoading.RunMethod(() => UpdateTask(connection, selectedTask));
 			}
 		}
@@ -272,7 +273,7 @@ namespace todolist.ViewModels.TaskViewModels
 		public void SwipeEnded(object sender, SwipeEndedEventArgs args, double offSet,
 			ObservableCollection<TaskModel> tasks, ScrollView scrollView)
 		{
-			var swipeView = (Microsoft.Maui.Controls.SwipeView)sender;
+			var swipeView = (SwipeView)sender;
 			var frame = (Frame)swipeView.Content;
     		var selectedTask = (TaskModel)frame.BindingContext;
 
@@ -285,6 +286,11 @@ namespace todolist.ViewModels.TaskViewModels
 			{
 				var stackLayout = (StackLayout)swipeView.Parent;
 				stackLayout.Opacity = 1;
+			}
+
+			if (args.SwipeDirection == SwipeDirection.Left || args.SwipeDirection == SwipeDirection.Right)
+			{
+				swipeView.IsEnabled = true;
 			}
 			swipeView.Close();
 		}

@@ -78,14 +78,17 @@ public partial class LoginView : ContentPage
         {
             return;
         }
+        
         await IsLoading.RunMethod(async() => {
             if (IconPressed == true)
             {
+                HapticFeedback.Default.Perform(HapticFeedbackType.Click);
                 await iconWithoutShadow.TranslateTo(0, TopYPosition - MiddleYPosition, 350);
                 IconPressed = false;
             }
             else 
             {
+                HapticFeedback.Default.Perform(HapticFeedbackType.Click);
                 await iconWithoutShadow.TranslateTo(0, TopYPosition - MiddleYPosition + IconWidth * 0.1, 350);
                 IconPressed = true;
             }
@@ -100,6 +103,8 @@ public partial class LoginView : ContentPage
             return;
         }
         AnimationStarted = true;
+
+        HapticFeedback.Default.Perform(HapticFeedbackType.Click);
 
         clickLabel.IsVisible = false;
         MiddleYPosition = DisplayHeight / 2 - IconWidth * 1.1159 / 2; 

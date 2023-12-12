@@ -10,6 +10,8 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
 	{
 		InitializeComponent();
 		SetControlsProperties();
+
+		Shell.SetNavBarIsVisible(this, false);
 	}
 
 	public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -35,4 +37,10 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
 	{
 		await IsLoading.RunMethod(() => ViewModel.VerifyPasscode(passcode));
 	}
+
+
+	async void GoBack(object sender, TappedEventArgs args)
+    {
+        await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
+    }
 }

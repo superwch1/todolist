@@ -3,39 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="todolist.Views.AccountViews.RegisterAccountView"
              Title="Register Account">
-    <StackLayout x:Name="stack" VerticalOptions="Center">
-        <Label Text="Register account" FontSize="22"     
-                Margin="0, 0, 0, 15" />
-                 
-        <Label Text="Email" FontSize="16" />
-        <Border x:Name="emailBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-            <Entry x:Name="email" Placeholder="abc@gmail.com"            
-                    Keyboard="Email"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                    TextColor="#aeaeae" FontSize="16"
-                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
-                    HorizontalTextAlignment="Center"/>
-        </Border>
+        <StackLayout VerticalOptions="Center" >
+                <Image Source="nav" HeightRequest="50" HorizontalOptions="Start" Margin="20, 0, 0, 30">
+                        <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoBack" NumberOfTapsRequired="1"/> 
+                        </Image.GestureRecognizers>
+                </Image>
+                <Border Margin="20, 0" Padding="20" BackgroundColor="#ffffff"
+                        StrokeDashOffset="2" StrokeDashArray="1, 1" StrokeShape="RoundRectangle 20"
+                        StrokeThickness="2" Stroke="#000000">
+                        <StackLayout>
+                                <HorizontalStackLayout Margin="0, 30, 0, 0">
+                                        <Image Source="registeraccount.png" HeightRequest="24" />
+                                        <Label Text="Register Account" Margin="10, 0, 0, 0" FontSize="26" TextColor="#57472A"
+                                                FontAttributes="Bold"/>
+                                </HorizontalStackLayout>
+
+                                <Border x:Name="emailBorder" Margin="0, 40, 0, 0" Stroke="Black" StrokeShape="RoundRectangle 10" Padding="20, 0, 20, 0" >
+                                        <Entry x:Name="email" Placeholder="abc@gmail.com"            
+                                                Keyboard="Email"  PlaceholderColor="#aeaeae"
+                                                TextColor="#aeaeae" FontSize="16"
+                                                IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
+                                                HorizontalTextAlignment="Start"/>
+                                </Border>
+
+                                <Border x:Name="passwordBorder" Margin="0, 15, 0, 0" Stroke="Black" 
+                                        Padding="20, 0, 20, 0" StrokeShape="RoundRectangle 10">
+                                        <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <Entry x:Name="password" Placeholder="••••••" MaxLength="20"             
+                                                Keyboard="Plain"  PlaceholderColor="#aeaeae" Grid.Column="0"
+                                                TextColor="#aeaeae" FontSize="16" IsPassword="True"
+                                                IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
+                                                HorizontalTextAlignment="Start" TextChanged="PasswordTextChanged"/>
+                                                <Image x:Name="passwordIcon" Source="cross" HeightRequest="15 " Grid.Column="1" />
+                                        </Grid>
+                                </Border>
+                                <Label Text="It should contain between 6-12 characters" Margin="0, 5, 0, 0" 
+                                TextColor="#BB3D2C" FontAttributes="Italic" />
 
 
-        <Label Text="Password" FontSize="16" />
-        <Border x:Name="passwordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-            <Entry x:Name="password" Placeholder="••••••"            
-                    Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                    TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
-                    HorizontalTextAlignment="Center"/>
-        </Border>
+                                <Label Text="Confirm Password" TextColor="#57472A" FontSize="16" Margin="0, 25, 0, 0"/>
+                                <Border x:Name="confirmPasswordBorder" Margin="0, 15, 0, 0" Stroke="Black" 
+                                        Padding="20, 0, 20, 0" StrokeShape="RoundRectangle 10">
+                                        <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                                <Entry x:Name="confirmPassword" Placeholder="••••••" MaxLength="20"          
+                                                Keyboard="Plain"  PlaceholderColor="#aeaeae" Grid.Column="0"
+                                                TextColor="#aeaeae" FontSize="16" IsPassword="True"
+                                                IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
+                                                HorizontalTextAlignment="Start" TextChanged="ConfirmPasswordTextChanged"/>
+                                                <Image x:Name="confirmPasswordIcon" Source="cross" HeightRequest="15" Grid.Column="1" />
+                                        </Grid>
+                                </Border>
 
-
-        <Label Text="Confirm Password" FontSize="16" />
-        <Border x:Name="confirmPasswordBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-            <Entry x:Name="confirmPassword" Placeholder="••••••"            
-                    Keyboard="Plain"  PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                    TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
-                    HorizontalTextAlignment="Center"/>
-        </Border>
-        <Button x:Name="button" Text="GO" BackgroundColor="#57472a" TextColor="#ffffff"
-                FontAttributes="Bold" FontSize="18" Clicked="RegisterAccount"/>
-    </StackLayout>
+                                <Button x:Name="button" Text="Sign Up" BackgroundColor="#FFF07B" TextColor="#57472A" BorderWidth="1"
+                                        WidthRequest="120" HeightRequest="50" FontSize="18" HorizontalOptions="End"
+                                        Margin="0, 40, 0, 20" FontAttributes="Bold" BorderColor="#57472A" 
+                                        Clicked="RegisterAccount"/>
+                        </StackLayout>
+                </Border>
+        </StackLayout>
 </ContentPage>
