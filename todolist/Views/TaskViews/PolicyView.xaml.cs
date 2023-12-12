@@ -5,6 +5,7 @@ public partial class PolicyView : ContentPage, IQueryAttributable
 	public PolicyView()
 	{
 		InitializeComponent();
+		Shell.SetNavBarIsVisible(this, false);
 	}
 
     protected override async void OnSizeAllocated(double width, double height)
@@ -32,6 +33,11 @@ public partial class PolicyView : ContentPage, IQueryAttributable
 		string policyContent = query["policyContent"] as string;
 
         policyLabel.Text = policyContent;
-		Title = policyType;
+		titleLabel.Text = policyType;
+    }
+
+	async void GoBack(object sender, TappedEventArgs args)
+    {
+        await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }
 }
