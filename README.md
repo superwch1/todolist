@@ -4,7 +4,7 @@ Rember to change the package id and app icon when publish in different platform
 
 Publish applicaion in Android platform
 1. APK: dotnet publish -f net8.0-android -c Release -p:AndroidPackageFormats=apk
-2. AAB: dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyPass=PWJ##SMFI\<3p -p:AndroidSigningStorePass=PWJ##SMFI\<3p
+2. AAB: dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyPass=PWJ##SMFI\<3p -p:AndroidSigningStorePass=PWJ##SMFI\<3p (mac use / for escaping special symbol)
 
 Publish application in IOS platform 
 1. Follow the tutorial in https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-app-store?view=net-maui-8.0&tabs=vs
