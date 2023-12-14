@@ -9,7 +9,7 @@
                                 <TapGestureRecognizer Tapped="GoBack" NumberOfTapsRequired="1"/> 
                         </Image.GestureRecognizers>
                 </Image>
-                <!-- 20 +50 = 70 for balancing the height of the back button -->
+                <!-- 20 + 50 = 70 for balancing the height of the back button -->
                 <Border Margin="20, 0, 20, 70" Padding="20" BackgroundColor="#ffffff"
                         StrokeDashOffset="2" StrokeDashArray="1, 1" StrokeShape="RoundRectangle 20"
                         StrokeThickness="2" Stroke="#000000">
@@ -37,14 +37,14 @@
                                                 </Grid.ColumnDefinitions>
                                                 
                                                 <Entry x:Name="password" Placeholder="••••••" MaxLength="20"             
-                                                Keyboard="Plain"  PlaceholderColor="#aeaeae" Grid.Column="0"
-                                                TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                                                IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
-                                                HorizontalTextAlignment="Start" TextChanged="PasswordTextChanged"/>
+                                                       Keyboard="Plain"  PlaceholderColor="#aeaeae" Grid.Column="0"
+                                                       TextColor="#aeaeae" FontSize="16" IsPassword="True"
+                                                       IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
+                                                       HorizontalTextAlignment="Start" TextChanged="PasswordTextChanged"/>
                                                 <Image x:Name="passwordIcon" Source="cross" HeightRequest="15 " Grid.Column="1" />
                                         </Grid>
                                 </Border>
-                                <Label Text="It should contain between 6-12 characters" Margin="0, 5, 0, 0" 
+                                <Label Text="It should contain 6-12 characters" Margin="0, 5, 0, 0" 
                                 TextColor="#BB3D2C" FontAttributes="Italic" />
 
 
@@ -58,10 +58,10 @@
                                                 </Grid.ColumnDefinitions>
                                                 
                                                 <Entry x:Name="confirmPassword" Placeholder="••••••" MaxLength="20"          
-                                                Keyboard="Plain"  PlaceholderColor="#aeaeae" Grid.Column="0"
-                                                TextColor="#aeaeae" FontSize="16" IsPassword="True"
-                                                IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
-                                                HorizontalTextAlignment="Start" TextChanged="ConfirmPasswordTextChanged"/>
+                                                       Keyboard="Plain"  PlaceholderColor="#aeaeae" Grid.Column="0"
+                                                       TextColor="#aeaeae" FontSize="16" IsPassword="True"
+                                                       IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"
+                                                       HorizontalTextAlignment="Start" TextChanged="ConfirmPasswordTextChanged"/>
                                                 <Image x:Name="confirmPasswordIcon" Source="cross" HeightRequest="15" Grid.Column="1" />
                                         </Grid>
                                 </Border>

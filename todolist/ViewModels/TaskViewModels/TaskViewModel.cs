@@ -18,8 +18,12 @@ namespace todolist.ViewModels.TaskViewModels
         {
             try 
             {
-                await SignalR.Connection.InvokeAsync("UpdateTask", model.Id, model.IntType, model.Topic, 
-					model.Content, model.DueDate.Date.ToString("dd-MM-yyyy"), model.IntSymbol);
+				using (var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+                {
+					await SignalR.Connection.InvokeAsync("UpdateTask", model.Id, model.IntType, model.Topic, 
+						model.Content, model.DueDate.Date.ToString("dd-MM-yyyy"), model.IntSymbol,
+						cancellationTokenSource.Token);
+                }
             }
             catch
             {

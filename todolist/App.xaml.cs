@@ -71,7 +71,8 @@ public partial class App : Application
     {
         Window window = base.CreateWindow(activationState);
 
-        window.Activated += async (s, e) =>
+        //it should be resumed since activated will call also when app is opened
+        window.Resumed += async (s, e) =>
         {
             foreach (var action in LifeCycleMethods.ActivatedActions)
             {

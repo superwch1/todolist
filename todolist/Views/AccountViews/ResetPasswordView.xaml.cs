@@ -11,13 +11,14 @@ public partial class ResetPasswordView : ContentPage, IQueryAttributable
 		InitializeComponent();
 
 		Shell.SetNavBarIsVisible(this, false);
+		Shell.SetTabBarIsVisible(this, false);
 	}
 
 
 	protected override async void OnSizeAllocated(double width, double height)
 	{
 		base.OnSizeAllocated(width, height);
-		Shell.SetTabBarIsVisible(this, false);
+		
 	}
 
 

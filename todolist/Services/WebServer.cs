@@ -16,7 +16,7 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/Mobile/Login?email={email}&password={password}";
 
-                var http = new HttpClient();
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };
                 var response = await http.GetAsync(url);
 
                 var data = await response.Content.ReadAsStringAsync();
@@ -36,7 +36,7 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/Mobile/RegisterAccount";
 
-                var http = new HttpClient();
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };
 
                 var json = JsonConvert.SerializeObject(model);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -60,7 +60,7 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/Mobile/ForgetPassword?email={email}";
 
-                var http = new HttpClient();                
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };              
                 var response = await http.PostAsync(url, null);
 
                 var data = await response.Content.ReadAsStringAsync();
@@ -103,7 +103,7 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/Mobile/VerifyPasscode?email={email}&passcode={passcode}";
 
-                var http = new HttpClient();                
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };            
                 var response = await http.PostAsync(url, null);
 
                 var data = await response.Content.ReadAsStringAsync();
@@ -123,7 +123,7 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/Mobile/ResetPassword";
 
-                var http = new HttpClient();                
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };               
                 var json = JsonConvert.SerializeObject(model);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 
@@ -147,10 +147,10 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/mobile/ReadTaskFromKeyword?keyword={keyword}";
 
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };
+                http.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);
 
-                var response = await httpClient.GetAsync(url);
+                var response = await http.GetAsync(url);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -173,10 +173,10 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/mobile/ReadTaskFromTime?year={year}&month={month}";
 
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };
+                http.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);
 
-                var response = await httpClient.GetAsync(url);
+                var response = await http.GetAsync(url);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
@@ -199,9 +199,9 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/mobile/ReadPrivacyPolicy";
 
-                var httpClient = new HttpClient();
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };
 
-                var response = await httpClient.GetAsync(url);
+                var response = await http.GetAsync(url);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var policyContent = await response.Content.ReadAsStringAsync();
@@ -223,9 +223,9 @@ namespace todolist.Services
 			{
                 var url = $"{ServerDomain}/mobile/ReadTermsAndConditions";
 
-                var httpClient = new HttpClient();
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(5) };
 
-                var response = await httpClient.GetAsync(url);
+                var response = await http.GetAsync(url);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var policyContent = await response.Content.ReadAsStringAsync();

@@ -21,8 +21,12 @@ public partial class DeleteAlertView : PopupPage
 	{
 		try
 		{
+			using (var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+			{
+				await SignalR.Connection.InvokeAsync("DeleteTask", Model.Id, cancellationTokenSource.Token);
+			}
 			await MopupService.Instance.PopAsync();
-			await SignalR.Connection.InvokeAsync("DeleteTask", Model.Id);
+
 		}
 		catch 
 		{ 

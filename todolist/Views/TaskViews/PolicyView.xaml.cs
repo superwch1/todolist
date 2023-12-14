@@ -6,12 +6,20 @@ public partial class PolicyView : ContentPage, IQueryAttributable
 	{
 		InitializeComponent();
 		Shell.SetNavBarIsVisible(this, false);
+		Shell.SetTabBarIsVisible(this, false);
+
+#if IOS
+		
+#endif
 	}
 
     protected override async void OnSizeAllocated(double width, double height)
 	{
 		base.OnSizeAllocated(width, height);
-		Shell.SetTabBarIsVisible(this, false);
+
+#if ANDROID
+		//Shell.SetTabBarIsVisible(this, false);
+#endif
 	}
 
 

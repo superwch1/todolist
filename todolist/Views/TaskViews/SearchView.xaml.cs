@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
 using todolist.ViewModels.TaskViewModels;
 

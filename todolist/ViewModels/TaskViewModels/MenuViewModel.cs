@@ -16,16 +16,16 @@ namespace todolist.ViewModels.TaskViewModels
 			}
 			catch { }
 
-			SignalR.Connection.Remove("DeleteTask");
-			SignalR.Connection.Remove("DeleteThenCreateTask");
-			await SignalR.Connection?.StopAsync();
-
 			//loop for two times for two page in shell
 			for(var i = 0; i < 2; i++)
 			{
+				SignalR.Connection.Remove("DeleteTask");
+				SignalR.Connection.Remove("DeleteThenCreateTask");
+
 				LifeCycleMethods.ActivatedActions.RemoveAt(LifeCycleMethods.ActivatedActions.Count - 1);
 				LifeCycleMethods.DeactivatedActions.RemoveAt(LifeCycleMethods.DeactivatedActions.Count - 1);
 			}
+			await SignalR.Connection?.StopAsync();
 			await UserDatabase.UpdateItemAsync(new UserModel() { Id = 1, JwtToken = "" });
 			Application.Current!.MainPage = new AccountShell();
 		}

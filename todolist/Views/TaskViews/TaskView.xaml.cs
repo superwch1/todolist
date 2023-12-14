@@ -33,7 +33,6 @@ public partial class TaskView : ContentPage
 			.ToList();
 
 		Tasks = new ObservableCollection<TaskModel>(tasks);
-
 		BindableLayout.SetItemsSource(collectionView, Tasks);	
 
 		LifeCycleMethods.ActivatedActions.Add(ActivatedFunction);
@@ -148,6 +147,7 @@ public partial class TaskView : ContentPage
 		};
 	}
 
+
 	public async Task TerminateSignalR()
 	{
 		SignalR.Connection.Remove("DeleteTask");
@@ -164,6 +164,12 @@ public partial class TaskView : ContentPage
 
 	public async Task ActivatedFunction()
 	{
+		if (SignalR.Connection.State == HubConnectionState.Connected) {
+			InitializeSignalR();
+			await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
+			return;
+		}
+
 		if (SignalR.Connection.State == HubConnectionState.Disconnected){
 			var connection = await SignalR.BuildHubConnection(JwtToken);
 
@@ -172,6 +178,7 @@ public partial class TaskView : ContentPage
 				SignalR.Connection = connection;
 				InitializeSignalR();
 				await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
+				return;
 			}
 		}  
 
@@ -181,6 +188,13 @@ public partial class TaskView : ContentPage
 			&& count == LifeCycleMethods.EnterForegroundCount){
 	
 			await Task.Delay(5000);
+
+			if (SignalR.Connection.State == HubConnectionState.Connected) {
+				InitializeSignalR();
+				await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
+				return;
+			}
+
 			if (SignalR.Connection.State == HubConnectionState.Disconnected)
 			{
 				var connection = await SignalR.BuildHubConnection(JwtToken);
@@ -189,6 +203,7 @@ public partial class TaskView : ContentPage
 					SignalR.Connection = connection;
 					InitializeSignalR();
 					await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);
+					return;
 				}
 			} 
         }   

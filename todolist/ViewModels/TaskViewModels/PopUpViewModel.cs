@@ -16,8 +16,12 @@ namespace todolist.ViewModels.TaskViewModels
 
             try 
             {
-                await SignalR.Connection.InvokeAsync("CreateTask", 
-                    intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
+                using (var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+                {
+                    await SignalR.Connection.InvokeAsync("CreateTask",
+                        intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol,
+                        cancellationTokenSource.Token);
+                }
                 await MopupService.Instance.PopAsync();
             }
             catch
@@ -38,8 +42,12 @@ namespace todolist.ViewModels.TaskViewModels
 
             try 
             {
-                await SignalR.Connection.InvokeAsync("UpdateTask", 
-                    id, intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol);
+                using (var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+                {
+                    await SignalR.Connection.InvokeAsync("UpdateTask", 
+                        id, intType, topic, content, dueDate.Date.ToString("dd-MM-yyyy"), intSymbol,
+                        cancellationTokenSource.Token);
+                }
                 await MopupService.Instance.PopAsync();
             }
             catch
