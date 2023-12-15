@@ -3,17 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="todolist.Views.AccountViews.VerifyPasscodeView"
              Title="Verify Passcode">
-    <StackLayout x:Name="stack" VerticalOptions="Center">
-        <Label Text="Please enter your passcode." FontSize="16"     
-                Margin="0, 0, 0, 15" />
-                 
-        <Border x:Name="passcodeBorder" Stroke="Black" StrokeShape="RoundRectangle 10">
-            <Entry x:Name="passcode" Placeholder="123456" 
-                   Keyboard="Numeric" PlaceholderColor="#aeaeae" HorizontalOptions="Center"
-                   TextColor="#aeaeae" FontSize="16" MaxLength="6"
-                   HorizontalTextAlignment="Center"/>
-        </Border>
-        <Button x:Name="button" Text="GO" BackgroundColor="#57472a" TextColor="#ffffff"
-                FontAttributes="Bold" FontSize="18" Clicked="VerifyPasscode"/>
-    </StackLayout>
+
+        <StackLayout VerticalOptions="Center" >
+                <Image Source="nav" HeightRequest="50" HorizontalOptions="Start" Margin="20, 0, 0, 30">
+                        <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoBack" NumberOfTapsRequired="1"/> 
+                        </Image.GestureRecognizers>
+                </Image>
+                <!-- 20 + 50 = 70 for balancing the height of the back button -->
+                <Border Margin="20, 0, 20, 70" Padding="20" BackgroundColor="#FCF7A6"
+                        StrokeDashOffset="2" StrokeDashArray="3, 3" StrokeShape="RoundRectangle 20"
+                        StrokeThickness="2" Stroke="#000000">
+                        <StackLayout>
+                                <Label Text="Please enter the 6-digit passcode that has been sent to your email address." FontSize="16"     
+                                       Margin="0, 40, 0, 0" />
+
+                                <FlexLayout Margin="0, 25, 0, 40" JustifyContent="SpaceBetween" Direction="Row">
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
+                                                <Entry x:Name="firstDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
+                                                    TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </Border>
+
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
+                                                <Entry x:Name="secondDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
+                                                    TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </Border>
+
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
+                                                <Entry x:Name="thirdDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2"
+                                                    TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </Border>
+
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
+                                                <Entry x:Name="fourthDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2"
+                                                    TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </Border>
+
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
+                                                <Entry x:Name="fifthDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
+                                                    TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </Border>
+
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
+                                                <Entry x:Name="sixthDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
+                                                    TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </Border>
+                                </FlexLayout>                               
+                        </StackLayout>
+                </Border>
+        </StackLayout>
 </ContentPage>

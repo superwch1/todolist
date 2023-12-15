@@ -66,6 +66,23 @@
                                         </Grid>
                                 </Border>
 
+                                <Label FontAttributes="Italic" Margin="0, 5, 0, 0" TextColor="#57472A" Text="By registering an account, you agree to our " />
+                                
+                                <!-- GestureRecognizer not work in formattted string -->
+                                <HorizontalStackLayout>
+                                        <Label FontAttributes="Italic" TextColor="#57472A" Text="Privacy Policy" TextDecorations="Underline">
+                                                <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ReadPrivacyPolicy"/>
+                                                </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label FontAttributes="Italic" TextColor="#57472A" Text=" and " />
+                                        <Label FontAttributes="Italic" TextColor="#57472A" Text="Terms &amp; Conditions." TextDecorations="Underline">
+                                                <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ReadTermsAndConditions"/>
+                                                </Label.GestureRecognizers>
+                                        </Label>
+                                </HorizontalStackLayout>
+
                                 <Button x:Name="button" Text="Sign Up" BackgroundColor="#FFF07B" TextColor="#57472A" BorderWidth="1"
                                         WidthRequest="120" HeightRequest="50" FontSize="18" HorizontalOptions="End"
                                         Margin="0, 40, 0, 20" FontAttributes="Bold" BorderColor="#57472A" 

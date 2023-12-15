@@ -50,6 +50,52 @@ namespace todolist.ViewModels.AccountViewModels
 				await Shell.Current.Navigation.PopToRootAsync();
 			}
         }
+
+
+		public async Task ReadPrivacyPolicy()
+		{
+			var taskReponse = await WebServer.ReadPrivacyPolicy();
+            if (taskReponse.Item2 != HttpStatusCode.OK)
+            {
+                await ToastBar.DisplayToast("Cannot connect to server");
+                return;
+            }
+
+			string policyContent = taskReponse.Item1;
+
+			try 
+			{
+				await Shell.Current.GoToAsync("policy",
+                    new Dictionary<string, object>{
+                        { "policyContent", policyContent },
+                        { "policyType", "Privacy Policy" }
+                    });
+			}
+			catch { }
+		}
+
+
+		public async Task ReadTermsAndConditions()
+		{
+			var taskReponse = await WebServer.ReadTermsAndConditions();
+            if (taskReponse.Item2 != HttpStatusCode.OK)
+            {
+                await ToastBar.DisplayToast("Cannot connect to server");
+                return;
+            }
+
+			string policyContent = taskReponse.Item1;
+
+			try 
+			{
+				await Shell.Current.GoToAsync("policy",
+                    new Dictionary<string, object>{
+                        { "policyContent", policyContent },
+                        { "policyType", "Terms And Conditions" }
+                    });
+			}
+			catch { }
+		}
     }
 }
 

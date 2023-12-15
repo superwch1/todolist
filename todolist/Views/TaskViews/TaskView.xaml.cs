@@ -87,7 +87,7 @@ public partial class TaskView : ContentPage
 		OffSet = args.Offset;
 		var swipeView = (Microsoft.Maui.Controls.SwipeView)sender;
 
-		ViewModel.SwipeChanging(swipeView, args, OffSet);
+		await ViewModel.SwipeChanging(swipeView, args, OffSet);
 	}
 
 

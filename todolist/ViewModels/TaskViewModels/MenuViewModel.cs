@@ -140,5 +140,11 @@ namespace todolist.ViewModels.TaskViewModels
 			}
 			catch { }
 		}
+
+		public async Task DeleteAccount()
+		{
+			var deleteAlertView = new DeleteAlertView("Do you want to DELETE ACCOUNT?", "DeleteAccount", null);
+			await MopupService.Instance.PushAsync(deleteAlertView);
+		}
     }
 }

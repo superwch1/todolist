@@ -10,6 +10,7 @@ public partial class SearchView : ContentPage, IQueryAttributable
 	public ObservableCollection<TaskModel> Tasks { get; set;} = new ObservableCollection<TaskModel>();
 	public string JwtToken { get; set; }
 	public string Keyword { get; set; }
+	public double OffSet { get; set; }
 	public TaskViewModel ViewModel { get; } = new TaskViewModel(DateTime.Now);
 
 	
@@ -59,7 +60,6 @@ public partial class SearchView : ContentPage, IQueryAttributable
 
 		Title = $"Search Result: {Keyword}";
     }
-
 
 	void ShowOrHideContent(object sender, TappedEventArgs e)
     {

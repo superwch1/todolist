@@ -26,13 +26,23 @@
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ResetPassword"/>
                         </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="resetpassword.png" HeightRequest="25"/>
                         <Label Margin="10, 0, 0, 0" Text="Reset Password" FontSize="18" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Margin="0, 30, 0, 0">
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="DeleteAccount" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="deleteaccount.png" HeightRequest="25"/>
+                        <Label Margin="10, 0, 0, 0" Text="Delete Account" FontSize="18" />
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Margin="0, 30, 0, 0">
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ReadTermsAndConditions"/>
                         </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="termsandconditions.png" HeightRequest="25"/>
                         <Label Margin="10, 0, 0, 0" Text="Terms &amp; Conditions" FontSize="18" />
                     </HorizontalStackLayout>
 
@@ -40,6 +50,7 @@
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ReadPrivacyPolicy"/>
                         </HorizontalStackLayout.GestureRecognizers>
+                        <Image Source="privacypolicy.png" HeightRequest="25"/>
                         <Label Margin="10, 0, 0, 0" Text="Privacy Policy" FontSize="18" />
                     </HorizontalStackLayout>
 
@@ -47,9 +58,10 @@
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Logout"/>
                         </HorizontalStackLayout.GestureRecognizers>
-                        <Image Source="logout.png" HeightRequest="20"/>
+                        <Image Source="logout.png" HeightRequest="25"/>
                         <Label Margin="10, 0, 0, 0" Text="Log out" FontSize="18" />
                     </HorizontalStackLayout>
+                    
 
                 </StackLayout>
                 <Label x:Name="creditLabel" VerticalOptions="End"/>

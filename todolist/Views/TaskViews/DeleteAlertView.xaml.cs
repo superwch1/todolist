@@ -7,13 +7,15 @@ namespace todolist.Views.TaskViews;
 
 public partial class DeleteAlertView : PopupPage
 {
-	TaskModel Model { get; set; }
+	int? TaskId { get; set; }
+	string Type { get; set; }
 
-	public DeleteAlertView(TaskModel model)
+	public DeleteAlertView(string labelText, string type, int? taskId)
 	{
 		InitializeComponent();
-
-		Model = model;
+		TaskId = taskId;
+		Type = type;
+		label.Text = labelText;
 	}
 
 
@@ -21,12 +23,21 @@ public partial class DeleteAlertView : PopupPage
 	{
 		try
 		{
-			using (var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+			if (Type == "DeleteTask")
 			{
-				await SignalR.Connection.InvokeAsync("DeleteTask", Model.Id, cancellationTokenSource.Token);
+				using (var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+				{
+					await SignalR.Connection.InvokeAsync("DeleteTask", TaskId, cancellationTokenSource.Token);
+				}
+				await MopupService.Instance.PopAsync();
 			}
-			await MopupService.Instance.PopAsync();
+			else if (Type == "DeleteAccount")
+			{
+				await MopupService.Instance.PopAllAsync();
+				Application.Current.MainPage = new AccountShell();
 
+				await ToastBar.DisplayToast("Account Deleted");
+			}
 		}
 		catch 
 		{ 

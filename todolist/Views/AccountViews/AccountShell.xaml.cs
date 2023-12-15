@@ -9,6 +9,7 @@ public partial class AccountShell : Shell
 		Routing.RegisterRoute("registeraccount", typeof(RegisterAccountView));
 		Routing.RegisterRoute("resetpassword", typeof(ResetPasswordView));
 		Routing.RegisterRoute("verifypasscode", typeof(VerifyPasscodeView));
+		Routing.RegisterRoute("policy", typeof(PolicyView));
 
 		InitializeComponent();
 

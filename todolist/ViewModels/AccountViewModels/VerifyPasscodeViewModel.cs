@@ -11,15 +11,9 @@ namespace todolist.ViewModels.AccountViewModels
             Email = email;
         }
 
-        public async Task VerifyPasscode(Entry passcode)
+        public async Task VerifyPasscode(string passcode)
         {
-            if (passcode.Text == null || passcode.Text.Length != 6)
-            {
-                await ToastBar.DisplayToast("Please enter passcode");
-                return;
-            }
-
-            var registerResponse = await WebServer.VerifyPasscode(Email, passcode.Text);           
+            var registerResponse = await WebServer.VerifyPasscode(Email, passcode);           
             if (registerResponse.Item2 == HttpStatusCode.ExpectationFailed)
             {
                 await ToastBar.DisplayToast("Cannot connect to server");

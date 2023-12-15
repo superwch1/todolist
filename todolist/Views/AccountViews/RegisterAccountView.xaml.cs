@@ -1,5 +1,3 @@
-using todolist.ViewModels.AccountViewModels;
-
 namespace todolist.Views.AccountViews;
 
 public partial class RegisterAccountView : ContentPage
@@ -58,4 +56,14 @@ public partial class RegisterAccountView : ContentPage
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }
+
+	async void ReadPrivacyPolicy(object sender, TappedEventArgs args)
+	{	
+		await IsLoading.RunMethod(() => ViewModel.ReadPrivacyPolicy());
+	}
+
+	async void ReadTermsAndConditions(object sender, TappedEventArgs args)
+	{	
+		await IsLoading.RunMethod(() => ViewModel.ReadTermsAndConditions());
+	}
 }

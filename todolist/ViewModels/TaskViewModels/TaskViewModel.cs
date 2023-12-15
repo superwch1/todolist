@@ -241,7 +241,7 @@ namespace todolist.ViewModels.TaskViewModels
 		}
 
 
-		public async void SwipeChanging(SwipeView swipeView, SwipeChangingEventArgs args, 
+		public async Task SwipeChanging(SwipeView swipeView, SwipeChangingEventArgs args, 
 			double offSet)
 		{
 			if (args.SwipeDirection == SwipeDirection.Left)
@@ -253,7 +253,7 @@ namespace todolist.ViewModels.TaskViewModels
 				if (offSet < -50)
 				{
 					var selectedTask = (TaskModel)swipeView.BindingContext;
-					var deleteAlertView = new DeleteAlertView(selectedTask);
+					var deleteAlertView = new DeleteAlertView("Do you want to delete the task?", "DeleteTask", selectedTask.Id);
 					deleteAlertView.Disappearing += (sender, args) => {
 						frame.Opacity = 1;	
 						swipeView.IsEnabled = true;

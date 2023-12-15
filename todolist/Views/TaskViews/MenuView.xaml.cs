@@ -18,7 +18,7 @@ public partial class MenuView : PopupPage
 		JwtToken = jwtToken;
 		ViewModel = new MenuViewModel();
 
-		viewFrame.WidthRequest = width * 0.6;
+		viewFrame.WidthRequest = width * 0.65;
 		viewFrame.HeightRequest = height - marginTop;
 		viewFrame.Margin = new Thickness() { Top = marginTop };
 
@@ -48,5 +48,10 @@ public partial class MenuView : PopupPage
 	async void ReadTermsAndConditions(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.ReadTermsAndConditions());
+	}
+
+	async void DeleteAccount(object sender, TappedEventArgs args)
+	{
+		await IsLoading.RunMethod(() => ViewModel.DeleteAccount());
 	}
 }

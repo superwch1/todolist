@@ -10,39 +10,42 @@
             <StackLayout x:Name="collectionView">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskModel">
-                    <StackLayout Margin="25, 0, 25, 20" HorizontalOptions="FillAndExpand">                                
-                        <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
-                            BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />
-                            </Frame.GestureRecognizers>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <StackLayout Margin="25, 0, 25, 20" HorizontalOptions="FillAndExpand">  
+                            <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
+                                BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding Topic}" MaxLines="1" LineBreakMode="TailTruncation"  FontSize="18" VerticalOptions="Center" />
+                                        <Image Source="tick" Margin="0, 0, 10, 0" IsVisible="{Binding IsDoneIconVisible}" HeightRequest="20"/>
+                                        <Label Text="{Binding Topic}" Grid.Column="1" MaxLines="1" LineBreakMode="TailTruncation"  
+                                                FontSize="18" VerticalOptions="Center" />
 
-                                <!-- ImageButton Height don't work in IOS -->
-                                <Image Source="{Binding ArrowImageSource}" Grid.Column="1" MaximumHeightRequest="10"
-                                                HorizontalOptions="End" VerticalOptions="Center" >
-                                </Image>
-                            </Grid>
-                        </Frame>
-                        <Frame Padding="15, 15, 15, 15" Margin="0, 5, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="{Binding BackgroundColor}">
-                            <VerticalStackLayout BindingContext="{Binding .}">
-                                <VerticalStackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
-                                </VerticalStackLayout.GestureRecognizers>
-                                <Frame BackgroundColor="#ffef7c" BorderColor="#ffef7c" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="0, 5, 0, 0" CornerRadius="10">
-                                    <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd-MM-yyyy}'}" FontSize="16"/>
-                                </Frame>
-                                <Label Text="{Binding Content}" FontSize="16" Margin="0, 10, 0, 0"/>
-                            </VerticalStackLayout>
-                        </Frame>
-                    </StackLayout>
-                </DataTemplate>
+                                        <!-- ImageButton Height don't work in IOS -->
+                                        <Image Source="{Binding ArrowImageSource}" Grid.Column="2" HeightRequest="10"
+                                                        HorizontalOptions="End" VerticalOptions="Center" >
+                                        </Image>
+                                    </Grid>
+                            </Frame>       
+                            <Frame Padding="15, 15, 15, 15" Margin="0, 5, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="{Binding BackgroundColor}">
+                                <VerticalStackLayout BindingContext="{Binding .}">
+                                    <VerticalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
+                                    </VerticalStackLayout.GestureRecognizers>
+                                    <Frame BackgroundColor="#ffef7c" BorderColor="#ffef7c" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="0, 5, 0, 0" CornerRadius="10">
+                                        <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd-MM-yyyy}'}" FontSize="16"/>
+                                    </Frame>
+                                    <Label Text="{Binding Content}" FontSize="16" Margin="0, 10, 0, 0"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
         </ScrollView>     
