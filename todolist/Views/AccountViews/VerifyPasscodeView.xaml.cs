@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Core.Platform;
+
 namespace todolist.Views.AccountViews;
 
 public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
@@ -17,10 +19,6 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
     }
 
 
-	public async void VerifyPasscode(object sender, EventArgs args)
-	{
-		
-	}
 
 	public async void EntryTextChanged(object sender, TextChangedEventArgs args)
 	{
@@ -38,10 +36,6 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
 				nextEntry.Text = currentEntry.Text[currentEntry.Text.Length - 1].ToString();
 				nextEntry.Focus();
 			}
-			else if (currentIndex == 5)
-			{
-				currentEntry.Text = currentEntry.Text.Remove(currentEntry.Text.Length - 1, 1);
-			}
 		}
 
 		//return to previous entry
@@ -58,20 +52,45 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
 				previousEntry.Focus();
 			}
 		}
+	}
 
 
-		var passcode = "";
-		foreach(var entry in entries)
+/*
+	public void EntryFocused(object sender, FocusEventArgs args)
+	{
+		var entries = new Entry[] { firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit };
+		foreach (var entry in entries)
 		{
-			if (entry != null && !String.IsNullOrEmpty(entry.Text))
+			if (String.IsNullOrEmpty(entry.Text))
 			{
-				passcode += entry.Text;
+				entry.Focus();
+				return;
 			}
 		}
-		
-		if (passcode.Length == 6 && sixthDigit.IsFocused == true)
+		sixthDigit.Focus();
+	}
+*/
+
+	public async void ConfirmPasscode(object sender, EventArgs args)
+	{
+		if (!String.IsNullOrEmpty(firstDigit.Text) && !String.IsNullOrEmpty(secondDigit.Text) && !String.IsNullOrEmpty(thirdDigit.Text) &&
+			!String.IsNullOrEmpty(fourthDigit.Text) && !String.IsNullOrEmpty(fifthDigit.Text) && !String.IsNullOrEmpty(sixthDigit.Text))
 		{
-			await IsLoading.RunMethod(() => ViewModel.VerifyPasscode(passcode));
+			string passcode = "";
+			passcode = firstDigit.Text + secondDigit.Text + thirdDigit.Text + fourthDigit.Text + 
+				fifthDigit.Text + sixthDigit.Text;
+
+			if (passcode.Length == 6)
+			{
+				await firstDigit.HideKeyboardAsync();
+				await secondDigit.HideKeyboardAsync();
+				await thirdDigit.HideKeyboardAsync();
+				await fourthDigit.HideKeyboardAsync();
+				await fifthDigit.HideKeyboardAsync();
+				await sixthDigit.HideKeyboardAsync();
+
+				await IsLoading.RunMethod(() => ViewModel.VerifyPasscode(passcode));
+			}
 		}
 	}
 

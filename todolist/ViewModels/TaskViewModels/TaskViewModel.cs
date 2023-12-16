@@ -253,7 +253,7 @@ namespace todolist.ViewModels.TaskViewModels
 				if (offSet < -50)
 				{
 					var selectedTask = (TaskModel)swipeView.BindingContext;
-					var deleteAlertView = new DeleteAlertView("Do you want to delete the task?", "DeleteTask", selectedTask.Id);
+					var deleteAlertView = new DeleteAlertView("Do you want to delete the task?", "DeleteTask", "", selectedTask.Id);
 					deleteAlertView.Disappearing += (sender, args) => {
 						frame.Opacity = 1;	
 						swipeView.IsEnabled = true;

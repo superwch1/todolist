@@ -52,6 +52,6 @@ public partial class MenuView : PopupPage
 
 	async void DeleteAccount(object sender, TappedEventArgs args)
 	{
-		await IsLoading.RunMethod(() => ViewModel.DeleteAccount());
+		await IsLoading.RunMethod(() => ViewModel.DeleteAccount(JwtToken));
 	}
 }

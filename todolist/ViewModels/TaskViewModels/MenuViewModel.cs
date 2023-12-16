@@ -1,8 +1,6 @@
 using System.Net;
-using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
 using Newtonsoft.Json;
-using todolist.Views.AccountViews;
 
 namespace todolist.ViewModels.TaskViewModels
 {
@@ -141,9 +139,9 @@ namespace todolist.ViewModels.TaskViewModels
 			catch { }
 		}
 
-		public async Task DeleteAccount()
+		public async Task DeleteAccount(string jwtToken)
 		{
-			var deleteAlertView = new DeleteAlertView("Do you want to DELETE ACCOUNT?", "DeleteAccount", null);
+			var deleteAlertView = new DeleteAlertView("Do you want to DELETE ACCOUNT?", "DeleteAccount", jwtToken, null);
 			await MopupService.Instance.PushAsync(deleteAlertView);
 		}
     }

@@ -18,43 +18,49 @@
                                 <Label Text="Please enter the 6-digit passcode that has been sent to your email address." FontSize="16"     
                                        Margin="0, 40, 0, 0" />
 
-                                <FlexLayout Margin="0, 25, 0, 40" JustifyContent="SpaceBetween" Direction="Row">
-                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
-                                                <Entry x:Name="firstDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                <FlexLayout Margin="0, 25, 0, 0" JustifyContent="SpaceBetween" Direction="Row">
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
+                                                <Entry x:Name="firstDigit" Keyboard="Numeric" FontSize="20"
                                                     IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
                                                     TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                                         </Border>
 
-                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
-                                                <Entry x:Name="secondDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
+                                                <Entry x:Name="secondDigit" Keyboard="Numeric" FontSize="20" 
                                                     IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
                                                     TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                                         </Border>
 
-                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
-                                                <Entry x:Name="thirdDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
+                                                <Entry x:Name="thirdDigit" Keyboard="Numeric" FontSize="20" 
                                                     IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2"
                                                     TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                                         </Border>
 
-                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
-                                                <Entry x:Name="fourthDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
+                                                <Entry x:Name="fourthDigit" Keyboard="Numeric" FontSize="20"
                                                     IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2"
                                                     TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                                         </Border>
 
-                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
-                                                <Entry x:Name="fifthDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
+                                                <Entry x:Name="fifthDigit" Keyboard="Numeric" FontSize="20"
                                                     IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
                                                     TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                                         </Border>
 
-                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10">
-                                                <Entry x:Name="sixthDigit" Keyboard="Numeric" FontSize="20" BackgroundColor="#ffffff"
-                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="2" 
+                                        <Border Stroke="Black" HeightRequest="60" StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
+                                                <Entry x:Name="sixthDigit" Keyboard="Numeric" FontSize="20" 
+                                                    IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" MaxLength="1" 
                                                     TextChanged="EntryTextChanged" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                                         </Border>
-                                </FlexLayout>                               
+                                </FlexLayout>   
+
+                                <!-- it need to have button for hiding keyboard or else it have grey screen in android -->
+                                <Button x:Name="button" Text="Confirm" BackgroundColor="#FFFFFF" TextColor="#57472A" BorderWidth="1"
+                                        WidthRequest="120" HeightRequest="50" FontSize="18" HorizontalOptions="End"
+                                        Margin="0, 40, 0, 20" FontAttributes="Bold" BorderColor="#57472A" 
+                                        Clicked="ConfirmPasscode"/>                            
                         </StackLayout>
                 </Border>
         </StackLayout>

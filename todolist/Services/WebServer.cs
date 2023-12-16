@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text;
-using CommunityToolkit.Maui.Alerts;
 using Newtonsoft.Json;
 
 namespace todolist.Services
@@ -231,6 +230,31 @@ namespace todolist.Services
                 {
                     var policyContent = await response.Content.ReadAsStringAsync();
                     return Tuple.Create(policyContent, response.StatusCode);
+                }
+
+                return Tuple.Create("", HttpStatusCode.ExpectationFailed);
+            }
+            catch
+            {
+                return Tuple.Create("", HttpStatusCode.ExpectationFailed);
+            }
+        }
+
+
+        public static async Task<Tuple<string, HttpStatusCode>> DeleteAccount(string jwtToken)
+		{
+			try
+			{
+                var url = $"{ServerDomain}/mobile/DeleteAccount";
+
+                var http = new HttpClient{ Timeout = TimeSpan.FromSeconds(10) };
+                http.DefaultRequestHeaders.Add("Authorization", "Bearer " + jwtToken);
+
+                var response = await http.PostAsync(url, null);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return Tuple.Create(content, response.StatusCode);
                 }
 
                 return Tuple.Create("", HttpStatusCode.ExpectationFailed);

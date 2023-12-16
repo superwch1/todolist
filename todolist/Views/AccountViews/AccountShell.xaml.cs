@@ -13,7 +13,7 @@ public partial class AccountShell : Shell
 
 		InitializeComponent();
 
-		login.Content = new LoginView();
+		shell.Content = new LoginView();
     }
 }
 

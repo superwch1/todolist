@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Pages;
 using Mopups.Services;
@@ -9,13 +10,15 @@ public partial class DeleteAlertView : PopupPage
 {
 	int? TaskId { get; set; }
 	string Type { get; set; }
+	string JwtToken { get; set; }
 
-	public DeleteAlertView(string labelText, string type, int? taskId)
+	public DeleteAlertView(string labelText, string type, string jwtToken, int? taskId)
 	{
 		InitializeComponent();
 		TaskId = taskId;
 		Type = type;
 		label.Text = labelText;
+		JwtToken = jwtToken;
 	}
 
 
@@ -33,10 +36,17 @@ public partial class DeleteAlertView : PopupPage
 			}
 			else if (Type == "DeleteAccount")
 			{
-				await MopupService.Instance.PopAllAsync();
-				Application.Current.MainPage = new AccountShell();
-
-				await ToastBar.DisplayToast("Account Deleted");
+				var response = await WebServer.DeleteAccount(JwtToken);
+				if (response.Item2 == HttpStatusCode.OK)
+				{
+					await MopupService.Instance.PopAllAsync();
+					Application.Current.MainPage = new AccountShell();
+					await ToastBar.DisplayToast("Account Deleted");
+				}
+				else
+				{
+					await ToastBar.DisplayToast("Cannont connect to server");
+				}
 			}
 		}
 		catch 
