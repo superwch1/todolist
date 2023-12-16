@@ -1,7 +1,5 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.SignalR.Client;
-using todolist.Views.AccountViews;
-using todolist.Views.TaskViews;
 
 namespace todolist;
 

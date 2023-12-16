@@ -9,9 +9,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationTitle>todolist</ApplicationTitle>
-    <ApplicationId>com.wch.todolist.android</ApplicationId>
-    <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
-    <ApplicationVersion>2</ApplicationVersion>
+    <ApplicationId>com.wch.todolist.ios</ApplicationId> <!-- Remember to change -->
+    <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion> <!-- Remember to change -->
+    <ApplicationVersion>8</ApplicationVersion> <!-- Remember to change -->
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
@@ -26,10 +26,9 @@
     <CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <ItemGroup>
-    <MauiIcon Include="Resources\AppIcon\appicon.png" Color="#FEEF7B"/>
+    <MauiIcon Include="Resources\AppIcon\iosappicon.png" Color="#FEEF7B"/> <!-- Remember to change -->
     <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#f3f4e8" BaseSize="128,128"/>
     <MauiImage Include="Resources\Images\*"/>
-    <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185"/>
     <MauiFont Include="Resources\Fonts\*"/>
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
   </ItemGroup>

@@ -34,7 +34,7 @@ namespace todolist.ViewModels.AccountViewModels
 
             var registerResponse = await WebServer.ResetPassword(new ResetPasswordModel() 
                 { Email = Email, Password = password.Text, ConfirmPassword = confirmPassword.Text,
-                  ResetToken = ResetToken});
+                  ResetToken = ResetToken });
             
             if (registerResponse.Item2 == HttpStatusCode.ExpectationFailed)
             {

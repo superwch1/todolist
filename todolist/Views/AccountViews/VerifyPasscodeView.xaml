@@ -11,7 +11,7 @@
                         </Image.GestureRecognizers>
                 </Image>
                 <!-- 20 + 50 = 70 for balancing the height of the back button -->
-                <Border Margin="20, 0, 20, 70" Padding="20" BackgroundColor="#FCF7A6"
+                <Border Margin="20, 0, 20, 70" Padding="20" BackgroundColor="#ffffff"
                         StrokeDashOffset="2" StrokeDashArray="3, 3" StrokeShape="RoundRectangle 20"
                         StrokeThickness="2" Stroke="#000000">
                         <StackLayout>
@@ -57,7 +57,7 @@
                                 </FlexLayout>   
 
                                 <!-- it need to have button for hiding keyboard or else it have grey screen in android -->
-                                <Button x:Name="button" Text="Confirm" BackgroundColor="#FFFFFF" TextColor="#57472A" BorderWidth="1"
+                                <Button x:Name="button" Text="Confirm" BackgroundColor="#FCF7A6" TextColor="#57472A" BorderWidth="1"
                                         WidthRequest="120" HeightRequest="50" FontSize="18" HorizontalOptions="End"
                                         Margin="0, 40, 0, 20" FontAttributes="Bold" BorderColor="#57472A" 
                                         Clicked="ConfirmPasscode"/>                            

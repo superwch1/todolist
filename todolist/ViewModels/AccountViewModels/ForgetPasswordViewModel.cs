@@ -14,6 +14,8 @@ namespace todolist.ViewModels.AccountViewModels
                 return;
             }
 
+            await ToastBar.DisplayToast("Generating passcode");
+
             var registerResponse = await WebServer.ForgetPassword(email.Text);          
             if (registerResponse.Item2 == HttpStatusCode.ExpectationFailed)
             {

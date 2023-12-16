@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.RegularExpressions;
+using CommunityToolkit.Maui.Alerts;
 
 namespace todolist.ViewModels.AccountViewModels
 {
@@ -30,6 +31,8 @@ namespace todolist.ViewModels.AccountViewModels
 			{
 				await ToastBar.DisplayToast("Password does not match");
 			}
+
+			await ToastBar.DisplayToast("Doing the paper work...");
 
 			var registerResponse = await WebServer.RegisterAccount(new AccountModel() 
 				{ Email = email.Text, Password = password.Text, ConfirmPassword = confirmPassword.Text});
