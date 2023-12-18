@@ -40,7 +40,7 @@ namespace todolist.ViewModels.AccountViewModels
 
                 if (taskReponse.Item2 == HttpStatusCode.OK && SignalR.Connection != null)
                 {
-                    Application.Current!.MainPage = new TaskShell(taskReponse.Item1, loginResponse.Item1);
+                    Application.Current!.MainPage = new TaskShell(taskReponse.Item1, loginResponse.Item1, false);
                 }
             }
         }

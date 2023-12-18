@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
-using todolist.ViewModels.TaskViewModels;
+
+
 namespace todolist.Views.TaskViews;
 
 public partial class TaskView : ContentPage
@@ -11,17 +12,19 @@ public partial class TaskView : ContentPage
 	public ObservableCollection<TaskModel> Tasks { get; set;} = new ObservableCollection<TaskModel>();
 	public int IntType { get; }
 	public string JwtToken { get; }
+	public bool IsNavigatedFromLaunch { get; set; } //prevent running activated function when it navigates to task view in app launch
 	public TaskViewModel ViewModel { get; }
 	public DateTime SelectedDateTime { get; set; }
 	public double OffSet { get; set; }
 
 	
-	public TaskView(List<TaskModel> tasks, int intType, string jwtToken)
+	public TaskView(List<TaskModel> tasks, int intType, string jwtToken, bool isNavigatedFromLaunch)
 	{
 		InitializeComponent();
 
 		IntType = intType;
 		JwtToken = jwtToken;
+		IsNavigatedFromLaunch = isNavigatedFromLaunch;
 		SelectedDateTime = DateTime.Now;
 		ViewModel = new TaskViewModel(SelectedDateTime);
 		selectedPeriod.Text = SelectedDateTime.ToString("MMM yyyy");
@@ -164,6 +167,14 @@ public partial class TaskView : ContentPage
 
 	public async Task ActivatedFunction()
 	{
+		//When the app is launched and navigate to the task View,
+		//it will run the ActivatedFunction() and the following if-condition prevent it
+		if (IsNavigatedFromLaunch == true)
+		{
+			IsNavigatedFromLaunch = false;
+			return;
+		}
+
 		if (SignalR.Connection.State == HubConnectionState.Connected) {
 			InitializeSignalR();
 			await ViewModel.CounterCheckTask(Tasks, scrollview, SelectedDateTime, IntType, JwtToken);

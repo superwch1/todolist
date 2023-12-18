@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Pages;
 using Mopups.Services;
-using todolist.ViewModels.TaskViewModels;
 
 
 namespace todolist.Views.TaskViews;

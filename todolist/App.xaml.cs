@@ -59,7 +59,7 @@ public partial class App : Application
                 break;
             
             case "TaskShell":
-                MainPage = new TaskShell(tasks, jwtToken);
+                MainPage = new TaskShell(tasks, jwtToken, true);
                 break;
         }
     }
@@ -70,7 +70,7 @@ public partial class App : Application
         Window window = base.CreateWindow(activationState);
 
         //it should be resumed since activated will call also when app is opened
-        window.Resumed += async (s, e) =>
+        window.Activated += async (s, e) =>
         {
             foreach (var action in LifeCycleMethods.ActivatedActions)
             {
