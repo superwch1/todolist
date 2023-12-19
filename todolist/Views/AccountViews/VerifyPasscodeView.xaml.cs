@@ -12,6 +12,7 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
 		Shell.SetNavBarIsVisible(this, false);
 	}
 
+
 	public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
 		string email = query["email"] as string;	
@@ -19,17 +20,17 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
     }
 
 
-	public async void EntryTextChanged(object sender, TextChangedEventArgs args)
+	public async void InvisibleEntryTextChanged(object sender, TextChangedEventArgs args)
 	{
-		var entries = new Entry[] { firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit };
-		await IsLoading.RunMethod(() => ViewModel.EntryTextChanged(sender, entries));
+		var lablels = new Label[] { firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit };
+		await ViewModel.InvisibleEntryTextChanged(sender, lablels, args);
 	}
 
 
-	public async void ConfirmPasscode(object sender, EventArgs args)
+	public async void EnterPasscode(object sender, TappedEventArgs args)
 	{
-		var entries = new Entry[] { firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit };
-		await IsLoading.RunMethod(() => ViewModel.ConfirmPasscode(entries));
+		invisibleEntry.Focus();
+		await invisibleEntry.ShowKeyboardAsync();
 	}
 
 
@@ -37,22 +38,4 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }
-
-
-
-/*
-	public void EntryFocused(object sender, FocusEventArgs args)
-	{
-		var entries = new Entry[] { firstDigit, secondDigit, thirdDigit, fourthDigit, fifthDigit, sixthDigit };
-		foreach (var entry in entries)
-		{
-			if (String.IsNullOrEmpty(entry.Text))
-			{
-				entry.Focus();
-				return;
-			}
-		}
-		sixthDigit.Focus();
-	}
-*/
 }

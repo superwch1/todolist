@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.RegularExpressions;
 using CommunityToolkit.Maui.Core.Platform;
 
 namespace todolist.ViewModels.AccountViewModels
@@ -38,61 +39,51 @@ namespace todolist.ViewModels.AccountViewModels
         }
 
 
-        public async Task ConfirmPasscode(Entry[] entries)
+        public async Task ConfirmPasscode(Entry invisibleEntry)
         {
-            if (!String.IsNullOrEmpty(entries[0].Text) && !String.IsNullOrEmpty(entries[1].Text) && !String.IsNullOrEmpty(entries[2].Text) &&
-                !String.IsNullOrEmpty(entries[3].Text) && !String.IsNullOrEmpty(entries[4].Text) && !String.IsNullOrEmpty(entries[5].Text))
+            if (!String.IsNullOrEmpty(invisibleEntry.Text) && invisibleEntry.Text.Length == 6)
             {           
-                string passcode = entries[0].Text + entries[1].Text + entries[2].Text + entries[3].Text + 
-                    entries[4].Text + entries[5].Text;
+                await invisibleEntry.HideKeyboardAsync();
 
-                if (passcode.Length == 6)
-                {
-                    await entries[0].HideKeyboardAsync();
-                    await entries[1].HideKeyboardAsync();
-                    await entries[2].HideKeyboardAsync();
-                    await entries[3].HideKeyboardAsync();
-                    await entries[4].HideKeyboardAsync();
-                    await entries[5].HideKeyboardAsync();
-
-                    await ToastBar.DisplayToast("Verifying Passcode");
-
-                    await VerifyPasscode(passcode);
-                }
+                await ToastBar.DisplayToast("Verifying Passcode");
+                await VerifyPasscode(invisibleEntry.Text);
             }
         }
 
 
-        public async Task EntryTextChanged(object sender, Entry[] entries)
+        public async Task InvisibleEntryTextChanged(object sender, Label[] lablels, TextChangedEventArgs args)
         {
-            Entry currentEntry = sender as Entry;
-            int currentIndex = Array.IndexOf(entries, currentEntry);
-
-            //move to next entry
-            if (currentEntry.Text.Length == 2)
+            var invisibleEntry = sender as Entry;
+            if(invisibleEntry.Text == null)
             {
-                if (currentIndex < 5) //0, 1, 2, 3, 4
-                {
-                    currentEntry.Text = currentEntry.Text.Remove(currentEntry.Text.Length - 1, 1);
-                    Entry nextEntry = entries[currentIndex + 1];
-                    nextEntry.Text = currentEntry.Text[currentEntry.Text.Length - 1].ToString();
-                    nextEntry.Focus();
-                }
+                return;
             }
 
-            //return to previous entry
-            else if (currentEntry.Text.Length == 0)
+            const string pattern = @"^\d*$";
+            if (!Regex.IsMatch(args.NewTextValue, pattern))
             {
-                if (currentIndex == 0)
+                invisibleEntry.Text = args.OldTextValue;
+            }
+
+            for (var i = 0; i < 6; i++)
+            {
+                if (invisibleEntry.Text.Length > i)
                 {
-                    Entry previousEntry = entries[0];
-                    previousEntry.Focus();
+                    lablels[i].Text = invisibleEntry.Text[i].ToString();
                 }
                 else 
                 {
-                    Entry previousEntry = entries[currentIndex - 1];
-                    previousEntry.Focus();
+                    lablels[i].Text = "";
                 }
+            }
+
+            if (invisibleEntry.Text.Length == 6)
+            {           
+                await invisibleEntry.HideKeyboardAsync();
+                invisibleEntry.Text = "";
+
+                await ToastBar.DisplayToast("Verifying Passcode");
+                await VerifyPasscode(invisibleEntry.Text);
             }
         }
     }
