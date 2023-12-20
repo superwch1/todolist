@@ -13,7 +13,7 @@ public partial class LoginView : ContentPage
     public bool IconPressed { get; set; } = true;
     public double TopYPosition { get; set; }
     public double MiddleYPosition { get; set; }
-    public double DistanceBetweenIconAndStack { get; } = 10;
+    public double DistanceBetweenIconAndStack { get; } = 0;
 
 
 	public LoginView()
@@ -42,7 +42,7 @@ public partial class LoginView : ContentPage
         passwordBorder.WidthRequest = width * 0.8;
         passwordBorder.Margin = new Thickness() { Bottom = 20 };
 
-        loginButton.WidthRequest = width * 0.6;
+        loginButton.WidthRequest = width * 0.8;
 
 
         IconWidth = width * 0.8;

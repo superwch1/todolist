@@ -24,19 +24,17 @@
         
 
         <StackLayout x:Name="inputStack" VerticalOptions="Start">
-            <Border x:Name="emailBorder" Stroke="Black" Padding="20, 0, 20, 0" 
-                    StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
+            <Border x:Name="emailBorder" Stroke="Black" Padding="20, 6, 20, 6" 
+                    StrokeShape="RoundRectangle 12" BackgroundColor="#ffffff">
                 <Entry x:Name="email" Placeholder="abc@gmail.com"            
-                        Keyboard="Email"  PlaceholderColor="#aeaeae"
-                        TextColor="#aeaeae" FontSize="16" 
+                        Keyboard="Email" PlaceholderColor="#aeaeae" TextColor="#000000" FontSize="16" 
                         IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
             </Border>
 
-            <Border x:Name="passwordBorder" Stroke="Black" Padding="20, 0, 20, 0" 
-                    StrokeShape="RoundRectangle 10" BackgroundColor="#ffffff">
-                <Entry x:Name="password" Placeholder="••••••" 
-                    Keyboard="Plain"  PlaceholderColor="#aeaeae"
-                    TextColor="#aeaeae" FontSize="16" IsPassword="True"
+            <Border x:Name="passwordBorder" Stroke="Black" Padding="20, 6, 20, 6" 
+                    StrokeShape="RoundRectangle 12" BackgroundColor="#ffffff">
+                <Entry x:Name="password" Placeholder="••••••"
+                    Keyboard="Plain" PlaceholderColor="#aeaeae" TextColor="#000000" FontSize="16" IsPassword="True"
                     IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
             </Border>
 
@@ -46,9 +44,9 @@
 
             <Button x:Name="loginButton" Margin="0, 40, 0, 0" Text="Log in" BackgroundColor="#57472a" TextColor="#ffffff"
                     FontAttributes="Bold" FontSize="20" Clicked="Login" Padding="10"
-                    CornerRadius="15"/>
+                    CornerRadius="15" HeightRequest="56"/>
 
-            <Button Margin="0" HorizontalOptions="Center" Text="Create new account"
+            <Button Margin="0, 10, 0, 0" HorizontalOptions="Center" Text="Create new account"
                     TextColor="#57472a" Clicked="RegisterAccount" BackgroundColor="#F3F4E8"
                     Padding="0" FontSize="16"/>
         </StackLayout>
