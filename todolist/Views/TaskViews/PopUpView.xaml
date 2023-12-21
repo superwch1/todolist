@@ -5,10 +5,10 @@
                   CloseWhenBackgroundIsClicked="False"
                   x:Class="todolist.Views.TaskViews.PopUpView" BackgroundColor="#B0000000">
     <Frame x:Name="viewFrame" VerticalOptions="Center" Margin="20" CornerRadius="20" BackgroundColor="#fefff5">
-        <VerticalStackLayout Padding="0, 20, 0, 20">      
-            <Frame x:Name="topicFrame" Padding="20, 0, 20, 0" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="20">
+        <VerticalStackLayout Padding="0, 20, 0, 10">      
+            <Frame x:Name="topicFrame" Padding="20, 0, 20, 0" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="15">
                 <Entry x:Name="topic" FontSize="16" VerticalOptions="Center" VerticalTextAlignment="Center" 
-                    Placeholder="Topic" />
+                    Placeholder="Topic" HeightRequest="50" />
             </Frame>     
 
             <HorizontalStackLayout Margin="0, 30, 0, -5">
@@ -37,7 +37,7 @@
                             Focused="EditorFocused" Unfocused="EditorUnfocused"/>
             </Frame>
             
-            <HorizontalStackLayout Margin="0, 20, 0, 0" HorizontalOptions="End">
+            <HorizontalStackLayout Margin="0, 30, 0, 0" HorizontalOptions="End">
                 <Button x:Name="createOrUpdate" BorderColor="#57472a" CornerRadius ="10" WidthRequest="85" 
                         BackgroundColor="#ffef7c" BorderWidth="1"  TextColor="#57472a" FontSize="16"/>
                 <Button x:Name="cancel" BorderColor="#57472a" BorderWidth="1" CornerRadius="10" WidthRequest="85"

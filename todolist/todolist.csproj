@@ -9,7 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationTitle>todolist</ApplicationTitle>
-    <ApplicationId>com.wch.todolist.ios</ApplicationId> <!-- Remember to change on swtiching platform -->
+    <ApplicationId>com.wch.todolist.android</ApplicationId> <!-- Remember to change on swtiching platform -->
     <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion> <!-- Remember to change on switching platform-->
     <ApplicationVersion>8</ApplicationVersion> <!-- Remember to change on switching platform -->
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
@@ -26,8 +26,8 @@
     <CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <ItemGroup>
-    <MauiIcon Include="Resources\AppIcon\iosappicon.png" Color="#FEEF7B"/> <!-- Remember to change on switching platform-->
-    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#f3f4e8" BaseSize="128,128"/>
+    <MauiIcon Include="Resources\AppIcon\androidappicon.png" Color="#FEEF7B"/> <!-- Remember to change on switching platform-->
+    <MauiSplashScreen Include="Resources\Splash\splash.png" Color="#f3f4e8" BaseSize="128,128"/>
     <MauiImage Include="Resources\Images\*"/>
     <MauiFont Include="Resources\Fonts\*"/>
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>

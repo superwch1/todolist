@@ -2,12 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:todolist.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Shell.NavBarIsVisible="False"
              x:Class="todolist.Views.TaskViews.TaskView">
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="#F3F4E8" StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
     <Grid x:Name="grid">
         <Grid>
-            <SwipeView Threshold="60" Margin="0, 20, 0, 0"
-                   HeightRequest="40" VerticalOptions="Start">
+            <SwipeView Threshold="40" Margin="0, 20, 0, 0"
+                   HeightRequest="50" VerticalOptions="Start">
             <SwipeView.LeftItems >
                 <SwipeItems Mode="Execute" SwipeBehaviorOnInvoked="Close">
                     <SwipeItem Invoked="MinusMonth" BackgroundColor="#F3F4E8"/>
@@ -18,24 +22,24 @@
                     <SwipeItem Invoked="AddMonth" BackgroundColor="#F3F4E8" />
                 </SwipeItems>
             </SwipeView.RightItems>
-                <Frame WidthRequest="160" CornerRadius="10" Padding="5" BorderColor="#57472A"
+                <Frame WidthRequest="160" CornerRadius="15" Padding="5" BorderColor="#57472A"
                     BackgroundColor="#FEFFF5">
-                    <Label x:Name="selectedPeriod" HorizontalOptions="Center" FontSize="20"/>
+                    <Label x:Name="selectedPeriod" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
                 </Frame>
             </SwipeView>
             <Image Source="menu.png" HorizontalOptions="Start" VerticalOptions="Start" 
-                   Margin="20, 20, 0, 0" HeightRequest="40">
+                   Margin="34, 27, 0, 0" HeightRequest="40">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OpenMenu"/>
                 </Image.GestureRecognizers>
             </Image>
         </Grid>
 
-        <ScrollView x:Name="scrollview" Margin="0, 80, 0, 0">
+        <ScrollView x:Name="scrollview" Margin="0, 100, 0, 0">
             <StackLayout x:Name="collectionView">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskModel">
-                        <StackLayout Margin="25, 0, 25, 20" HorizontalOptions="FillAndExpand">  
+                        <StackLayout Margin="40, 0, 40, 20" HorizontalOptions="FillAndExpand">  
                             <SwipeView SwipeChanging="SwipeChanging" SwipeEnded="SwipeEnded" BindingContext="{Binding .}">
                                 <SwipeView.LeftItems>
                                     <SwipeItemView>
@@ -50,7 +54,7 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <!-- If I add top or bottom Items, the tap will not work anymore -->
-                                <Frame HeightRequest="45" CornerRadius="10" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
+                                <Frame HeightRequest="52" CornerRadius="20" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
                                     BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />

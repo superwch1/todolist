@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using Mopups.Services;
-using todolist.ViewModels.TaskViewModels;
 
 namespace todolist.Views.TaskViews;
 

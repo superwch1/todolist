@@ -121,7 +121,7 @@ public partial class TaskView : ContentPage
 #endif
 
 		//80 - Margin top 
-		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new MenuView(width, height, 80, JwtToken)));
+		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new MenuView(width, height, 100, JwtToken)));
 	}
 
 

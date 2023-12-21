@@ -14,7 +14,7 @@
                 </Image.GestureRecognizers>
         </Image>
 
-        <Border Grid.Row="1" HorizontalOptions="Start" Padding="15, 10, 15, 10" Margin="0, 30, 0, 0" BackgroundColor="#FFF07B" 
+        <Border Grid.Row="1" HorizontalOptions="Start" Padding="20, 15" Margin="0, 30, 0, 0" BackgroundColor="#FFF07B" 
                 StrokeShape="RoundRectangle 0, 20, 0, 20" StrokeThickness="1" Stroke="#000000">
                 <Label x:Name="titleLabel" TextColor="#57472A" FontSize="22"/>
         </Border>
