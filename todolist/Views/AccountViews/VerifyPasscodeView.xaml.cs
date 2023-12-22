@@ -34,7 +34,7 @@ public partial class VerifyPasscodeView : ContentPage, IQueryAttributable
 	}
 
 
-	async void GoBack(object sender, TappedEventArgs args)
+	public async void GoBack(object sender, TappedEventArgs args)
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }

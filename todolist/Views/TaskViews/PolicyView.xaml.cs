@@ -44,7 +44,7 @@ public partial class PolicyView : ContentPage, IQueryAttributable
 		titleLabel.Text = policyType;
     }
 
-	async void GoBack(object sender, TappedEventArgs args)
+	public async void GoBack(object sender, TappedEventArgs args)
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }

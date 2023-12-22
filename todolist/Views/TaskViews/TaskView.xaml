@@ -5,6 +5,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Shell.NavBarIsVisible="False"
              x:Class="todolist.Views.TaskViews.TaskView">
+             
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="#F3F4E8" StatusBarStyle="LightContent" />
     </ContentPage.Behaviors>
@@ -28,7 +29,7 @@
                 </Frame>
             </SwipeView>
             <Image Source="menu.png" HorizontalOptions="Start" VerticalOptions="Start" 
-                   Margin="34, 27, 0, 0" HeightRequest="40">
+                   Margin="24, 27, 0, 0" HeightRequest="40">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OpenMenu"/>
                 </Image.GestureRecognizers>
@@ -39,7 +40,7 @@
             <StackLayout x:Name="collectionView">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskModel">
-                        <StackLayout Margin="40, 0, 40, 20" HorizontalOptions="FillAndExpand">  
+                        <StackLayout Margin="30, 0, 30, 20" HorizontalOptions="FillAndExpand">  
                             <SwipeView SwipeChanging="SwipeChanging" SwipeEnded="SwipeEnded" BindingContext="{Binding .}">
                                 <SwipeView.LeftItems>
                                     <SwipeItemView>
@@ -77,11 +78,12 @@
                                         </Grid>
                                 </Frame>                               
                             </SwipeView>
-                            <Frame Padding="15, 15, 15, 15" Margin="0, 5, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="{Binding BackgroundColor}">
-                                <VerticalStackLayout BindingContext="{Binding .}">
-                                    <VerticalStackLayout.GestureRecognizers>
+                            <Frame Padding="15, 15, 15, 15" Margin="0, 5, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" 
+                                BorderColor="{Binding BackgroundColor}" BindingContext="{Binding .}">
+                                    <Frame.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
-                                    </VerticalStackLayout.GestureRecognizers>
+                                    </Frame.GestureRecognizers>
+                                <VerticalStackLayout>
                                     <Frame BackgroundColor="#ffef7c" BorderColor="#ffef7c" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="0, 5, 0, 0" CornerRadius="10">
                                         <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd-MM-yyyy}'}" FontSize="16"/>
                                     </Frame>

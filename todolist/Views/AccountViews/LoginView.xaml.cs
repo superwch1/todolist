@@ -1,6 +1,4 @@
-﻿using todolist.ViewModels.AccountViewModels;
-
-namespace todolist.Views.AccountViews;
+﻿namespace todolist.Views.AccountViews;
 
 public partial class LoginView : ContentPage
 {
@@ -72,7 +70,7 @@ public partial class LoginView : ContentPage
     }
 
 
-    async void ClickIcon(object sender, TappedEventArgs args)
+    public async void ClickIcon(object sender, TappedEventArgs args)
     {
         if (AnimationFinished == false)
         {
@@ -96,7 +94,7 @@ public partial class LoginView : ContentPage
     }
 
 
-    async void StartAnimation(object sender, TappedEventArgs args)
+    public async void StartAnimation(object sender, TappedEventArgs args)
     {
         if (AnimationStarted == true)
         {
@@ -147,17 +145,17 @@ public partial class LoginView : ContentPage
         AnimationFinished  = true;
     }
 
-    async void Login(object sender, EventArgs e)
+    public async void Login(object sender, EventArgs e)
     {
         await IsLoading.RunMethod(() => ViewModel.Login(email, password));
     }
 
-    async void RegisterAccount(object sender, EventArgs args)
+    public async void RegisterAccount(object sender, EventArgs args)
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync("registeraccount"));
     }
 
-    async void ForgetPassword(object sender, EventArgs args)
+    public async void ForgetPassword(object sender, EventArgs args)
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync("forgetpassword"));
     }

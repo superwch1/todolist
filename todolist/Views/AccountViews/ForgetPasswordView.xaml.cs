@@ -1,6 +1,4 @@
-using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core.Platform;
-using todolist.ViewModels.AccountViewModels;
 
 namespace todolist.Views.AccountViews;
 
@@ -23,7 +21,7 @@ public partial class ForgetPasswordView : ContentPage
         await IsLoading.RunMethod(() => ViewModel.ForgetPassword(email));
     }
 
-    async void GoBack(object sender, TappedEventArgs args)
+    public async void GoBack(object sender, TappedEventArgs args)
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }

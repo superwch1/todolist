@@ -4,6 +4,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   CloseWhenBackgroundIsClicked="False"
                   x:Class="todolist.Views.TaskViews.PopUpView" BackgroundColor="#B0000000">
+                  
     <Frame x:Name="viewFrame" VerticalOptions="Center" Margin="20" CornerRadius="20" BackgroundColor="#fefff5">
         <VerticalStackLayout Padding="0, 20, 0, 10">      
             <Frame x:Name="topicFrame" Padding="20, 0, 20, 0" VerticalOptions="FillAndExpand" BorderColor="#57472a" CornerRadius="15">

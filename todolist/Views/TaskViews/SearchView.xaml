@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:todolist.Models"
              x:Class="todolist.Views.TaskViews.SearchView">
+             
     <Grid x:Name="grid">
         <ScrollView x:Name="workAroundScrollView" IsVisible="False"/>
 

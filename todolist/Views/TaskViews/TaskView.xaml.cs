@@ -72,20 +72,20 @@ public partial class TaskView : ContentPage
 	}
 
 
-	void DeleteTask(int id)
+	public void DeleteTask(int id)
 	{
 		ViewModel.DeleteTask(Tasks, scrollview, id);
 	}
 
 
-	void DeleteThenCreateTask(int id, int intType, string topic, string content, string dueDate, int intSymbol)
+	public void DeleteThenCreateTask(int id, int intType, string topic, string content, string dueDate, int intSymbol)
 	{
 		ViewModel.DeleteTask(Tasks, scrollview, id);
 		ViewModel.CreateTask(Tasks, scrollview, false, IntType, id, intType, topic, content, dueDate, intSymbol);
 	}
 
 
-	async void SwipeChanging(object sender, SwipeChangingEventArgs args)
+	public async void SwipeChanging(object sender, SwipeChangingEventArgs args)
 	{
 		OffSet = args.Offset;
 		var swipeView = (Microsoft.Maui.Controls.SwipeView)sender;
@@ -94,13 +94,13 @@ public partial class TaskView : ContentPage
 	}
 
 
-	async void SwipeEnded(object sender, SwipeEndedEventArgs args)
+	public async void SwipeEnded(object sender, SwipeEndedEventArgs args)
 	{
 		ViewModel.SwipeEnded(sender, args, OffSet, Tasks, scrollview);
 	}
 
 
-	void ShowOrHideContent(object sender, TappedEventArgs e)
+	public void ShowOrHideContent(object sender, TappedEventArgs e)
     {
 		var frame = (Frame)sender;
     	var selectedTask = (TaskModel)frame.BindingContext;
@@ -109,7 +109,7 @@ public partial class TaskView : ContentPage
     }
 
 
-	async void OpenMenu(object seender, TappedEventArgs e)
+	public async void OpenMenu(object seender, TappedEventArgs e)
 	{
 		var width = grid.Width;
 		var height = grid.Height;
@@ -125,16 +125,16 @@ public partial class TaskView : ContentPage
 	}
 
 
-	async void EditTask(object sender, TappedEventArgs e)
+	public async void EditTask(object sender, TappedEventArgs e)
     {
-		var stack = (VerticalStackLayout)sender;
+		var stack = (Frame)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;
 
 		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(selectedTask, IntType)));
     }
 
 
-	async void CreateTask(object sender, TappedEventArgs e)
+	public async void CreateTask(object sender, TappedEventArgs e)
     {
 		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(null, IntType)));
     }

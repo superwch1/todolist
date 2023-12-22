@@ -3,9 +3,10 @@
                   xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   x:Class="todolist.Views.TaskViews.MenuView" BackgroundColor="#20000000">
+                  
     <Grid VerticalOptions="Start" HorizontalOptions="Start" >
         <Image Source="circlemenu.png" HorizontalOptions="Start" VerticalOptions="Start" 
-            Margin="24, 18, 0, 0" HeightRequest="60" />
+            Margin="14, 18, 0, 0" HeightRequest="60" />
         <Border x:Name="viewFrame" BackgroundColor="#fefff5" Padding="20"
            StrokeShape="RoundRectangle 0, 20, 0, 20">
             <Grid>

@@ -35,12 +35,13 @@ public static class MauiProgram
 
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
     {
-//ma    uiAppBuilder.Services.AddSingleton<AccountDatabase>();
+        //mauiAppBuilder.Services.AddSingleton<AccountDatabase>();
         return mauiAppBuilder;
     }
 
 
     public static void RemoveBorderAndUndeline(){
+        
         //no underline for entry in android and IOS, black color curosr for android
         Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
@@ -67,6 +68,7 @@ public static class MauiProgram
                 //handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
+
         Microsoft.Maui.Handlers.DatePickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
@@ -77,6 +79,7 @@ public static class MauiProgram
                 handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
+
         Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("Borderless", (handler, view) =>
         {
 #if ANDROID
@@ -87,7 +90,6 @@ public static class MauiProgram
                 handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
 #endif
         });
-
     }
 }
 

@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using Microsoft.AspNetCore.SignalR.Client;
 
 namespace todolist;
 
@@ -12,8 +11,6 @@ public partial class App : Application
         List<TaskModel>? tasks = null;
         string view = "";
         string jwtToken = "";
-        HubConnection? connection = null;
-
 
         Task.Run(async () =>
         {
@@ -65,7 +62,7 @@ public partial class App : Application
     }
 
 
-    protected override Window CreateWindow(IActivationState activationState)
+    protected override Window CreateWindow(IActivationState? activationState)
     {
         Window window = base.CreateWindow(activationState);
 

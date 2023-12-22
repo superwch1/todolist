@@ -4,6 +4,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   CloseWhenBackgroundIsClicked="False"
                   x:Class="todolist.Views.TaskViews.DeleteAlertView" BackgroundColor="#B0000000">
+                  
     <Frame x:Name="viewFrame" VerticalOptions="Center" Margin="30" CornerRadius="20" BackgroundColor="#fefff5">
         <VerticalStackLayout Padding="0, 20, 0, 20" HorizontalOptions="Center">      
             <Label x:Name="label" FontSize="16"  />    

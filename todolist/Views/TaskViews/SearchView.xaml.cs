@@ -60,7 +60,7 @@ public partial class SearchView : ContentPage, IQueryAttributable
 		Title = $"Search Result: {Keyword}";
     }
 
-	void ShowOrHideContent(object sender, TappedEventArgs e)
+	public void ShowOrHideContent(object sender, TappedEventArgs e)
     {
 		var frame = (Frame)sender;
     	var selectedTask = (TaskModel)frame.BindingContext;
@@ -69,7 +69,7 @@ public partial class SearchView : ContentPage, IQueryAttributable
     }
 
 	
-	async void EditTask(object sender, TappedEventArgs e)
+	public async void EditTask(object sender, TappedEventArgs e)
     {
 		var stack = (VerticalStackLayout)sender;
     	var selectedTask = (TaskModel)stack.BindingContext;

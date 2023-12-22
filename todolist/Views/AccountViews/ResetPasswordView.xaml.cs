@@ -1,5 +1,3 @@
-using todolist.ViewModels.AccountViewModels;
-
 namespace todolist.Views.AccountViews;
 
 public partial class ResetPasswordView : ContentPage, IQueryAttributable
@@ -79,7 +77,7 @@ public partial class ResetPasswordView : ContentPage, IQueryAttributable
 	}
 
 
-	async void GoBack(object sender, TappedEventArgs args)
+	public async void GoBack(object sender, TappedEventArgs args)
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }

@@ -52,17 +52,17 @@ public partial class RegisterAccountView : ContentPage
 		}
 	}
 
-	async void GoBack(object sender, TappedEventArgs args)
+	public async void GoBack(object sender, TappedEventArgs args)
     {
         await IsLoading.RunMethod(() => Shell.Current.GoToAsync(".."));
     }
 
-	async void ReadPrivacyPolicy(object sender, TappedEventArgs args)
+	public async void ReadPrivacyPolicy(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.ReadPrivacyPolicy());
 	}
 
-	async void ReadTermsAndConditions(object sender, TappedEventArgs args)
+	public async void ReadTermsAndConditions(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.ReadTermsAndConditions());
 	}
