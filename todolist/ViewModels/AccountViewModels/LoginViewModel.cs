@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using todolist.Views.TaskViews;
 
 namespace todolist.ViewModels.AccountViewModels
 {

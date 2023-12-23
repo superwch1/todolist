@@ -48,11 +48,9 @@
                                     </SwipeItemView>
                                 </SwipeView.LeftItems>
                                  <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItemView>
-                                            <Grid HeightRequest="100" />
-                                        </SwipeItemView>
-                                    </SwipeItems>
+                                    <SwipeItemView>
+                                        <Grid WidthRequest="100" />
+                                    </SwipeItemView>
                                 </SwipeView.RightItems>
                                 <!-- If I add top or bottom Items, the tap will not work anymore -->
                                 <Frame HeightRequest="52" CornerRadius="20" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"

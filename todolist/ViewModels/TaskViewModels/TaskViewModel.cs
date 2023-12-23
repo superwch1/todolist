@@ -2,8 +2,6 @@
 using System.Net;
 using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Services;
-using todolist.Views.AccountViews;
-using todolist.Views.TaskViews;
 namespace todolist.ViewModels.TaskViewModels
 {
 	public class TaskViewModel
@@ -212,8 +210,10 @@ namespace todolist.ViewModels.TaskViewModels
 		}
 
 
-		public async Task CounterCheckTaskFromKeyword(ObservableCollection<TaskModel> tasks,
-			ScrollView scrollview, string keyword, string jwtToken)
+		public async Task CounterCheckTaskFromKeyword(
+			ObservableCollection<TaskModel> myTasks, ObservableCollection<TaskModel> followupTasks,
+			ScrollView myTaskScrollView, ScrollView followupTaskScrollView, 
+			string keyword, string jwtToken)
 		{
 			var taskResponse = await WebServer.ReadTaskFromKeyword(keyword, jwtToken);
 
@@ -226,15 +226,32 @@ namespace todolist.ViewModels.TaskViewModels
 
 			foreach(var t in tasksFromServer) 
 			{
-				var task = tasks.Where(x => x.Id == t.Id).FirstOrDefault();
-				if (task != null)
+				if (t.IntType == 0)
 				{
-					if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
-						t.IntSymbol != task.IntSymbol) 
+					var task = myTasks.Where(x => x.Id == t.Id).FirstOrDefault();
+					if (task != null)
 					{
-						DeleteTask(tasks, scrollview, task.Id);
-						CreateTask(tasks, scrollview, true, t.IntType, t.Id, t.IntType, t.Topic, t.Content,
-							t.DueDate.ToString(), t.IntSymbol);
+						if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
+							t.IntSymbol != task.IntSymbol) 
+						{
+							DeleteTask(myTasks, myTaskScrollView, task.Id);
+							CreateTask(myTasks, myTaskScrollView, true, t.IntType, t.Id, t.IntType, t.Topic, t.Content,
+								t.DueDate.ToString(), t.IntSymbol);
+						}
+					}
+				}
+				else
+				{
+					var task = followupTasks.Where(x => x.Id == t.Id).FirstOrDefault();
+					if (task != null)
+					{
+						if (t.Topic != task.Topic || t.Content != task.Content || t.DueDate != task.DueDate ||
+							t.IntSymbol != task.IntSymbol) 
+						{
+							DeleteTask(followupTasks, followupTaskScrollView, task.Id);
+							CreateTask(followupTasks, followupTaskScrollView, true, t.IntType, t.Id, t.IntType, t.Topic, t.Content,
+								t.DueDate.ToString(), t.IntSymbol);
+						}
 					}
 				}
 			}
@@ -294,6 +311,61 @@ namespace todolist.ViewModels.TaskViewModels
 				stackLayout.Opacity = 1;
 			}
 			swipeView.Close();
+		}
+
+
+		public async Task<HttpStatusCode> SearchTask(
+			ObservableCollection<TaskModel> MyTasks, ObservableCollection<TaskModel> FollowupTasks,
+			StackLayout myTaskStackLayout, StackLayout followupTaskStackLayout, 
+			string keyword, string jwtToken)
+		{
+			if (String.IsNullOrEmpty(keyword))
+			{
+				await ToastBar.DisplayToast("Please enter keyword");
+                return HttpStatusCode.BadRequest;
+			}
+
+			var taskReponse = await WebServer.ReadTaskFromKeyword(keyword, jwtToken);
+            if (taskReponse.Item2 != HttpStatusCode.OK)
+            {
+                await ToastBar.DisplayToast("Cannot connect to server");
+                return HttpStatusCode.BadRequest;
+            }
+
+			List<TaskModel> tasks = taskReponse.Item1;
+			if (tasks.Count == 0)
+			{
+				await ToastBar.DisplayToast("No search results");
+				return HttpStatusCode.BadRequest;
+			}
+
+			MyTasks.Clear();
+			FollowupTasks.Clear();			
+
+			var myTasks = tasks
+				.Where(x => x.IntType == 0)
+				.OrderBy(x => x.DueDate)
+				.ToList();
+
+			var followupTasks = tasks
+				.Where(x => x.IntType == 1)
+				.OrderBy(x => x.DueDate)
+				.ToList();
+
+			foreach(var t in myTasks)
+			{
+				MyTasks.Add(t);
+			}
+
+			foreach(var t in followupTasks)
+			{
+				FollowupTasks.Add(t);
+			}
+
+			BindableLayout.SetItemsSource(myTaskStackLayout, MyTasks);	
+			BindableLayout.SetItemsSource(followupTaskStackLayout, FollowupTasks);
+
+			return HttpStatusCode.OK;
 		}
 	}
 }

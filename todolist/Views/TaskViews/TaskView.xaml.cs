@@ -127,8 +127,8 @@ public partial class TaskView : ContentPage
 
 	public async void EditTask(object sender, TappedEventArgs e)
     {
-		var stack = (Frame)sender;
-    	var selectedTask = (TaskModel)stack.BindingContext;
+		var frame = (Frame)sender;
+    	var selectedTask = (TaskModel)frame.BindingContext;
 
 		await IsLoading.RunMethod(() => MopupService.Instance.PushAsync(new PopUpView(selectedTask, IntType)));
     }

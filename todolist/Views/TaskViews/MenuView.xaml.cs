@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.SignalR.Client;
 using Mopups.Pages;
-using todolist.ViewModels.TaskViewModels;
 
 
 namespace todolist.Views.TaskViews;
@@ -30,27 +28,27 @@ public partial class MenuView : PopupPage
 		creditLabel.Text = "By Fiona C & John W";
 	}
 
-	async void Logout(object sender, TappedEventArgs args)
+	public async void Logout(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.Logout());
 	}
 
-	async void ResetPassword(object sender, TappedEventArgs args)
+	public async void ResetPassword(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.ResetPassword(JwtToken));
 	}
 
-	async void ReadPrivacyPolicy(object sender, TappedEventArgs args)
+	public async void ReadPrivacyPolicy(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.ReadPrivacyPolicy());
 	}
 
-	async void ReadTermsAndConditions(object sender, TappedEventArgs args)
+	public async void ReadTermsAndConditions(object sender, TappedEventArgs args)
 	{	
 		await IsLoading.RunMethod(() => ViewModel.ReadTermsAndConditions());
 	}
 
-	async void DeleteAccount(object sender, TappedEventArgs args)
+	public async void DeleteAccount(object sender, TappedEventArgs args)
 	{
 		await IsLoading.RunMethod(() => ViewModel.DeleteAccount(JwtToken));
 	}

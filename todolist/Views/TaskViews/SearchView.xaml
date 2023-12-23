@@ -4,14 +4,44 @@
              xmlns:models="clr-namespace:todolist.Models"
              x:Class="todolist.Views.TaskViews.SearchView">
              
-    <Grid x:Name="grid">
-        <ScrollView x:Name="workAroundScrollView" IsVisible="False"/>
+    <Grid x:Name="grid" Padding="30, 10, 30, 10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <ScrollView x:Name="scrollview" Margin="0, 20, 0, 0">
-            <StackLayout x:Name="collectionView">
+        <!-- <ScrollView x:Name="workAroundScrollView" IsVisible="False"/> -->
+        <Border Margin="0, 20, 0, 0" Padding="20, 2" BackgroundColor="#ffffff" StrokeShape="RoundRectangle 10"
+                StrokeThickness="1" Stroke="#57472A">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="leftarrow" HeightRequest="25" HorizontalOptions="Start">
+                    <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoBack" NumberOfTapsRequired="1"/> 
+                    </Image.GestureRecognizers>
+                </Image>
+                <Entry x:Name="search" Grid.Column="1" Keyboard="Plain"
+                       Margin="10, 0, 0, 0" TextColor="#57472A" FontSize="16" />
+            </Grid>
+        </Border>
+
+        <HorizontalStackLayout Grid.Row="1" Margin="0, 30, 0, 0">
+            <Image Source="mytask.png" HeightRequest="25" />
+            <Label Text="My Task" Margin="10, 0, 0, 0" FontSize="18" TextColor="#57472A" FontAttributes="Bold" />
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="2" x:Name="myTaskScrollView" Margin="0, 20, 0, 0">
+            <StackLayout x:Name="myTaskStackLayout">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="models:TaskModel">
-                        <StackLayout Margin="40, 0, 40, 20" HorizontalOptions="FillAndExpand">  
+                        <StackLayout Margin="0, 0, 0, 20" HorizontalOptions="FillAndExpand">  
                             <Frame HeightRequest="52" CornerRadius="20" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
                                 BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
                                 <Frame.GestureRecognizers>
@@ -34,11 +64,12 @@
                                         </Image>
                                     </Grid>
                             </Frame>       
-                            <Frame Padding="15, 15, 15, 15" Margin="0, 5, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="{Binding BackgroundColor}">
-                                <VerticalStackLayout BindingContext="{Binding .}">
-                                    <VerticalStackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
-                                    </VerticalStackLayout.GestureRecognizers>
+                            <Frame Padding="15, 15, 15, 15" Margin="0, 5, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="{Binding BackgroundColor}"
+                                BindingContext="{Binding .}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout>
                                     <Frame BackgroundColor="#ffef7c" BorderColor="#ffef7c" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="0, 5, 0, 0" CornerRadius="10">
                                         <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd-MM-yyyy}'}" FontSize="16"/>
                                     </Frame>
@@ -49,6 +80,56 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
-        </ScrollView>     
+        </ScrollView>    
+
+        <HorizontalStackLayout Grid.Row="3" Margin="0, 30, 0, 0">
+            <Image Source="followuptask.png" HeightRequest="25" />
+            <Label Text="FollowUp Task" Margin="10, 0, 0, 0" FontSize="18" TextColor="#57472A" FontAttributes="Bold" />
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="4" x:Name="followupTaskScrollView" Margin="0, 20, 0, 0">
+            <StackLayout x:Name="followupTaskStackLayout">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="models:TaskModel">
+                        <StackLayout Margin="0, 0, 0, 20" HorizontalOptions="FillAndExpand">  
+                            <Frame HeightRequest="52" CornerRadius="20" Padding="20, 0, 20, 0" VerticalOptions="Start" BindingContext="{Binding .}"
+                                BorderColor="{Binding BackgroundColor}" BackgroundColor="{Binding BackgroundColor}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowOrHideContent" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="tick" Margin="0, 0, 10, 0" IsVisible="{Binding IsDoneIconVisible}" HeightRequest="20"/>
+                                        <Label Text="{Binding Topic}" Grid.Column="1" MaxLines="1" LineBreakMode="TailTruncation"  
+                                                FontSize="18" VerticalOptions="Center" />
+
+                                        <!-- ImageButton Height don't work in IOS -->
+                                        <Image Source="{Binding ArrowImageSource}" Grid.Column="2" HeightRequest="10"
+                                                        HorizontalOptions="End" VerticalOptions="Center" >
+                                        </Image>
+                                    </Grid>
+                            </Frame>       
+                            <Frame Padding="15, 15, 15, 15" Margin="0, 5, 0, 0" IsVisible="{Binding IsContentVisible}" CornerRadius="10" BorderColor="{Binding BackgroundColor}"
+                                BindingContext="{Binding .}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="EditTask"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout>
+                                    <Frame BackgroundColor="#ffef7c" BorderColor="#ffef7c" HorizontalOptions="Start" Padding="5, 0, 5, 0" Margin="0, 5, 0, 0" CornerRadius="10">
+                                        <Label Text="{Binding DueDate, StringFormat='Deadline: {0:dd-MM-yyyy}'}" FontSize="16"/>
+                                    </Frame>
+                                    <Label Text="{Binding Content}" FontSize="16" Margin="0, 10, 0, 0"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>      
     </Grid>
 </ContentPage>

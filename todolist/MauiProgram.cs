@@ -11,7 +11,7 @@ public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
 	{
-        RemoveBorderAndUndeline();
+                RemoveBorderAndUndeline();
 
 		var builder = MauiApp.CreateBuilder();
 		builder
@@ -27,9 +27,10 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
+                //System.Diagnostics.Debug.WriteLine();
 #endif
 
-        return builder.Build();
+                return builder.Build();
 	}
 
 
