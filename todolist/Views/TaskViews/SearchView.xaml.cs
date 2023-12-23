@@ -27,7 +27,8 @@ public partial class SearchView : ContentPage, IQueryAttributable
 			await IsLoading.RunMethod(async() => 
 			{
 				var code = await ViewModel.SearchTask(MyTasks, FollowupTasks, 
-					myTaskStackLayout, followupTaskStackLayout, search.Text, JwtToken);
+					myTaskStackLayout, followupTaskStackLayout, 
+				    myTaskScrollView, followupTaskScrollView, search.Text, JwtToken);
 				
 				if (code == HttpStatusCode.OK)
 				{

@@ -317,6 +317,7 @@ namespace todolist.ViewModels.TaskViewModels
 		public async Task<HttpStatusCode> SearchTask(
 			ObservableCollection<TaskModel> MyTasks, ObservableCollection<TaskModel> FollowupTasks,
 			StackLayout myTaskStackLayout, StackLayout followupTaskStackLayout, 
+			ScrollView myTaskScrollView, ScrollView followupTaskScrollView,
 			string keyword, string jwtToken)
 		{
 			if (String.IsNullOrEmpty(keyword))
@@ -364,6 +365,18 @@ namespace todolist.ViewModels.TaskViewModels
 
 			BindableLayout.SetItemsSource(myTaskStackLayout, MyTasks);	
 			BindableLayout.SetItemsSource(followupTaskStackLayout, FollowupTasks);
+
+			if (MyTasks.Count > 0)
+			{
+				await myTaskScrollView.ScrollToAsync(myTaskStackLayout.Children.First() as Element, ScrollToPosition.Start, false);
+			}
+			if (FollowupTasks.Count > 0)
+			{
+				await followupTaskScrollView.ScrollToAsync(followupTaskStackLayout.Children.First() as Element, ScrollToPosition.Start, false);
+			}
+
+			(myTaskScrollView as IView).InvalidateMeasure();
+			(followupTaskScrollView as IView).InvalidateMeasure();
 
 			return HttpStatusCode.OK;
 		}
