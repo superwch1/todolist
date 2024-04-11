@@ -8,15 +8,21 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationTitle>todolist</ApplicationTitle>
-    <ApplicationId>com.wch.todolist.ios</ApplicationId> <!-- Remember to change on swtiching platform -->
-    <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion> <!-- Remember to change on switching platform-->
-    <ApplicationVersion>1</ApplicationVersion> <!-- Remember to change on switching platform -->
+    <ApplicationId>com.wch.todolist.ios</ApplicationId> <!-- Remember to change after swtiching platform -->
+    <ApplicationDisplayVersion>1.0.2</ApplicationDisplayVersion> <!-- Remember to change after switching platform-->
+    <ApplicationVersion>1</ApplicationVersion> <!-- Remember to change after switching platform -->
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+  <PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'"> <!-- For publishing in android platform -->
     <AndroidSigningKeyStore>todolist.keystore</AndroidSigningKeyStore>
     <AndroidSigningKeyAlias>todolist</AndroidSigningKeyAlias>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Release'">  <!-- For publishing in ios platform -->
+    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier> 
+    <CodesignKey>Apple Distribution: Chun Hong Wong (SH9L655UR6)</CodesignKey>
+    <CodesignProvision>todolist</CodesignProvision>
+    <ArchiveOnBuild>true</ArchiveOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
     <CreatePackage>false</CreatePackage>
@@ -25,7 +31,7 @@
     <CreatePackage>false</CreatePackage>
   </PropertyGroup>
   <ItemGroup>
-    <MauiIcon Include="Resources\AppIcon\androidappicon.png" Color="#FEEF7B"/> <!-- Remember to change on switching platform-->
+    <MauiIcon Include="Resources\AppIcon\iosappicon.png" Color="#FEEF7B"/> <!-- Remember to change after switching platform-->
     <MauiSplashScreen Include="Resources\Splash\splash.png" Color="#f3f4e8" BaseSize="128,128"/>
     <MauiImage Include="Resources\Images\*"/>
     <MauiFont Include="Resources\Fonts\*"/>

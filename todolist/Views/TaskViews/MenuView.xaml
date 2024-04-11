@@ -75,7 +75,10 @@
                     
 
                 </StackLayout>
-                <Label x:Name="creditLabel" VerticalOptions="End"/>
+                <StackLayout VerticalOptions="End">
+                    <Label x:Name="buildLabel" />
+                    <Label x:Name="creditLabel" />
+                </StackLayout>            
             </Grid>
         </Border>
     </Grid>

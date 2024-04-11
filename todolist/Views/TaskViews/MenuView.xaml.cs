@@ -25,6 +25,7 @@ public partial class MenuView : PopupPage
 			await ViewModel.SearchTask(search.Text, JwtToken);
 		});
 
+		buildLabel.Text = $"Version: {AppInfo.Current.VersionString}+{AppInfo.Current.BuildString}";
 		creditLabel.Text = "By Fiona C & John W";
 	}
 
